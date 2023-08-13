@@ -14,6 +14,22 @@ function init() {
 
 }
 
+document.onkeydown = checkKey;
+
+function checkKey(e) {
+
+    e = e || window.event;
+
+    if (e.keyCode == 37) {
+        // character.super().moveLeft();
+        console.log('links');
+    }
+    else if (e.keyCode == 39) {
+        // moveRight();
+        console.log('rechts');
+    }
+
+}
 
 
 
