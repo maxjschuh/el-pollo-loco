@@ -2,7 +2,7 @@ class Character extends MovableObject {
 
     constructor() {
         super().loadImage('../img/1.Sharkie/1.IDLE/1.png');
-        this.loadImages(
+        this.loadImages([
             '../img/1.Sharkie/1.IDLE/1.png',
             '../img/1.Sharkie/1.IDLE/2.png',
             '../img/1.Sharkie/1.IDLE/3.png',
@@ -21,7 +21,7 @@ class Character extends MovableObject {
             '../img/1.Sharkie/1.IDLE/16.png',
             '../img/1.Sharkie/1.IDLE/17.png',
             '../img/1.Sharkie/1.IDLE/18.png'
-        );
+        ]);
     }
 
     jump() {
