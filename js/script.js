@@ -28,7 +28,6 @@ function checkKey(e) {
         // moveRight();
         console.log('rechts');
     }
-
 }
 
 
