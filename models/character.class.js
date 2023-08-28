@@ -20,7 +20,7 @@ class Character extends MovableObject {
         '../img/1.Sharkie/1.IDLE/17.png',
         '../img/1.Sharkie/1.IDLE/18.png'
     ];
-    currentImage = 0;
+    world;
 
     constructor() {
         super().loadImage('../img/1.Sharkie/1.IDLE/1.png');
@@ -31,14 +31,33 @@ class Character extends MovableObject {
 
     animate() {
         setInterval(() => {
-            let i = this.currentImage % this.IMAGES_IDLE.length;
-            let path = this.IMAGES_IDLE[i];
-            this.img = this.imageCache[path];
-            this.currentImage++;
+
+            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+
+                let i = this.currentImage % this.IMAGES_IDLE.length;
+                let path = this.IMAGES_IDLE[i];
+                this.img = this.imageCache[path];
+                this.currentImage++;
+            }
+
         }, 200);
+
+        setInterval(() => {
+
+            if (this.world.keyboard.RIGHT) {
+                this.x += this.speed;
+                this.mirrored = false;
+            }
+
+            if (this.world.keyboard.LEFT) {
+                this.x -= this.speed;
+                this.mirrored = true;
+            }
+
+        }, 5);
     }
 
     jump() {
-        
+
     }
 }

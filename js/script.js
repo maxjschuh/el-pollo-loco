@@ -1,10 +1,11 @@
 let canvas;
 let world;
+let keyboard = new Keyboard();
 
 function init() {
 
     canvas = document.getElementById('canvas');
-    world = new World(canvas);
+    world = new World(canvas, keyboard);
 
 
     // setTimeout(() => {
@@ -14,21 +15,58 @@ function init() {
 
 }
 
-document.onkeydown = checkKey;
-
-function checkKey(e) {
+window.addEventListener('keyup', (e) => {
 
     e = e || window.event;
 
     if (e.keyCode == 37) {
-        // character.super().moveLeft();
-        console.log('links');
+        keyboard.LEFT = false;
     }
-    else if (e.keyCode == 39) {
-        // moveRight();
-        console.log('rechts');
+
+    if (e.keyCode == 39) {
+        keyboard.RIGHT = false;
     }
-}
+
+    if (e.keyCode == 38) {
+        keyboard.UP = false;
+    }
+
+    if (e.keyCode == 40) {
+        keyboard.DOWN = false;
+    }
+
+    if (e.keyCode == 32) {
+        keyboard.SPACE = false;
+    }
+
+});
+
+
+window.addEventListener('keydown', (e) => {
+
+    e = e || window.event;
+
+    if (e.keyCode == 37) {
+        keyboard.LEFT = true;
+    }
+
+    if (e.keyCode == 39) {
+        keyboard.RIGHT = true;
+    }
+
+    if (e.keyCode == 38) {
+        keyboard.UP = true;
+    }
+
+    if (e.keyCode == 40) {
+        keyboard.DOWN = true;
+    }
+
+    if (e.keyCode == 32) {
+        keyboard.SPACE = true;
+    }
+
+});
 
 
 
