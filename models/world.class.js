@@ -4,9 +4,9 @@ class World {
 
     character = new Character();
     enemies = [
-        new Chicken(),
-        new Chicken(),
-        new Chicken()
+        new Enemy(),
+        new Enemy(),
+        new Enemy()
     ];
     lights = [
         new Light(),
@@ -24,6 +24,8 @@ class World {
     ctx;
     keyboard;
 
+    backgroundObjects = [];
+
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -39,31 +41,31 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.waters.forEach(water => {
-            this.ctx.drawImage(water.img, water.x, water.y, water.width, water.height);
-        });
 
-        this.backgrounds.forEach(background => {
-            this.ctx.drawImage(background.img, background.x, background.y, background.width, background.height);
-        });
+        this.addObjectsToMap(this.waters);
+        this.addObjectsToMap(this.backgrounds);
+        this.addObjectsToMap(this.floors);
+        this.addObjectsToMap(this.backgroundObjects);
+        this.addObjectsToMap(this.lights);
+        this.addObjectsToMap(this.enemies);
 
-        this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.height, this.character.width);
+        this.addToMap(this.character);
 
-        this.enemies.forEach(enemy => {
-            this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height);
-        });
-
-        this.floors.forEach(floor => {
-            this.ctx.drawImage(floor.img, floor.x, floor.y, floor.width, floor.height);
-        });
-
-        this.lights.forEach(light => {
-            this.ctx.drawImage(light.img, light.x, light.y, light.width, light.height);
-        });
 
         let self = this;
-        requestAnimationFrame(function() {
+        requestAnimationFrame(function () {
             self.draw();
         });
+    }
+
+
+    addObjectsToMap(objects) {
+        objects.forEach(object => {
+            this.addToMap(object);
+        });
+    }
+
+    addToMap(mo) {
+        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
     }
 }

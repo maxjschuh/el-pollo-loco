@@ -1,4 +1,4 @@
-class Chicken extends MovableObject {
+class Enemy extends MovableObject {
 
     IMAGES_IDLE = [
         '../img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png',
@@ -13,6 +13,7 @@ class Chicken extends MovableObject {
         this.loadImages(this.IMAGES_IDLE);
 
         this.x = Math.random() * 500 + 200;
+        this.y = Math.random() * 300 + 50;
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
     }
