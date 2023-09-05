@@ -22,6 +22,8 @@ class Character extends MovableObject {
     ];
     world;
 
+    walking_sound = new Audio('../audio/swim.mp3');
+
     constructor() {
         super().loadImage('../img/1.Sharkie/1.IDLE/1.png');
         this.loadImages(this.IMAGES_IDLE);
@@ -33,14 +35,18 @@ class Character extends MovableObject {
 
         setInterval(() => {
 
+            // this.walking_sound.pause();
+
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.x += this.speed;
                 this.mirrored = false;
+                this.walking_sound.play();
             }
 
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.x -= this.speed;
                 this.mirrored = true;
+                this.walking_sound.play();
             }
 
             this.world.camera_x = -this.x + 100;
@@ -52,18 +58,11 @@ class Character extends MovableObject {
 
             if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
 
-                let i = this.currentImage % this.IMAGES_IDLE.length;
-                let path = this.IMAGES_IDLE[i];
-                this.img = this.imageCache[path];
-                this.currentImage++;
+                this.playAnimation(this.IMAGES_IDLE);
             }
 
         }, 200);
 
-
-    }
-
-    jump() {
 
     }
 }

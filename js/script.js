@@ -7,12 +7,6 @@ function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 
-
-    // setTimeout(() => {
-    //     ctx.drawImage(character, 20, 20, 50, 150); 
-
-    // }, 2000);
-
 }
 
 window.addEventListener('keyup', (e) => {
