@@ -33,16 +33,17 @@ class Character extends MovableObject {
 
         setInterval(() => {
 
-            if (this.world.keyboard.RIGHT) {
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.x += this.speed;
                 this.mirrored = false;
             }
 
-            if (this.world.keyboard.LEFT) {
+            if (this.world.keyboard.LEFT && this.x > 0) {
                 this.x -= this.speed;
                 this.mirrored = true;
             }
-            this.world.camera_x = -this.x;
+
+            this.world.camera_x = -this.x + 100;
 
         }, 5);
 
