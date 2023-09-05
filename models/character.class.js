@@ -30,17 +30,6 @@ class Character extends MovableObject {
     }
 
     animate() {
-        setInterval(() => {
-
-            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-
-                let i = this.currentImage % this.IMAGES_IDLE.length;
-                let path = this.IMAGES_IDLE[i];
-                this.img = this.imageCache[path];
-                this.currentImage++;
-            }
-
-        }, 200);
 
         setInterval(() => {
 
@@ -53,8 +42,24 @@ class Character extends MovableObject {
                 this.x -= this.speed;
                 this.mirrored = true;
             }
+            this.world.camera_x = -this.x;
 
         }, 5);
+
+
+        setInterval(() => {
+
+            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+
+                let i = this.currentImage % this.IMAGES_IDLE.length;
+                let path = this.IMAGES_IDLE[i];
+                this.img = this.imageCache[path];
+                this.currentImage++;
+            }
+
+        }, 200);
+
+
     }
 
     jump() {

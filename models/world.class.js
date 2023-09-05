@@ -23,6 +23,7 @@ class World {
     canvas;
     ctx;
     keyboard;
+    camera_x = 0;
 
     backgroundObjects = [];
 
@@ -41,6 +42,7 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+        this.ctx.translate(this.camera_x, 0);
 
         this.addObjectsToMap(this.waters);
         this.addObjectsToMap(this.backgrounds);
@@ -51,6 +53,7 @@ class World {
 
         this.addToMap(this.character);
 
+        this.ctx.translate(-this.camera_x, 0);
 
         let self = this;
         requestAnimationFrame(function () {
@@ -66,6 +69,17 @@ class World {
     }
 
     addToMap(mo) {
+        if (mo.mirrored) {
+            this.ctx.save();
+            this.ctx.translate(mo.width, 0);
+            this.ctx.scale(-1, 1);
+            mo.x = mo.x * -1;
+        }
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+
+        if (mo.mirrored) {
+            this.ctx.restore();
+            mo.x = mo.x * -1;
+        }
     }
 }
