@@ -31,6 +31,28 @@ class Character extends MovableObject {
         '../img/1.Sharkie/3.Swim/5.png',
         '../img/1.Sharkie/3.Swim/6.png'
     ];
+    IMAGES_SLEEP = [
+        '../img/1.Sharkie/2.Long_IDLE/i1.png',
+        '../img/1.Sharkie/2.Long_IDLE/i2.png',
+        '../img/1.Sharkie/2.Long_IDLE/i3.png',
+        '../img/1.Sharkie/2.Long_IDLE/i4.png',
+        '../img/1.Sharkie/2.Long_IDLE/i5.png',
+        '../img/1.Sharkie/2.Long_IDLE/i6.png',
+        '../img/1.Sharkie/2.Long_IDLE/i7.png',
+        '../img/1.Sharkie/2.Long_IDLE/i8.png',
+        '../img/1.Sharkie/2.Long_IDLE/i9.png',
+        '../img/1.Sharkie/2.Long_IDLE/i10.png',
+        '../img/1.Sharkie/2.Long_IDLE/i11.png',
+        '../img/1.Sharkie/2.Long_IDLE/i12.png',
+        '../img/1.Sharkie/2.Long_IDLE/i13.png',
+        '../img/1.Sharkie/2.Long_IDLE/i14.png'
+    ];
+    IMAGES_POISONED = [
+        '../img/1.Sharkie/5.Hurt/1.Poisoned/2.png',
+        '../img/1.Sharkie/5.Hurt/1.Poisoned/3.png',
+        '../img/1.Sharkie/5.Hurt/1.Poisoned/4.png',
+        '../img/1.Sharkie/5.Hurt/1.Poisoned/5.png',
+    ];
     world;
 
     walking_sound = new Audio('../audio/swim.mp3');
