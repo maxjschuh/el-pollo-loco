@@ -9,8 +9,9 @@ class MovableObject {
     speed = 10;
     mirrored = false;
     speedY = 0;
-    acceleration = 0.25;
+    acceleration = 1;
     energy = 100;
+    lastHit = 0;
 
     loadImage(path) {
         this.img = new Image();
@@ -97,9 +98,19 @@ class MovableObject {
     }
 
     hit() {
-        this.energy -= 20;
+        this.energy -= 10;
         if (this.energy < 0) {
             this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
         }
     }
+
+    isHurt() {
+        let timePassed = new Date().getTime() - this.lastHit; // Difference in ms
+        timePassed = timePassed / 1000;
+
+        return timePassed < 2;
+    }
+
 }

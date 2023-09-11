@@ -47,11 +47,16 @@ class Character extends MovableObject {
         '../img/1.Sharkie/2.Long_IDLE/i13.png',
         '../img/1.Sharkie/2.Long_IDLE/i14.png'
     ];
-    IMAGES_POISONED = [
+    IMAGES_HURT_POISONED = [
         '../img/1.Sharkie/5.Hurt/1.Poisoned/2.png',
         '../img/1.Sharkie/5.Hurt/1.Poisoned/3.png',
         '../img/1.Sharkie/5.Hurt/1.Poisoned/4.png',
         '../img/1.Sharkie/5.Hurt/1.Poisoned/5.png',
+    ];
+    IMAGES_HURT_SHOCKED = [
+        '../img/1.Sharkie/5.Hurt/2.Electric shock/1.png',
+        '../img/1.Sharkie/5.Hurt/2.Electric shock/2.png',
+        '../img/1.Sharkie/5.Hurt/2.Electric shock/3.png'
     ];
     IMAGES_DEAD_POISONED = [
         '../img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00000.png',
@@ -88,9 +93,11 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_SWIM);
         this.loadImages(this.IMAGES_SLEEP);
-        this.loadImages(this.IMAGES_POISONED);
+        this.loadImages(this.IMAGES_HURT_POISONED);
+        this.loadImages(this.IMAGES_HURT_SHOCKED);
         this.loadImages(this.IMAGES_DEAD_POISONED);
         this.loadImages(this.IMAGES_DEAD_SHOCKED);
+
 
 
 
@@ -131,6 +138,9 @@ class Character extends MovableObject {
 
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_POISONED);
+
+            } else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT_POISONED)
 
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
 
