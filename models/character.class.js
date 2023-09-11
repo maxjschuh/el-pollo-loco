@@ -53,6 +53,32 @@ class Character extends MovableObject {
         '../img/1.Sharkie/5.Hurt/1.Poisoned/4.png',
         '../img/1.Sharkie/5.Hurt/1.Poisoned/5.png',
     ];
+    IMAGES_DEAD_POISONED = [
+        '../img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00000.png',
+        '../img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00001.png',
+        '../img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00002.png',
+        '../img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00003.png',
+        '../img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00004.png',
+        '../img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00005.png',
+        '../img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00006.png',
+        '../img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00007.png',
+        '../img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00008.png',
+        '../img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00009.png',
+        '../img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00010.png',
+        '../img/1.Sharkie/6.dead/1.Poisoned/sin subir/DES 2_00011.png'
+    ];
+    IMAGES_DEAD_SHOCKED = [
+        '../img/1.Sharkie/6.dead/2.Electro_shock/1.png',
+        '../img/1.Sharkie/6.dead/2.Electro_shock/2.png',
+        '../img/1.Sharkie/6.dead/2.Electro_shock/3.png',
+        '../img/1.Sharkie/6.dead/2.Electro_shock/4.png',
+        '../img/1.Sharkie/6.dead/2.Electro_shock/5.png',
+        '../img/1.Sharkie/6.dead/2.Electro_shock/6.png',
+        '../img/1.Sharkie/6.dead/2.Electro_shock/7.png',
+        '../img/1.Sharkie/6.dead/2.Electro_shock/8.png',
+        '../img/1.Sharkie/6.dead/2.Electro_shock/9.png',
+        '../img/1.Sharkie/6.dead/2.Electro_shock/10.png'
+    ];
     world;
 
     walking_sound = new Audio('../audio/swim.mp3');
@@ -61,6 +87,12 @@ class Character extends MovableObject {
         super().loadImage('../img/1.Sharkie/1.IDLE/1.png');
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_SWIM);
+        this.loadImages(this.IMAGES_SLEEP);
+        this.loadImages(this.IMAGES_POISONED);
+        this.loadImages(this.IMAGES_DEAD_POISONED);
+        this.loadImages(this.IMAGES_DEAD_SHOCKED);
+
+
 
         this.animate();
         this.applyGravity();
@@ -97,16 +129,18 @@ class Character extends MovableObject {
 
         setInterval(() => {
 
-            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD_POISONED);
+
+            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
 
                 this.playAnimation(this.IMAGES_SWIM);
+
             } else {
 
                 this.playAnimation(this.IMAGES_IDLE);
             }
 
         }, 200);
-
-
     }
 }
