@@ -1,29 +1,17 @@
 class StatusBar extends DrawableObject {
 
-    IMAGES = [
-        '../img/4. Marcadores/orange/0_  copia.png',
-        '../img/4. Marcadores/orange/20_  copia.png',
-        '../img/4. Marcadores/orange/40_  copia.png',
-        '../img/4. Marcadores/orange/60_  copia.png',
-        '../img/4. Marcadores/orange/80_  copia.png',
-        '../img/4. Marcadores/orange/100_  copia.png'
-    ];
-
     filledPortion = 100;
 
     constructor() {
-        super().loadImage('../img/4. Marcadores/orange/0_  copia.png');
-        this.loadImages(this.IMAGES);
-        this.setFilling(100);
-        this.x = -80;
-        this.y = 0;
+        super();
         this.height = 50;
         this.width = 150;
+        this.x = 10;
     }
 
-    setFilling(filledPortion) {
+    setFilling(filledPortion, images) {
         this.filledPortion = filledPortion;
-        let imagePath = this.IMAGES[this.resolveImageIndex()];
+        let imagePath = images[this.resolveImageIndex()];
         this.img = this.imageCache[imagePath];
     }
 

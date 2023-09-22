@@ -3,7 +3,9 @@ class World {
     ctx;
     character = new Character();
     level = level1;
-    statusBar = new StatusBar();
+    healthBar = new HealthBar();
+    coinsBar = new CoinsBar();
+    poisonBar = new PoisonBar();
 
     canvas;
     ctx;
@@ -29,6 +31,7 @@ class World {
                 if (this.character.isColliding(enemy)) {
 
                     this.character.hit();
+                    this.healthBar.setFilling(this.character.energy, this.healthBar.IMAGES);
 
                     console.log('Collision!', this.character.energy);
 
@@ -48,9 +51,12 @@ class World {
 
 
         this.addToMap(this.character);
-        this.addToMap(this.statusBar);
 
         this.ctx.translate(-this.camera_x, 0);
+
+        this.addToMap(this.healthBar);
+        this.addToMap(this.coinsBar);
+        this.addToMap(this.poisonBar);
 
         let self = this;
         requestAnimationFrame(function () {
