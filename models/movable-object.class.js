@@ -11,7 +11,6 @@ class MovableObject extends DrawableObject {
 
     moveRight() {
         this.x++;
-        draw();
     }
 
     moveLeft() {
@@ -37,7 +36,11 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        return this.y < 300;
+        if (this instanceof ThrowableObject) { // Trowable objects should always fall
+            return true;
+        } else {
+            return this.y < 300;
+        }
     }
 
     // isColliding(obj) {

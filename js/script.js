@@ -60,6 +60,10 @@ window.addEventListener('keydown', (e) => {
         keyboard.SPACE = true;
     }
 
+    if (e.keyCode == 68) {
+        keyboard.D = true;
+    }
+
 });
 
 

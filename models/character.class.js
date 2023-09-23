@@ -140,7 +140,7 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_DEAD_POISONED);
 
             } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT_POISONED)
+                this.playAnimation(this.IMAGES_HURT_POISONED);
 
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
 
