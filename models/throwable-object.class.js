@@ -10,7 +10,7 @@ class ThrowableObject extends MovableObject {
         this.width = 80;
 
 
-        this.loadImage('../img/1.Sharkie/4.Attack/Bubble trap/Bubble.png');
+        this.loadImage('../img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
         this.animate();
         this.throw(x, y);
     }

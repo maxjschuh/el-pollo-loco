@@ -1,23 +1,26 @@
 class Enemy extends MovableObject {
 
-    IMAGES_IDLE = [
-        '../img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png',
-        '../img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim2.png',
-        '../img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim3.png',
-        '../img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim4.png',
-        '../img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim5.png'
+    IMAGES_WALK = [
+        '../img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
+        '../img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
+        '../img/3_enemies_chicken/chicken_normal/1_walk/3_w.png'
+    ];
+
+    IMAGES_DEAD = [
+        '../img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
     ];
 
     constructor() {
-        super().loadImage('../img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim1.png');
-        this.loadImages(this.IMAGES_IDLE);
+        super().loadImage(this.IMAGES_WALK[0]);
+        this.loadImages(this.IMAGES_WALK);
+        this.loadImages(this.IMAGES_DEAD);
 
         this.x = Math.random() * 500 + 200;
         this.y = Math.random() * 300 + 50;
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
     }
-    
+
     eat() {
 
     }
@@ -27,7 +30,7 @@ class Enemy extends MovableObject {
 
         setInterval(() => {
 
-            this.playAnimation(this.IMAGES_IDLE);
+            this.playAnimation(this.IMAGES_WALK);
             this.x = this.x - 5;
         }, 200);
     }
