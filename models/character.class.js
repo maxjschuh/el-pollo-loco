@@ -1,6 +1,6 @@
 class Character extends MovableObject {
 
-    y = 80;
+    y = 275;
 
     IMAGES_IDLE = [
         '../img/2_character_pepe/1_idle/idle/I-1.png',
@@ -54,7 +54,7 @@ class Character extends MovableObject {
 
     world;
 
-    // walking_sound = new Audio('../audio/swim.mp3');
+    walking_sound = new Audio('../audio/walk.mp3');
 
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);
@@ -77,13 +77,19 @@ class Character extends MovableObject {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.x += this.speed;
                 this.mirrored = false;
-                // this.walking_sound.play();
+
+                if (this.y > 280) { // play walking sound only when character is not currently in the air (jumping)
+                    this.walking_sound.play();
+                }
             }
 
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.x -= this.speed;
                 this.mirrored = true;
-                // this.walking_sound.play();
+
+                if (this.y > 280) { // play walking sound only when character is not currently in the air (jumping)
+                    this.walking_sound.play();
+                }
             }
 
             // console.log(this.speedY, this.y);

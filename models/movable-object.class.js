@@ -10,7 +10,7 @@ class MovableObject extends DrawableObject {
 
 
     moveRight() {
-        this.x++;
+        this.x += 2;
     }
 
     moveLeft() {
@@ -39,7 +39,7 @@ class MovableObject extends DrawableObject {
         if (this instanceof ThrowableObject) { // Trowable objects should always fall
             return true;
         } else {
-            return this.y < 300;
+            return this.y < 275;
         }
     }
 
