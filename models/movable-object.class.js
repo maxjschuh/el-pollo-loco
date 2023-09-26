@@ -10,13 +10,11 @@ class MovableObject extends DrawableObject {
 
 
     moveRight() {
-        this.x += 2;
+        this.x += this.speed;
     }
 
     moveLeft() {
-        setInterval(() => {
-            this.x -= this.speed;
-        }, 1000 / 60);
+        this.x -= this.speed;
     }
 
 
@@ -29,10 +27,8 @@ class MovableObject extends DrawableObject {
 
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
-
             }
-
-        }, 1000 / 25);
+        }, 1000 / 60);
     }
 
     isAboveGround() {
@@ -79,7 +75,11 @@ class MovableObject extends DrawableObject {
     }
 
     die(mo) {
-        mo.img = mo.IMAGES_DEAD; 
+        mo.img = mo.IMAGES_DEAD;
+    }
+
+    jump() {
+        this.speedY = 20;
     }
 
 }

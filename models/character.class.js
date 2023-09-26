@@ -52,6 +52,18 @@ class Character extends MovableObject {
         '../img/2_character_pepe/5_dead/D-57.png'
     ];
 
+    IMAGES_JUMP = [
+        '../img/2_character_pepe/3_jump/J-31.png',
+        '../img/2_character_pepe/3_jump/J-32.png',
+        '../img/2_character_pepe/3_jump/J-33.png',
+        '../img/2_character_pepe/3_jump/J-34.png',
+        '../img/2_character_pepe/3_jump/J-35.png',
+        '../img/2_character_pepe/3_jump/J-36.png',
+        '../img/2_character_pepe/3_jump/J-37.png',
+        '../img/2_character_pepe/3_jump/J-38.png',
+        '../img/2_character_pepe/3_jump/J-39.png'
+    ];
+
     world;
 
     walking_sound = new Audio('../audio/walk.mp3');
@@ -63,6 +75,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_SLEEP);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_JUMP);
 
         this.animate();
         this.applyGravity();
@@ -75,27 +88,28 @@ class Character extends MovableObject {
             // this.walking_sound.pause();
 
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.x += this.speed;
+
+                this.moveRight();
                 this.mirrored = false;
 
-                if (this.y > 280) { // play walking sound only when character is not currently in the air (jumping)
+                if (this.y > 270) { // play walking sound only when character is not currently in the air (jumping)
                     this.walking_sound.play();
                 }
             }
 
             if (this.world.keyboard.LEFT && this.x > 0) {
-                this.x -= this.speed;
+                this.moveLeft();
                 this.mirrored = true;
 
-                if (this.y > 280) { // play walking sound only when character is not currently in the air (jumping)
+                if (this.y > 270) { // play walking sound only when character is not currently in the air (jumping)
                     this.walking_sound.play();
                 }
             }
 
             // console.log(this.speedY, this.y);
 
-            if (this.world.keyboard.UP && this.y > 0) {
-                this.speedY = 15;
+            if (this.world.keyboard.SPACE && this.y > 270) {
+                this.jump();
             }
 
             this.world.camera_x = -this.x + 100;
@@ -111,15 +125,17 @@ class Character extends MovableObject {
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
 
-            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            } else if (this.isAboveGround()) {
+                this.playAnimation(this.IMAGES_JUMP);
+                console.log('jump')
 
+            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.IMAGES_WALK);
 
             } else {
-
                 this.playAnimation(this.IMAGES_IDLE);
             }
 
-        }, 200);
+        }, 100);
     }
 }

@@ -1,13 +1,30 @@
+@font-face {
+    font-family: Rio Grande;
+    src: url('./fonts/RioGrande.ttf');
+}
+
+
+html {
+    background: url('../img/10_additional/6zif_0t9r_210426_generated.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: 'Rio Grande';
+}
+
+h1 {
+    font-family: 'Rio Grande';
 }
 
 canvas {
     background-color: black;
-}
-
-.bottle {
-    filter: blur(100deg);
 }
