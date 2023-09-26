@@ -2,12 +2,19 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 
+
 function init() {
 
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 
 }
+
+function enterFullscreen() {
+    
+    canvas.requestFullscreen();
+}
+
 
 window.addEventListener('keyup', (e) => {
 

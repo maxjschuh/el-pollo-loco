@@ -1,6 +1,7 @@
 class Character extends MovableObject {
 
     y = 275;
+    lastEvent;
 
     IMAGES_IDLE = [
         '../img/2_character_pepe/1_idle/idle/I-1.png',
@@ -121,16 +122,22 @@ class Character extends MovableObject {
 
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
+                this.lastEvent = new Date().getTime();
 
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
+                this.lastEvent = new Date().getTime();
 
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMP);
-                console.log('jump')
+                this.lastEvent = new Date().getTime();
 
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.IMAGES_WALK);
+                this.lastEvent = new Date().getTime();
+
+            } else if (this.isSleeping()) {
+                this.playAnimation(this.IMAGES_SLEEP);
 
             } else {
                 this.playAnimation(this.IMAGES_IDLE);
@@ -138,4 +145,15 @@ class Character extends MovableObject {
 
         }, 100);
     }
+
+    isSleeping() {
+        let timePassed = new Date().getTime() - this.lastEvent; // Difference in ms
+        timePassed = timePassed / 1000;
+        return timePassed > 4;
+    }
+
+
+
+
+
 }
