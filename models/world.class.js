@@ -45,16 +45,34 @@ class World {
     checkCollisions() {
 
         this.level.enemies.forEach((enemy) => {
+
             if (this.character.isColliding(enemy)) {
 
                 this.character.hit();
                 this.healthBar.setFilling(this.character.energy, this.healthBar.IMAGES);
 
                 // console.log('Collision!', this.character.energy);
+            }
+
+            this.checkBottleHits(enemy);
+        });
+
+    }
+
+    checkBottleHits(enemy) {
+
+        this.throwableObjects.forEach(bottle => {
+
+            if (enemy.isColliding(bottle)) {
+
+                enemy.die(enemy);
+
+                console.log('treffer');
 
             }
         });
     }
+
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -79,7 +97,6 @@ class World {
             self.draw();
         });
     }
-
 
     addObjectsToMap(objects) {
         objects.forEach(object => {

@@ -7,3 +7,7 @@ body {
 canvas {
     background-color: black;
 }
+
+.bottle {
+    filter: blur(100deg);
+}

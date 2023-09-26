@@ -78,4 +78,8 @@ class MovableObject extends DrawableObject {
         return timePassed < 2;
     }
 
+    die(mo) {
+        mo.img = mo.IMAGES_DEAD; 
+    }
+
 }
