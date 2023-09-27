@@ -24,6 +24,9 @@ class World {
 
     setWorld() {
         this.character.world = this;
+        this.level.enemies.forEach(enemy => {
+            enemy.world = this;
+        });
     }
 
     run() {
@@ -31,7 +34,7 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowableObjects();
-        }, 200);
+        }, 20);
     }
 
     checkThrowableObjects() {
@@ -46,7 +49,11 @@ class World {
 
         this.level.enemies.forEach((enemy) => {
 
-            if (this.character.isColliding(enemy)) {
+            if (enemy.characterIsAbove && this.character.isColliding(enemy)) {
+                console.log('ultra kill');
+                enemy.dead = true;
+                
+            } else if (this.character.isColliding(enemy) && !enemy.dead) {
 
                 this.character.hit();
                 this.healthBar.setFilling(this.character.energy, this.healthBar.IMAGES);
@@ -55,6 +62,7 @@ class World {
             }
 
             this.checkBottleHits(enemy);
+            enemy.saveCharacterAbove();
         });
 
     }
@@ -65,7 +73,7 @@ class World {
 
             if (enemy.isColliding(bottle)) {
 
-                enemy.die(enemy);
+                // enemy.die(enemy);
 
                 console.log('treffer');
 

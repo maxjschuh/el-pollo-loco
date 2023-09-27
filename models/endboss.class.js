@@ -47,6 +47,10 @@ class Endboss extends MovableObject {
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);
         this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_WALK);
+        this.loadImages(this.IMAGES_ATTACK);
+        this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
 
         this.x = 1800;
         this.y = -50;

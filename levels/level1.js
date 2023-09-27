@@ -3,7 +3,7 @@ const level1 = new Level(
         new EnemySmall(),
         new EnemyBig(),
         new EnemySmall(),
-        new Endboss()
+        // new Endboss()
     ],
     [
         new Clouds()
