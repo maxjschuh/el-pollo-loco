@@ -68,6 +68,7 @@ class Character extends MovableObject {
     world;
 
     walking_sound = new Audio('../audio/walk.mp3');
+    hurt_sound = new Audio('../audio/player_hurt.mp3');
 
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);
@@ -126,6 +127,7 @@ class Character extends MovableObject {
 
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
+                this.hurt_sound.play();
                 this.lastEvent = new Date().getTime();
 
             } else if (this.isAboveGround()) {

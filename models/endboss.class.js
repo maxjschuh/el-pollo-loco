@@ -57,6 +57,8 @@ class Endboss extends MovableObject {
         this.animate();
     }
 
+    hurt_sound = new Audio('../audio/boss_hurt.mp3');
+
     animate() {
 
         setInterval(() => {

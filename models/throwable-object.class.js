@@ -18,6 +18,8 @@ class ThrowableObject extends MovableObject {
         '../img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
     ];
 
+    throw_sound = new Audio('../audio/throw.mp3');
+
     constructor(x, y) {
         super();
         this.y = 100;
@@ -25,6 +27,7 @@ class ThrowableObject extends MovableObject {
         this.height = 80;
         this.width = 80;
 
+        this.throw_sound.play();
         this.loadImage('../img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
         this.loadImages(this.IMAGES);
         this.loadImages(this.IMAGES_SPLASH);

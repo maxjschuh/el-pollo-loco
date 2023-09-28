@@ -34,7 +34,7 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowableObjects();
-        }, 20);
+        }, 200);
     }
 
     checkThrowableObjects() {
@@ -55,8 +55,13 @@ class World {
                 
             } else if (this.character.isColliding(enemy) && !enemy.dead) {
 
-                this.character.hit();
-                this.healthBar.setFilling(this.character.energy, this.healthBar.IMAGES);
+                this.character.lastHit = new Date().getTime();
+
+                if (this.character.isHurt()) {
+                    
+                    this.character.hit();
+                    this.healthBar.setFilling(this.character.energy, this.healthBar.IMAGES);
+                }
 
                 // console.log('Collision!', this.character.energy);
             }

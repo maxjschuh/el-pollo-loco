@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {
     acceleration = 1;
     energy = 100;
     lastHit = 0;
+    bottle_hit_sound = new Audio('../audio/bottle_hit.mp3');
 
 
 
@@ -60,8 +61,6 @@ class MovableObject extends DrawableObject {
         this.energy -= 10;
         if (this.energy < 0) {
             this.energy = 0;
-        } else {
-            this.lastHit = new Date().getTime();
         }
     }
 
@@ -69,7 +68,7 @@ class MovableObject extends DrawableObject {
         let timePassed = new Date().getTime() - this.lastHit; // Difference in ms
         timePassed = timePassed / 1000;
 
-        return timePassed < 2;
+        return timePassed < 0.5;
     }
 
     die(mo) {
