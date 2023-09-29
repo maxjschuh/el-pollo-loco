@@ -27,6 +27,10 @@ class World {
         this.level.enemies.forEach(enemy => {
             enemy.world = this;
         });
+
+        this.level.bottles.forEach(bottle => {
+            bottle.world = this;
+        });
     }
 
     run() {
@@ -95,6 +99,7 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.throwableObjects);
 
         this.addToMap(this.character);
