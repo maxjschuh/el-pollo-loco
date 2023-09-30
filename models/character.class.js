@@ -2,6 +2,10 @@ class Character extends MovableObject {
 
     y = 275;
     lastEvent;
+    collectedBottles = 0;
+    bottlesToCollect = 5;
+    collectedCoins = 0;
+    coinsToCollect = 5;
 
     IMAGES_IDLE = [
         '../img/2_character_pepe/1_idle/idle/I-1.png',
@@ -152,6 +156,15 @@ class Character extends MovableObject {
         let timePassed = new Date().getTime() - this.lastEvent; // Difference in ms
         timePassed = timePassed / 1000;
         return timePassed > 4;
+    }
+
+    collectBottle() {
+
+        this.collectedBottles++;
+
+        if (this.collectedBottles > this.bottlesToCollect) {
+            this.collectedBottles = this.bottlesToCollect;
+        }
     }
 
 

@@ -17,13 +17,14 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.draw();
         this.setWorld();
+        this.draw();
         this.run();
     }
 
     setWorld() {
         this.character.world = this;
+
         this.level.enemies.forEach(enemy => {
             enemy.world = this;
         });
@@ -41,8 +42,11 @@ class World {
         }, 200);
     }
 
-    checkThrowableObjects() {
-        if (this.keyboard.D) {
+    checkThrowableObjects() { // noch in den Character Klasse umziehen
+        if (this.keyboard.D && this.character.collectedBottles > 0) {
+            this.character.collectedBottles--;
+            let collectedBottlesPercent = (this.character.collectedBottles / this.character.bottlesToCollect) * 100;
+            this.bottleBar.setFilling(collectedBottlesPercent, this.bottleBar.IMAGES);
             let bottle = new ThrowableObject(this.character.x, this.character.y);
             this.throwableObjects.push(bottle);
         }
@@ -54,15 +58,15 @@ class World {
         this.level.enemies.forEach((enemy) => {
 
             if (enemy.characterIsAbove && this.character.isColliding(enemy)) {
-                console.log('ultra kill');
+                console.log('jump kill');
                 enemy.dead = true;
-                
+
             } else if (this.character.isColliding(enemy) && !enemy.dead) {
 
                 this.character.lastHit = new Date().getTime();
 
                 if (this.character.isHurt()) {
-                    
+
                     this.character.hit();
                     this.healthBar.setFilling(this.character.energy, this.healthBar.IMAGES);
                 }
@@ -72,8 +76,29 @@ class World {
 
             this.checkBottleHits(enemy);
             enemy.saveCharacterAbove();
+            this.checkCollectables();
         });
 
+    }
+
+    checkCollectables() {
+
+        this.level.bottles.forEach(bottle => {
+
+            if (this.character.isColliding(bottle)) {
+
+                const index = this.level.bottles.indexOf(bottle);
+                this.level.bottles.splice(index, 1);
+
+                this.character.collectBottle();
+
+                let collectedBottlesPercent = (this.character.collectedBottles / this.character.bottlesToCollect) * 100;
+
+                console.log(collectedBottlesPercent);
+
+                this.bottleBar.setFilling(collectedBottlesPercent, this.bottleBar.IMAGES);
+            }
+        });
     }
 
     checkBottleHits(enemy) {
