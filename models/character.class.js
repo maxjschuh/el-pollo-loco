@@ -167,8 +167,11 @@ class Character extends MovableObject {
         }
     }
 
+    collectCoin() {
+        this.collectedCoins++;
 
-
-
-
+        if (this.collectedCoins > this.coinsToCollect) {
+            this.collectedCoins = this.coinsToCollect
+        }
+    }
 }

@@ -9,10 +9,12 @@ class CoinsBar extends StatusBar {
         '../img/7_statusbars/1_statusbar/1_statusbar_coin/orange/100.png'
     ];
 
+    coin_collect_sound = new Audio('../audio/coin_collect.mp3');
+
     constructor() {
         super();
         this.loadImages(this.IMAGES);
-        this.setFilling(100, this.IMAGES);
+        this.setFilling(0, this.IMAGES);
         this.y = 40;
     }
 

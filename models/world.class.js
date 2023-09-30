@@ -83,11 +83,13 @@ class World {
 
     checkCollectables() {
 
+        let index;
+
         this.level.bottles.forEach(bottle => {
 
             if (this.character.isColliding(bottle)) {
 
-                const index = this.level.bottles.indexOf(bottle);
+                index = this.level.bottles.indexOf(bottle);
                 this.level.bottles.splice(index, 1);
 
                 this.character.collectBottle();
@@ -97,6 +99,25 @@ class World {
                 console.log(collectedBottlesPercent);
 
                 this.bottleBar.setFilling(collectedBottlesPercent, this.bottleBar.IMAGES);
+                this.bottleBar.bottle_collect_sound.play();
+            }
+        });
+
+        this.level.coins.forEach(coin => {
+
+            if (this.character.isColliding(coin)) {
+
+                index = this.level.coins.indexOf(coin);
+                this.level.coins.splice(index, 1);
+
+                this.character.collectCoin();
+
+                let collectedCoinsPercent = (this.character.collectedCoins / this.character.coinsToCollect) * 100;
+
+                console.log(collectedCoinsPercent);
+
+                this.coinsBar.setFilling(collectedCoinsPercent, this.coinsBar.IMAGES);
+                this.coinsBar.coin_collect_sound.play();
             }
         });
     }
@@ -125,6 +146,7 @@ class World {
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.bottles);
+        this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.throwableObjects);
 
         this.addToMap(this.character);
