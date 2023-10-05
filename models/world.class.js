@@ -135,13 +135,12 @@ class World {
 
             if (enemy.isColliding(bottle)) {
 
-                // enemy.die(enemy);
+                enemy.lastHit = new Date().getTime();
 
-                // bottle.playAnimation(bottle.IMAGES_SPLASH);
+                if (enemy.isHurt()) {
 
-                console.log('treffer');
-
-                enemy.hurt_sound.play();
+                    enemy.hit();
+                }
 
                 setInterval(() => {
                     bottle.playAnimation(bottle.IMAGES_SPLASH);

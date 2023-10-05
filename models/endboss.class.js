@@ -45,6 +45,7 @@ class Endboss extends MovableObject {
     ];
 
     hurt_sound = new Audio('../audio/boss_hurt.mp3');
+    bottle_hit_sound = new Audio('../audio/bottle_hit.mp3');
 
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);
@@ -64,7 +65,17 @@ class Endboss extends MovableObject {
 
         setInterval(() => {
 
-            this.playAnimation(this.IMAGES_IDLE);
+            if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD);
+
+            } else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
+                this.bottle_hit_sound.play();
+                this.hurt_sound.play();
+
+            } else {
+                this.playAnimation(this.IMAGES_IDLE);
+            }
 
         }, 200);
     }

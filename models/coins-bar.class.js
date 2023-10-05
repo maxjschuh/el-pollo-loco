@@ -17,5 +17,4 @@ class CoinsBar extends StatusBar {
         this.setFilling(0, this.IMAGES);
         this.y = 40;
     }
-
 }

@@ -6,7 +6,7 @@ class MovableObject extends DrawableObject {
     acceleration = 1;
     energy = 100;
     lastHit = 0;
-    bottle_hit_sound = new Audio('../audio/bottle_hit.mp3');
+    currentAnimation;
 
 
 
@@ -58,7 +58,7 @@ class MovableObject extends DrawableObject {
     }
 
     hit() {
-        this.energy -= 10;
+        this.energy -= 20;
         if (this.energy < 0) {
             this.energy = 0;
         }

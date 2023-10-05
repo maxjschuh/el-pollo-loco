@@ -13,4 +13,15 @@ class Collectable extends MovableObject {
         }
     }
 
+    getRandomValue() {
+
+        let x = this.random * this.level_end;
+
+        if (x < 400) {
+            x += 400;
+        }
+
+        return x;
+    }
+
 }
