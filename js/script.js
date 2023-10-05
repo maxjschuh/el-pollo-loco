@@ -1,18 +1,20 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let ui;
 
 
 function init() {
 
     canvas = document.getElementById('canvas');
+    ui = document.getElementById('user-interface');
     world = new World(canvas, keyboard);
 
 }
 
 function enterFullscreen() {
     
-    canvas.requestFullscreen();
+    ui.requestFullscreen();
 }
 
 

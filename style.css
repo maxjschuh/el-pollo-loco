@@ -29,3 +29,25 @@ h1 {
 canvas {
     background-color: black;
 }
+
+.hud-button {
+    width: 60px;
+}
+
+.mirrored {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+.flex-row {
+    display: flex;
+}
+
+.help-img {
+    height: 48px;
+}
+
+#user-interface {
+    display: flex;
+    flex-direction: column;
+}

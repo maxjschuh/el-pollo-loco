@@ -74,8 +74,15 @@ class World {
                 // console.log('Collision!', this.character.energy);
             }
 
-            this.checkBottleHits(enemy);
-            enemy.saveCharacterAbove();
+
+            if (enemy instanceof Enemy) {
+                enemy.saveCharacterAbove();
+            }
+
+            if (enemy instanceof Endboss) {
+                this.checkBottleHits(enemy);
+            }
+
             this.checkCollectables();
         });
 
@@ -130,7 +137,15 @@ class World {
 
                 // enemy.die(enemy);
 
+                // bottle.playAnimation(bottle.IMAGES_SPLASH);
+
                 console.log('treffer');
+
+                enemy.hurt_sound.play();
+
+                setInterval(() => {
+                    bottle.playAnimation(bottle.IMAGES_SPLASH);
+                }, 80);
 
             }
         });
