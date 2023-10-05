@@ -5,8 +5,9 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     acceleration = 1;
     energy = 100;
-    lastHit = 0;
+    lastHit;
     currentAnimation;
+    hurt = false;
 
 
 
@@ -64,11 +65,24 @@ class MovableObject extends DrawableObject {
         }
     }
 
-    isHurt() {
-        let timePassed = new Date().getTime() - this.lastHit; // Difference in ms
+    isHurt(hitTime) {
+
+        let timePassed = new Date().getTime() - hitTime; // Difference in ms
         timePassed = timePassed / 1000;
 
-        return timePassed < 0.5;
+        return timePassed > 1;
+
+        // if (hitTime) {
+
+        //     let timePassed = new Date().getTime() - hitTime; // Difference in ms
+        //     timePassed = timePassed / 1000;
+
+        //     return timePassed > 2;
+
+        // } else {
+        //     return true; // true
+        // }
+
     }
 
     die(mo) {

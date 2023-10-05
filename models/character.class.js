@@ -129,7 +129,7 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_DEAD);
                 this.lastEvent = new Date().getTime();
 
-            } else if (this.isHurt()) {
+            } else if (!this.isHurt(this.lastHit) && this.lastHit) {
                 this.playAnimation(this.IMAGES_HURT);
                 this.hurt_sound.play();
                 this.lastEvent = new Date().getTime();

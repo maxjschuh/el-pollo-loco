@@ -7,6 +7,7 @@ class World {
     coinsBar = new CoinsBar();
     bottleBar = new BottleBar();
     throwableObjects = [];
+    intervalIds = [];
 
     canvas;
     ctx;
@@ -19,7 +20,7 @@ class World {
         this.keyboard = keyboard;
         this.setWorld();
         this.draw();
-        this.run();
+        this.addInterval(this.run, 1000 / 60);
     }
 
     setWorld() {
@@ -35,11 +36,12 @@ class World {
     }
 
     run() {
+        world.checkCollisions();
+        world.checkThrowableObjects();
+    }
 
-        setInterval(() => {
-            this.checkCollisions();
-            this.checkThrowableObjects();
-        }, 200);
+    stopAllIntervals() {
+        this.intervalIds.forEach(clearInterval);
     }
 
     checkThrowableObjects() { // noch in den Character Klasse umziehen
@@ -57,17 +59,28 @@ class World {
 
         this.level.enemies.forEach((enemy) => {
 
+            if (enemy.dead) {
+                return;
+            }
+
             if (enemy.characterIsAbove && this.character.isColliding(enemy)) {
-                console.log('jump kill');
                 enemy.dead = true;
+                this.character.jump();
 
-            } else if (this.character.isColliding(enemy) && !enemy.dead) {
+            } else if (this.character.isColliding(enemy)) {
 
-                this.character.lastHit = new Date().getTime();
+                if (!this.character.lastHit) {
+                    this.character.hit();
+                    this.character.hurt = true;
+                    this.character.lastHit = new Date().getTime();
+                    this.healthBar.setFilling(this.character.energy, this.healthBar.IMAGES);
+                }
 
-                if (this.character.isHurt()) {
+                if (this.character.isHurt(this.character.lastHit)) {
 
                     this.character.hit();
+                    this.character.hurt = true;
+                    this.character.lastHit = new Date().getTime();
                     this.healthBar.setFilling(this.character.energy, this.healthBar.IMAGES);
                 }
 
@@ -206,5 +219,11 @@ class World {
     flipImageBack(mo) {
         this.ctx.restore();
         mo.x = mo.x * -1;
+    }
+
+    addInterval(fn, delay) {
+
+        let id = setInterval(fn, delay);
+        this.intervalIds.push(id);
     }
 }
