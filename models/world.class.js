@@ -6,6 +6,7 @@ class World {
     healthBar = new HealthBar();
     coinsBar = new CoinsBar();
     bottleBar = new BottleBar();
+    endbossBar = new EndbossBar();
     throwableObjects = [];
     intervalIds = [];
 
@@ -153,6 +154,8 @@ class World {
                 if (enemy.isHurt()) {
 
                     enemy.hit();
+                    this.endbossBar.setFilling(this.character.energy, this.healthBar.IMAGES);
+
                 }
 
                 setInterval(() => {
@@ -183,6 +186,7 @@ class World {
         this.addToMap(this.healthBar);
         this.addToMap(this.coinsBar);
         this.addToMap(this.bottleBar);
+        this.addToMap(this.endbossBar);
 
         let self = this;
         requestAnimationFrame(function () {
