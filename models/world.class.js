@@ -65,6 +65,7 @@ class World {
             }
 
             if (enemy.characterIsAbove && this.character.isColliding(enemy)) {
+                this.character.stomp_sound.play();
                 enemy.dead = true;
                 this.character.jump();
 

@@ -58,6 +58,7 @@ class Endboss extends MovableObject {
     ];
 
     hurt_sound = new Audio('../audio/boss_hurt.mp3');
+    attack_sound = new Audio('../audio/boss_attack.mp3');
     bottle_hit_sound = new Audio('../audio/bottle_hit.mp3');
 
     constructor() {
@@ -73,6 +74,7 @@ class Endboss extends MovableObject {
         this.y = -50;
         this.run();
         this.applyGravity();
+        this.hurt_sound.volume = 0.7;
     }
 
     run() {
@@ -137,6 +139,7 @@ class Endboss extends MovableObject {
     attack() {
 
         this.animationSequence = 'alert';
+        this.attack_sound.play();
 
         setTimeout(() => {
             this.animationSequence = 'attack';

@@ -9,10 +9,15 @@ class Coin extends Collectable {
     constructor() {
         super();  
         this.getRandomImage();
-        this.y = 350; 
+        this.y = this.getRandomValueY(); 
         this.height = 80;
         this.width = 80;
-        this.x = this.getRandomValue();
+        this.x = this.getRandomValueX();
 
+    }
+
+    getRandomValueY() {
+
+        return this.random ** 2 * 200 + 50;
     }
 }

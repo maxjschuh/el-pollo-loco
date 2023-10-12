@@ -13,7 +13,7 @@ class Collectable extends MovableObject {
         }
     }
 
-    getRandomValue() {
+    getRandomValueX() {
 
         let x = this.random * this.level_end;
 
