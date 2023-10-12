@@ -19,6 +19,7 @@ body {
     justify-content: center;
     height: 100vh;
     font-family: 'Rio Grande';
+    margin: 0;
 }
 
 h1 {
@@ -44,10 +45,40 @@ canvas {
 }
 
 .help-img {
-    height: 48px;
+    height: 60px;
 }
 
 #user-interface {
     display: flex;
     flex-direction: column;
+}
+
+.pos-relative {
+    position: relative;
+}
+
+.centered {
+    justify-content: center;
+}
+
+.gap-32 {
+    gap: 32px;
+}
+
+.gap-8 {
+    gap: 8px;
+}
+
+.text-centered {
+    text-align: center;
+}
+
+#hud {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
 }

@@ -39,44 +39,54 @@
 
 <body onload="init()">
 
-    <div id="user-interface">
-        <h1>El Pollo Loco</h1>
+    <div id="user-interface" class="gap-8 centered">
+        <h1 class="text-centered">El Pollo Loco</h1>
 
-        <canvas id="canvas" width="720" height="480">
+        <div class="pos-relative">
 
-        </canvas>
+            <canvas id="canvas" width="720" height="480">
+
+            </canvas>
+
+            <div id="hud">
+                <div>
+                    <img id="button-left" class="hud-button" src="./img/10_additional/hud/button_left.png" alt="">
+                    <img id="button-right" class="hud-button" src="./img/10_additional/hud/button_right.png" alt="">
+                </div>
+
+                <div>
+                    <img id="button-jump" class="hud-button" src="./img/10_additional/hud/button_jump.png" alt="">
+                    <img id="button-throw" class="hud-button" src="./img/10_additional/hud/button_throw.png" alt="">
+                </div>
+            </div>
+
+        </div>
 
         <button onclick="enterFullscreen()">Full screen</button>
         <button onclick="initLevel()">Start</button>
 
-        <div>
-            <img class="hud-button" src="./img/10_additional/hud/button_left.png" alt="">
-            <img class="hud-button" src="./img/10_additional/hud/button_right.png" alt="">
-            <img class="hud-button" src="./img/10_additional/hud/button_throw.png" alt="">
-        </div>
-
-        <div class="flex-row">
+        <div class="flex-row centered gap-32">
             <div>
                 <img class="help-img" src="./img/10_additional/arrow_left_key.png" alt="">
-                <img class="help-img mirrored" src="./img/2_character_pepe/2_walk/W-22.png" alt="">
+                <img class="help-img mirrored" src="./img/10_additional/help-img/W-22_cropped.png" alt="">
             </div>
 
             <div>
-                <img class="help-img" src="./img/2_character_pepe/2_walk/W-22.png" alt="">
+                <img class="help-img" src="./img/10_additional/help-img/W-22_cropped.png" alt="">
                 <img class="help-img" src="./img/10_additional/arrow_right_key.png" alt="">
             </div>
         </div>
 
-        <div class="flex-row">
+        <div class="flex-row centered gap-32">
 
             <div>
                 <img class="help-img" src="./img/10_additional/space_key.png" alt="">
-                <img class="help-img" src="./img/2_character_pepe/3_jump/J-36.png" alt="">
+                <img class="help-img" src="./img/10_additional/help-img/J-36_cropped.png" alt="">
             </div>
 
             <div>
                 <img class="help-img" src="./img/10_additional/d_key.png" alt="">
-                <img class="help-img" src="./img/6_salsa_bottle/salsa_bottle.png" alt="">
+                <img class="help-img" src="./img/10_additional/help-img/salsa_bottle_cropped.png" alt="">
             </div>
         </div>
 

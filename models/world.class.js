@@ -151,10 +151,10 @@ class World {
 
                 enemy.lastHit = new Date().getTime();
 
-                if (enemy.isHurt()) {
+                if (enemy.isHurt()) { // isHurt muss noch gefixed werden, funktioniert nicht wie gewollt
 
                     enemy.hit();
-                    this.endbossBar.setFilling(this.character.energy, this.healthBar.IMAGES);
+                    this.endbossBar.setFilling(enemy.energy, this.endbossBar.IMAGES);
 
                 }
 
