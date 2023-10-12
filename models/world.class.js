@@ -2,13 +2,15 @@ class World {
 
     ctx;
     character = new Character();
-    level = level1;
+    level;
     healthBar = new HealthBar();
     coinsBar = new CoinsBar();
     bottleBar = new BottleBar();
     endbossBar = new EndbossBar();
     throwableObjects = [];
     intervalIds = [];
+    game_over;
+    game_won;
 
     canvas;
     ctx;
@@ -16,6 +18,8 @@ class World {
     camera_x = 0;
 
     constructor(canvas, keyboard) {
+        this.level = level1;
+
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;

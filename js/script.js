@@ -8,9 +8,27 @@ function init() {
 
     canvas = document.getElementById('canvas');
     ui = document.getElementById('user-interface');
+}
+
+function startGame() {
+
+    initLevel();
+
     world = new World(canvas, keyboard);
     createTouchListeners();
     createClickListeners();
+    console.log('loading finished')
+
+
+
+    // setTimeout(() => {
+
+    //     world = new World(canvas, keyboard);
+    //     createTouchListeners();
+    //     createClickListeners();
+    //     console.log('loading finished')
+
+    // }, 500);
 }
 
 function enterFullscreen() {
@@ -66,21 +84,11 @@ function createClickListeners() {
     document.getElementById('button-left').addEventListener('mousedown', (e) => {
         e.preventDefault();
         keyboard.LEFT = true;
-    });
-    
-    document.getElementById('button-left').addEventListener('mouseup', (e) => {
-        e.preventDefault();
-        keyboard.LEFT = false;
-    });
+    });   
 
     document.getElementById('button-right').addEventListener('mousedown', (e) => {
         e.preventDefault();
         keyboard.RIGHT = true;
-    });
-
-    document.getElementById('button-right').addEventListener('mouseup', (e) => {
-        e.preventDefault();
-        keyboard.RIGHT = false;
     });
 
     document.getElementById('button-jump').addEventListener('mousedown', (e) => {
@@ -88,18 +96,16 @@ function createClickListeners() {
         keyboard.SPACE = true;
     });
 
-    document.getElementById('button-jump').addEventListener('mouseup', (e) => {
-        e.preventDefault();
-        keyboard.SPACE = false;
-    });
-
     document.getElementById('button-throw').addEventListener('mousedown', (e) => {
         e.preventDefault();
         keyboard.D = true;
     });
 
-    document.getElementById('button-throw').addEventListener('mouseup', (e) => {
+    window.addEventListener('mouseup', (e) => {
         e.preventDefault();
+        keyboard.LEFT = false;
+        keyboard.RIGHT = false;
+        keyboard.SPACE = false;
         keyboard.D = false;
     });
 }

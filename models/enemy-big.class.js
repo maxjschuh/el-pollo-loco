@@ -16,7 +16,7 @@ class EnemyBig extends Enemy {
         this.loadImages(this.IMAGES_DEAD);
 
         this.x = Math.random() * 500 + 200;
-        this.y = 285;
+        this.y = 280;
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
     }
