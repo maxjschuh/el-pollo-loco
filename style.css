@@ -35,6 +35,10 @@ canvas {
     width: 60px;
 }
 
+.hud-button:active {
+    filter: brightness(80%);
+}
+
 .mirrored {
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
@@ -82,3 +86,4 @@ canvas {
     display: flex;
     justify-content: space-between;
 }
+

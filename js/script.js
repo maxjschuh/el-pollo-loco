@@ -10,6 +10,7 @@ function init() {
     ui = document.getElementById('user-interface');
     world = new World(canvas, keyboard);
     createTouchListeners();
+    createClickListeners();
 }
 
 function enterFullscreen() {
@@ -41,12 +42,12 @@ function createTouchListeners() {
 
     document.getElementById('button-jump').addEventListener('touchstart', (e) => {
         e.preventDefault();
-        keyboard.UP = true;
+        keyboard.SPACE = true;
     });
 
     document.getElementById('button-jump').addEventListener('touchend', (e) => {
         e.preventDefault();
-        keyboard.UP = false;
+        keyboard.SPACE = false;
     });
 
     document.getElementById('button-throw').addEventListener('touchstart', (e) => {
@@ -55,6 +56,49 @@ function createTouchListeners() {
     });
 
     document.getElementById('button-throw').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.D = false;
+    });
+}
+
+function createClickListeners() {
+
+    document.getElementById('button-left').addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = true;
+    });
+    
+    document.getElementById('button-left').addEventListener('mouseup', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = false;
+    });
+
+    document.getElementById('button-right').addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = true;
+    });
+
+    document.getElementById('button-right').addEventListener('mouseup', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = false;
+    });
+
+    document.getElementById('button-jump').addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        keyboard.SPACE = true;
+    });
+
+    document.getElementById('button-jump').addEventListener('mouseup', (e) => {
+        e.preventDefault();
+        keyboard.SPACE = false;
+    });
+
+    document.getElementById('button-throw').addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        keyboard.D = true;
+    });
+
+    document.getElementById('button-throw').addEventListener('mouseup', (e) => {
         e.preventDefault();
         keyboard.D = false;
     });
@@ -75,10 +119,6 @@ window.addEventListener('keyup', (e) => {
         keyboard.RIGHT = false;
     }
 
-    if (e.keyCode == 38) {
-        keyboard.UP = false;
-    }
-
     if (e.keyCode == 32) {
         keyboard.SPACE = false;
     }
@@ -95,10 +135,6 @@ window.addEventListener('keydown', (e) => {
 
     if (e.keyCode == 39) {
         keyboard.RIGHT = true;
-    }
-
-    if (e.keyCode == 38) {
-        keyboard.UP = true;
     }
 
     if (e.keyCode == 32) {

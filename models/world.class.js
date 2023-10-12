@@ -84,8 +84,6 @@ class World {
                     this.character.lastHit = new Date().getTime();
                     this.healthBar.setFilling(this.character.energy, this.healthBar.IMAGES);
                 }
-
-                // console.log('Collision!', this.character.energy);
             }
 
 
@@ -117,8 +115,6 @@ class World {
 
                 let collectedBottlesPercent = (this.character.collectedBottles / this.character.bottlesToCollect) * 100;
 
-                console.log(collectedBottlesPercent);
-
                 this.bottleBar.setFilling(collectedBottlesPercent, this.bottleBar.IMAGES);
                 this.bottleBar.bottle_collect_sound.play();
             }
@@ -135,8 +131,6 @@ class World {
 
                 let collectedCoinsPercent = (this.character.collectedCoins / this.character.coinsToCollect) * 100;
 
-                console.log(collectedCoinsPercent);
-
                 this.coinsBar.setFilling(collectedCoinsPercent, this.coinsBar.IMAGES);
                 this.coinsBar.coin_collect_sound.play();
             }
@@ -149,13 +143,17 @@ class World {
 
             if (enemy.isColliding(bottle)) {
 
-                enemy.lastHit = new Date().getTime();
+                if (!enemy.lastHit) {
+                    enemy.hit();
+                    enemy.lastHit = new Date().getTime();
+                    this.endbossBar.setFilling(enemy.energy, this.endbossBar.IMAGES);
+                }
 
-                if (enemy.isHurt()) { // isHurt muss noch gefixed werden, funktioniert nicht wie gewollt
+                if (enemy.isHurt(enemy.lastHit)) {
 
                     enemy.hit();
+                    enemy.lastHit = new Date().getTime();
                     this.endbossBar.setFilling(enemy.energy, this.endbossBar.IMAGES);
-
                 }
 
                 setInterval(() => {

@@ -1,13 +1,11 @@
 class DrawableObject {
 
     x = 0;
-    y = 200;
     img;
     height = 150;
     width = 100;
     imageCache = {};
     currentImage = 0;
-
 
     loadImage(path) {
         this.img = new Image();
@@ -36,7 +34,7 @@ class DrawableObject {
 
     drawFrame(ctx) {
 
-        if (this instanceof Character || this instanceof Enemy) {
+        if (this instanceof Character || this instanceof Enemy || this instanceof Endboss) {
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';

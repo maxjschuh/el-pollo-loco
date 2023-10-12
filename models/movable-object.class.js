@@ -3,7 +3,7 @@ class MovableObject extends DrawableObject {
     speed = 10;
     mirrored = false;
     speedY = 0;
-    acceleration = 1;
+    acceleration = 1.3;
     energy = 100;
     lastHit;
     currentAnimation;
@@ -18,8 +18,6 @@ class MovableObject extends DrawableObject {
     moveLeft() {
         this.x -= this.speed;
     }
-
-
 
     applyGravity() {
 
@@ -37,7 +35,7 @@ class MovableObject extends DrawableObject {
         if (this instanceof ThrowableObject) { // Trowable objects should always fall
             return true;
         } else {
-            return this.y < 275;
+            return this.y <= this.groundLevel;
         }
     }
 
@@ -70,19 +68,7 @@ class MovableObject extends DrawableObject {
         let timePassed = new Date().getTime() - hitTime; // Difference in ms
         timePassed = timePassed / 1000;
 
-        return timePassed > 1;
-
-        // if (hitTime) {
-
-        //     let timePassed = new Date().getTime() - hitTime; // Difference in ms
-        //     timePassed = timePassed / 1000;
-
-        //     return timePassed > 2;
-
-        // } else {
-        //     return true; // true
-        // }
-
+        return timePassed > 0.5;
     }
 
     die(mo) {
@@ -90,7 +76,7 @@ class MovableObject extends DrawableObject {
     }
 
     jump() {
-        this.speedY = 20;
+        this.speedY = 25;
     }
 
 }

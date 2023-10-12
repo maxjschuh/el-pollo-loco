@@ -1,11 +1,12 @@
 class Character extends MovableObject {
 
-    y = 275;
     lastEvent;
     collectedBottles = 0;
     bottlesToCollect = 5;
     collectedCoins = 0;
     coinsToCollect = 5;
+    y = 275;
+    groundLevel = 270;
 
     IMAGES_IDLE = [
         '../img/2_character_pepe/1_idle/idle/I-1.png',
