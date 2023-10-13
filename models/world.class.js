@@ -26,6 +26,7 @@ class World {
         this.setWorld();
         this.draw();
         this.addInterval(this.run, 1000 / 60);
+        this.addInterval(this.checkForGameOver, 1000 / 60);
     }
 
     setWorld() {
@@ -232,5 +233,20 @@ class World {
 
         let id = setInterval(fn, delay);
         this.intervalIds.push(id);
+    }
+
+    checkForGameOver() {
+
+        if (world.character.energy == 0) {
+            let n = 0;
+            let deathAnimation = setInterval( () => {
+                world.character.playAnimation(world.character.IMAGES_DEAD);
+
+                if (n == 7) {
+                    deathAnimation.clearInterval();
+                }
+                n++;
+            }, 100);
+        }
     }
 }

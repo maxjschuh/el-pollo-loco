@@ -93,10 +93,7 @@ class Character extends MovableObject {
 
         setInterval(() => {
 
-            // this.walking_sound.pause();
-
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-
                 this.moveRight();
                 this.mirrored = false;
 
@@ -114,8 +111,6 @@ class Character extends MovableObject {
                 }
             }
 
-            // console.log(this.speedY, this.y);
-
             if (this.world.keyboard.SPACE && this.y > 270) {
                 this.jump();
             }
@@ -124,12 +119,10 @@ class Character extends MovableObject {
 
         }, 1000 / 60);
 
-
         setInterval(() => {
 
             if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
-                this.lastEvent = new Date().getTime();
+                return;
 
             } else if (!this.isHurt(this.lastHit) && this.lastHit) {
                 this.playAnimation(this.IMAGES_HURT);

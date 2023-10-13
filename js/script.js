@@ -18,22 +18,14 @@ function startGame() {
     createTouchListeners();
     createClickListeners();
     console.log('loading finished')
+    document.getElementById('button-start').classList.add('d-none');
+    document.getElementById('startscreen').classList.add('d-none');
 
-
-
-    // setTimeout(() => {
-
-    //     world = new World(canvas, keyboard);
-    //     createTouchListeners();
-    //     createClickListeners();
-    //     console.log('loading finished')
-
-    // }, 500);
 }
 
 function enterFullscreen() {
     
-    ui.requestFullscreen();
+    canvas.requestFullscreen();
 }
 
 function createTouchListeners() {

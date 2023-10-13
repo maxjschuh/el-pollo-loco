@@ -3,6 +3,9 @@
     src: url('./fonts/RioGrande.ttf');
 }
 
+.d-none {
+    display: none !important;
+}
 
 html {
     background: url('./img/10_additional/6zif_0t9r_210426_generated.png') no-repeat center center fixed;
@@ -87,3 +90,52 @@ canvas {
     justify-content: space-between;
 }
 
+#startscreen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 720px;
+    height: 480px;
+    z-index: 2;
+}
+
+#button-start {
+    z-index: 3;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#button-start img {
+    width: 120px;
+}
+
+#button-start:hover {
+    filter: brightness(80%);
+    cursor: pointer;
+}
+
+#button-start:active {
+    filter: brightness(60%);
+}
+
+#button-start div {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#endscreen-game-over {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 720px;
+    height: 480px;
+    z-index: 4;
+}
