@@ -39,8 +39,13 @@ canvas {
     width: 40px;
 }
 
-.hud-button:active {
+.hud-button:hover {
     filter: brightness(80%);
+    cursor: pointer;
+}
+
+.hud-button:active {
+    filter: brightness(60%);
 }
 
 .mirrored {
@@ -86,6 +91,7 @@ canvas {
     top: 0;
     right: 0;
     padding: 8px;
+    z-index: 9;
 }
 
 #hud-bottom {
@@ -96,6 +102,7 @@ canvas {
     padding: 8px;
     display: flex;
     justify-content: space-between;
+    z-index: 10;
 }
 
 #startscreen {
@@ -104,40 +111,71 @@ canvas {
     left: 0;
     width: 720px;
     height: 480px;
-    z-index: 2;
+    z-index: 12;
+}
+
+#imprint-overlay {
+    z-index: 3;
+    align-items: flex-start;
+    padding-top: 130px;
 }
 
 #button-start {
-    z-index: 3;
-    position: absolute;
+    z-index: 13;
     bottom: 0;
+    height: 75px;
+}
+
+.centered-buttons {
+    position: absolute;
     left: 0;
     right: 0;
-    height: 75px;
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 16px;
 }
 
-#button-start img {
+.centered-buttons img {
     width: 120px;
 }
 
-#button-start div:hover {
+.centered-buttons a {
+    color: unset;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.centered-buttons div:hover {
     filter: brightness(80%);
     cursor: pointer;
 }
 
-#button-start:active {
+.centered-buttons a:hover {
+    filter: brightness(80%);
+    cursor: pointer;
+}
+
+.centered-buttons div:active {
     filter: brightness(60%);
 }
 
-#button-start div {
+.centered-buttons a:active {
+    filter: brightness(60%);
+}
+
+.centered-buttons div {
     position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+
+
 
 #endscreen-game-over {
     position: absolute;
@@ -148,12 +186,29 @@ canvas {
     z-index: 4;
 }
 
-#help-overlay {
+/* #help-overlay {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 100px;
+    background-color: rgba(0, 0, 0, 0.3);
+} */
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center; */
+    padding-top: 100px;
     background-color: rgba(0, 0, 0, 0.3);
 }
 

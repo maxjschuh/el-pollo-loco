@@ -20,19 +20,32 @@ function startGame() {
     console.log('loading finished')
     document.getElementById('button-start').classList.add('d-none');
     document.getElementById('startscreen').classList.add('d-none');
-    toggleHelpOverlay();
-
 }
 
 function toggleHelpOverlay() {
 
     document.getElementById('help-overlay').classList.toggle('d-none');
+    document.getElementById('button-show-help').classList.toggle('d-none');
+    document.getElementById('button-hide-help').classList.toggle('d-none');
+    document.getElementById('imprint-overlay').classList.add('d-none');
+    document.getElementById('button-show-imprint').classList.remove('d-none');
+    document.getElementById('button-hide-imprint').classList.add('d-none');
 }
 
-function enterFullscreen() {
-    
-    canvas.requestFullscreen();
+function toggleImprintOverlay() {
+
+    document.getElementById('imprint-overlay').classList.toggle('d-none');
+    document.getElementById('button-show-imprint').classList.toggle('d-none');
+    document.getElementById('button-hide-imprint').classList.toggle('d-none');
+    document.getElementById('button-hide-help').classList.add('d-none');
+    document.getElementById('button-show-help').classList.remove('d-none');
+    document.getElementById('help-overlay').classList.add('d-none');
 }
+
+// function enterFullscreen() {
+    
+//     canvas.requestFullscreen();
+// }
 
 function createTouchListeners() {
 
