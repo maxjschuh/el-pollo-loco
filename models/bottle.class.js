@@ -14,4 +14,13 @@ class Bottle extends Collectable {
         this.x = this.getRandomValueX();
     }
 
+    getRandomImage() {
+
+        if (this.random > 0.5) {
+            this.loadImage(this.IMAGES[0]);
+
+        } else {
+            this.loadImage(this.IMAGES[1]);
+        }
+    }
 }

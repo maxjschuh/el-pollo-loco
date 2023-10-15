@@ -20,7 +20,13 @@ function startGame() {
     console.log('loading finished')
     document.getElementById('button-start').classList.add('d-none');
     document.getElementById('startscreen').classList.add('d-none');
+    toggleHelpOverlay();
 
+}
+
+function toggleHelpOverlay() {
+
+    document.getElementById('help-overlay').classList.toggle('d-none');
 }
 
 function enterFullscreen() {
