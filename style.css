@@ -3,11 +3,30 @@
     src: url('./fonts/RioGrande.ttf');
 }
 
+@font-face {
+    font-family: Roboto;
+    src: url('./fonts/Roboto-Regular.ttf');
+}
+
+.imprint {
+    font-family: 'Roboto';
+    display: block;
+    margin: 16px;
+    height: unset;
+}
+
+.imprint-headline {
+    font-family: 'Roboto';
+    text-shadow: none;
+    text-decoration: none;
+    color: unset;
+}
+
 .d-none {
     display: none !important;
 }
 
-html {
+.bg-img {
     background: url('./img/10_additional/6zif_0t9r_210426_generated.png') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -214,14 +233,14 @@ canvas {
 
 /* Smartphones */
 @media only screen and (max-width: 720px) {
-    
+
     canvas {
         width: 100%;
     }
 }
 
 @media only screen and (max-height: 480px) {
-    
+
     canvas {
         height: 100vh;
     }
