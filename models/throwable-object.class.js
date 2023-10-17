@@ -26,6 +26,12 @@ class ThrowableObject extends MovableObject {
         this.x = 100;
         this.height = 80;
         this.width = 80;
+        this.offset = {
+            left: 10,
+            right: 10,
+            top: 10,
+            bottom: 10
+        };
 
         this.throw_sound.play();
         this.loadImage('../img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');

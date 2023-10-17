@@ -14,6 +14,12 @@ class Coin extends Collectable {
         this.height = 80;
         this.width = 80;
         this.x = this.getRandomValueX();
+        this.offset = {
+            left: 25,
+            right: 25,
+            top: 25,
+            bottom: 25
+        };
         this.animate();
     }
 

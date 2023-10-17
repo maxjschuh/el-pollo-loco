@@ -143,6 +143,7 @@ canvas {
     z-index: 13;
     bottom: 0;
     height: 75px;
+    font-size: 24px;
 }
 
 .centered-buttons {
@@ -157,6 +158,14 @@ canvas {
 
 .centered-buttons img {
     width: 120px;
+}
+
+.centered-buttons div {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
 }
 
 .centered-buttons a {
@@ -186,13 +195,6 @@ canvas {
     filter: brightness(60%);
 }
 
-.centered-buttons div {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 #endscreen-game-over {
     position: absolute;
     top: 0;
@@ -202,33 +204,16 @@ canvas {
     z-index: 4;
 }
 
-/* #help-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-top: 100px;
-    background-color: rgba(0, 0, 0, 0.3);
-} */
-
 .overlay {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center; */
     padding-top: 100px;
     background-color: rgba(0, 0, 0, 0.3);
 }
 
-/* Smartphones */
 @media only screen and (max-width: 720px) {
 
     canvas {
@@ -237,6 +222,30 @@ canvas {
 
     .hud-button {
         width: 6vw;
+    }
+
+    .centered-buttons img {
+        width: 17vw;
+    }
+
+    .help-img {
+        height: 8vw;
+    }
+
+    .overlay {
+        padding-top: 14vw;
+    }
+
+    #imprint-overlay {
+        padding-top: 14vw;
+    }
+
+    #button-start {
+        font-size: 4vw;
+    }
+
+    .centered-buttons div {
+        font-size: 2vw;
     }
 }
 

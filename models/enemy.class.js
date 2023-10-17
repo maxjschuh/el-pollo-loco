@@ -8,6 +8,12 @@ class Enemy extends MovableObject {
         super();
         this.characterIsAbove = false;
         this.dead = false;
+        this.offset = {
+            left: 10,
+            right: 10,
+            top: 10,
+            bottom: 10
+        };
     }
 
     animate() {

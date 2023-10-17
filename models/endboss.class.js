@@ -72,6 +72,12 @@ class Endboss extends MovableObject {
 
         this.x = 1800;
         this.y = -50;
+        this.offset = {
+            left: 50,
+            right: 25,
+            top: 100,
+            bottom: 20
+        };
         this.run();
         this.applyGravity();
         this.hurt_sound.volume = 0.7;
