@@ -36,9 +36,18 @@ class ThrowableObject extends MovableObject {
     }
 
     animate() {
-        setInterval(() => {
-            this.moveRight();
-        }, 20);
+
+        if (world.character.mirrored) {
+            setInterval(() => {
+                this.moveLeft();
+            }, 20);
+
+        } else {
+            setInterval(() => {
+                this.moveRight();
+            }, 20);
+        }
+
 
         setInterval(() => {
             this.playAnimation(this.IMAGES);

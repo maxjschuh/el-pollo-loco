@@ -193,9 +193,6 @@ canvas {
     align-items: center;
 }
 
-
-
-
 #endscreen-game-over {
     position: absolute;
     top: 0;
@@ -236,6 +233,10 @@ canvas {
 
     canvas {
         width: 100%;
+    }
+
+    .hud-button {
+        width: 6vw;
     }
 }
 

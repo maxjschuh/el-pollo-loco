@@ -26,6 +26,6 @@ class Enemy extends MovableObject {
     }
 
     saveCharacterAbove() {
-        this.characterIsAbove = this.y > (this.world.character.y + this.world.character.height);
+        this.characterIsAbove = this.y + this.offset.top > (this.world.character.y + this.world.character.height - this.world.character.offset.bottom);
     }
 }
