@@ -171,7 +171,7 @@ class Endboss extends MovableObject {
 
         let walkInterval = setInterval(() => {
 
-            this.moveLeft();
+            this.moveLeft(this.speedX);
 
         }, 1000 / 60);
 
@@ -188,7 +188,7 @@ class Endboss extends MovableObject {
 
         let walkInterval = setInterval(() => {
 
-            this.moveLeft();
+            this.moveLeft(this.speedX);
 
         }, 1000 / 60);
 
@@ -206,7 +206,7 @@ class Endboss extends MovableObject {
         let walkInterval = setInterval(() => {
 
             if (this.x < 1800) {
-                this.moveRight();
+                this.moveRight(this.speedX);
 
             }
 

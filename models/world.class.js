@@ -239,14 +239,15 @@ class World {
 
         if (world.character.energy == 0) {
             let n = 0;
-            let deathAnimation = setInterval( () => {
-                world.character.playAnimation(world.character.IMAGES_DEAD);
+            // let deathAnimation = setInterval( () => {
+            //     world.character.playAnimation(world.character.IMAGES_DEAD);
 
-                if (n == 7) {
-                    deathAnimation.clearInterval();
-                }
-                n++;
-            }, 100);
+            //     if (n == 7) {
+            //         deathAnimation.clearInterval();
+            //     }
+            //     n++;
+            // }, 100);
+            document.getElementById('endscreen-game-over').classList.remove('d-none');
         }
     }
 }

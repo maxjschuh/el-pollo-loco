@@ -80,11 +80,6 @@ canvas {
     height: 60px;
 }
 
-#user-interface {
-    display: flex;
-    flex-direction: column;
-}
-
 .pos-relative {
     position: relative;
 }
@@ -95,10 +90,6 @@ canvas {
 
 .gap-32 {
     gap: 32px;
-}
-
-.gap-8 {
-    gap: 8px;
 }
 
 .text-centered {
@@ -199,9 +190,11 @@ canvas {
     position: absolute;
     top: 0;
     left: 0;
-    width: 720px;
-    height: 480px;
-    z-index: 4;
+    right: 0;
+    bottom: 0;
+    max-width: 720px;
+    max-height: 480px;
+    z-index: 14;
 }
 
 .overlay {

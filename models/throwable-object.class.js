@@ -1,7 +1,5 @@
 class ThrowableObject extends MovableObject {
 
-    speedX;
-
     IMAGES = [
         '../img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
         '../img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
@@ -43,14 +41,19 @@ class ThrowableObject extends MovableObject {
 
     animate() {
 
+        if (world.keyboard.LEFT || world.keyboard.RIGHT) {
+            console.log('akjshfkljahs')
+            this.speedX += world.character.speedX;
+        } 
+
         if (world.character.mirrored) {
             setInterval(() => {
-                this.moveLeft();
+                this.moveLeft(this.speedX);
             }, 20);
 
         } else {
             setInterval(() => {
-                this.moveRight();
+                this.moveRight(this.speedX);
             }, 20);
         }
 

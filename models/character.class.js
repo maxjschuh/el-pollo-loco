@@ -100,7 +100,7 @@ class Character extends MovableObject {
         setInterval(() => {
 
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.moveRight();
+                this.moveRight(this.speedX);
                 this.mirrored = false;
 
                 if (this.y > 270) { // play walking sound only when character is not currently in the air (jumping)
@@ -109,7 +109,7 @@ class Character extends MovableObject {
             }
 
             if (this.world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft();
+                this.moveLeft(this.speedX);
                 this.mirrored = true;
 
                 if (this.y > 270) { // play walking sound only when character is not currently in the air (jumping)

@@ -25,7 +25,7 @@ class Enemy extends MovableObject {
 
             } else {
                 this.playAnimation(this.IMAGES_WALK);
-                this.moveLeft();
+                this.moveLeft(this.speedX);
             }
 
         }, 200);

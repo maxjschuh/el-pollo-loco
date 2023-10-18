@@ -19,7 +19,7 @@ class EnemySmall extends Enemy {
 
         this.height = 80;
         this.width = 80;
-        this.x = Math.random() * 500 + 200;
+        this.x = Math.random() * 5000 + 200;
         this.y = 345;
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();

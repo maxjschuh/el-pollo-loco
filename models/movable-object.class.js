@@ -1,6 +1,6 @@
 class MovableObject extends DrawableObject {
 
-    speed = 10;
+    speedX = 10;
     mirrored = false;
     speedY = 0;
     acceleration = 1.3;
@@ -15,12 +15,12 @@ class MovableObject extends DrawableObject {
         bottom: 0
     };
 
-    moveRight() {
-        this.x += this.speed;
+    moveRight(speedX) {
+        this.x += speedX;
     }
 
-    moveLeft() {
-        this.x -= this.speed;
+    moveLeft(speedX) {
+        this.x -= speedX;
     }
 
     applyGravity() {
@@ -49,11 +49,6 @@ class MovableObject extends DrawableObject {
         this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
         this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
         this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
-
-        // return this.x + this.width > mo.x &&
-        //     this.y + this.height > mo.y &&
-        //     this.x < mo.x &&
-        //     this.y < mo.y + mo.height;
     }
 
 

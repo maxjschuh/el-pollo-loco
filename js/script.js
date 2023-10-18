@@ -1,13 +1,10 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-let ui;
-
 
 function init() {
 
     canvas = document.getElementById('canvas');
-    ui = document.getElementById('user-interface');
 }
 
 function startGame() {
@@ -41,11 +38,6 @@ function toggleImprintOverlay() {
     document.getElementById('button-show-help').classList.remove('d-none');
     document.getElementById('help-overlay').classList.add('d-none');
 }
-
-// function enterFullscreen() {
-    
-//     canvas.requestFullscreen();
-// }
 
 function createTouchListeners() {
 
