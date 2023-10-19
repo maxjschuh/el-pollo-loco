@@ -155,6 +155,11 @@ window.addEventListener('keydown', (e) => {
     }
 });
 
+function terminate() {
+
+    world = undefined;
+}
+
 
 
 

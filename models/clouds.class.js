@@ -5,7 +5,7 @@ class Clouds extends MovableObject {
     height = 200;
 
     constructor(multiplierX) {
-        super().loadImage('../img/5_background/layers/4_clouds/full.png');
+        super().loadImage('./img/5_background/layers/4_clouds/full.png');
         this.height = 480;
         this.width = 1440;
         this.x = 1440 * multiplierX;
