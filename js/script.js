@@ -160,6 +160,13 @@ function terminate() {
     world = undefined;
 }
 
+function renderVictoryScreen() {
+
+    document.getElementById('game-won-statistics-coins').innerHTML = /*html*/ `
+    Collected coins: ${world.character.collectedCoins} out of ${world.character.coinsToCollect}
+    `;
+}
+
 
 
 
