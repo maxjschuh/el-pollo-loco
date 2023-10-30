@@ -16,8 +16,22 @@ function startGame() {
     createTouchListeners();
     createClickListeners();
     console.log('loading finished')
-    document.getElementById('button-start').classList.add('d-none');
-    document.getElementById('startscreen').classList.add('d-none');
+
+    hideElements([
+        'button-start', 
+        'startscreen', 
+        'endscreen-game-won', 
+        'button-try-again', 
+        'game-over-img', 
+        'button-try-again'
+    ]);
+}
+
+function hideElements(elements) {
+
+    elements.forEach(element => {
+        document.getElementById(element).classList.add('d-none');
+    });
 }
 
 function toggleHelpOverlay() {
@@ -46,7 +60,7 @@ function createTouchListeners() {
         e.preventDefault();
         keyboard.LEFT = true;
     });
-    
+
     document.getElementById('button-left').addEventListener('touchend', (e) => {
         e.preventDefault();
         keyboard.LEFT = false;
@@ -88,7 +102,7 @@ function createClickListeners() {
     document.getElementById('button-left').addEventListener('mousedown', (e) => {
         e.preventDefault();
         keyboard.LEFT = true;
-    });   
+    });
 
     document.getElementById('button-right').addEventListener('mousedown', (e) => {
         e.preventDefault();
@@ -114,9 +128,6 @@ function createClickListeners() {
     });
 }
 
-
-
-
 window.addEventListener('keyup', (e) => {
 
     e = e || window.event;
@@ -133,7 +144,6 @@ window.addEventListener('keyup', (e) => {
         keyboard.SPACE = false;
     }
 });
-
 
 window.addEventListener('keydown', (e) => {
 
@@ -174,9 +184,3 @@ function addInterval(fn, delay) {
     intervalIds.push(id);
     return id;
 }
-
-
-
-
-
-

@@ -110,6 +110,10 @@ class Endboss extends MovableObject {
         }, 1000);
     }
 
+    showVictoryScreen() {
+        document.getElementById('endscreen-game-won').classList.remove('d-none');
+        document.getElementById('button-try-again').classList.remove('d-none');
+    }
 
     animate() {
 
@@ -121,6 +125,7 @@ class Endboss extends MovableObject {
                     this.acceleration = 0.1;
                     this.groundLevel = 2000;
                 }, 2000);
+                this.showVictoryScreen();
 
             } else if (!this.isHurt(this.lastHit) && this.lastHit) {
                 this.playAnimation(this.IMAGES_HURT);
@@ -162,8 +167,6 @@ class Endboss extends MovableObject {
             }
 
         }, 2200);
-
-
     }
 
     attackRun() {
@@ -218,5 +221,4 @@ class Endboss extends MovableObject {
             this.animationSequence = undefined;
         }, 2000);
     }
-
 }

@@ -40,11 +40,15 @@ class World {
     
                 world.playDeathAnimation();            
     
-                // setTimeout(() => (document.getElementById('endscreen-game-over').classList.remove('d-none')), 700);
+                setTimeout(() => {
+
+                    document.getElementById('game-over-img').classList.remove('d-none');
+                    document.getElementById('button-try-again').classList.remove('d-none');
+
+                }, 700);
             }
             
         }, 1000 / 60);
-        // this.addInterval(this.checkForGameOver, 1000 / 60);
     }
 
     setWorld() {
@@ -247,26 +251,18 @@ class World {
         mo.x = mo.x * -1;
     }
 
-    // checkForGameOver() {
-
-
-    // }
-
     playDeathAnimation() {
 
         this.stopAllIntervals();
 
         addInterval( () => {
 
-
-            console.log(this.deathAnimationFrameCount);
             if (this.deathAnimationFrameCount < 6) {
                 
                 this.character.playAnimation(world.character.IMAGES_DEAD, 'dead');
                 this.deathAnimationFrameCount++;
             }
             this.character.previousAnimation = 'dead';
-
 
         }, 500);
     }
