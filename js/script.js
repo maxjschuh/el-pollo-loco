@@ -15,7 +15,6 @@ function startGame() {
     world = new World(canvas, keyboard);
     createTouchListeners();
     createClickListeners();
-    console.log('loading finished')
 
     hideElements([
         'button-start', 
