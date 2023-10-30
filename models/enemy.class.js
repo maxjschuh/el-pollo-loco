@@ -18,16 +18,17 @@ class Enemy extends MovableObject {
 
     animate() {
 
-        setInterval(() => {
+        let self = this;
 
-            if (this.dead) {
-                this.playAnimation(this.IMAGES_DEAD);
+        addInterval(() => {
+
+            if (self.dead) {
+                self.playAnimation(self.IMAGES_DEAD);
 
             } else {
-                this.playAnimation(this.IMAGES_WALK);
-                this.moveLeft(this.speedX);
+                self.playAnimation(self.IMAGES_WALK);
+                self.moveLeft(self.speedX);
             }
-
         }, 200);
     }
 

@@ -88,15 +88,16 @@ class Endboss extends MovableObject {
 
         this.animate();
 
-        setInterval(() => {
-            
+        addInterval(() => {
+
             if (this.isDead()) {
                 clearInterval(attackInterval);
                 this.speed = 0;
             }
+
         }, 1000 / 30);
 
-        let attackInterval = setInterval(() => {
+        let attackInterval = addInterval(() => {
 
             if (timer == 8) {
                 this.attack();
@@ -112,7 +113,7 @@ class Endboss extends MovableObject {
 
     animate() {
 
-        setInterval(() => {
+        addInterval(() => {
 
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
@@ -169,7 +170,7 @@ class Endboss extends MovableObject {
 
         this.speed = 20;
 
-        let walkInterval = setInterval(() => {
+        let walkInterval = addInterval(() => {
 
             this.moveLeft(this.speedX);
 
@@ -186,7 +187,7 @@ class Endboss extends MovableObject {
         this.speed = 15;
         this.jump();
 
-        let walkInterval = setInterval(() => {
+        let walkInterval = addInterval(() => {
 
             this.moveLeft(this.speedX);
 
@@ -203,7 +204,7 @@ class Endboss extends MovableObject {
         this.speed = 5;
         this.animationSequence = 'walk';
 
-        let walkInterval = setInterval(() => {
+        let walkInterval = addInterval(() => {
 
             if (this.x < 1800) {
                 this.moveRight(this.speedX);

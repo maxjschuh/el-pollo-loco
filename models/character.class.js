@@ -54,8 +54,7 @@ class Character extends MovableObject {
         './img/2_character_pepe/5_dead/D-53.png',
         './img/2_character_pepe/5_dead/D-54.png',
         './img/2_character_pepe/5_dead/D-55.png',
-        './img/2_character_pepe/5_dead/D-56.png',
-        './img/2_character_pepe/5_dead/D-57.png'
+        './img/2_character_pepe/5_dead/D-56.png'
     ];
 
     IMAGES_JUMP = [
@@ -97,7 +96,7 @@ class Character extends MovableObject {
 
     animate() {
 
-        setInterval(() => {
+        addInterval(() => {
 
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight(this.speedX);
@@ -125,30 +124,35 @@ class Character extends MovableObject {
 
         }, 1000 / 60);
 
-        setInterval(() => {
+        addInterval(() => {
 
             if (this.isDead()) {
                 return;
 
             } else if (!this.isHurt(this.lastHit) && this.lastHit) {
-                this.playAnimation(this.IMAGES_HURT);
+                this.playAnimation(this.IMAGES_HURT, 'hurt');
                 this.hurt_sound.loop = false;
                 this.hurt_sound.play();
                 this.lastEvent = new Date().getTime();
+                this.previousAnimation = 'hurt';
 
             } else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMP);
+                this.playAnimation(this.IMAGES_JUMP, 'jump');
                 this.lastEvent = new Date().getTime();
+                this.previousAnimation = 'jump';
 
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                this.playAnimation(this.IMAGES_WALK);
+                this.playAnimation(this.IMAGES_WALK, 'walk');
                 this.lastEvent = new Date().getTime();
+                this.previousAnimation = 'walk';
 
             } else if (this.isSleeping()) {
-                this.playAnimation(this.IMAGES_SLEEP);
+                this.playAnimation(this.IMAGES_SLEEP, 'sleep');
+                this.previousAnimation = 'sleep';
 
             } else {
-                this.playAnimation(this.IMAGES_IDLE);
+                this.playAnimation(this.IMAGES_IDLE, 'idle');
+                this.previousAnimation = 'idle';
             }
 
         }, 100);

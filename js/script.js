@@ -1,3 +1,4 @@
+let intervalIds = [];
 let canvas;
 let world;
 let keyboard = new Keyboard();
@@ -165,6 +166,13 @@ function renderVictoryScreen() {
     document.getElementById('game-won-statistics-coins').innerHTML = /*html*/ `
     Collected coins: ${world.character.collectedCoins} out of ${world.character.coinsToCollect}
     `;
+}
+
+function addInterval(fn, delay) {
+
+    let id = setInterval(fn, delay);
+    intervalIds.push(id);
+    return id;
 }
 
 

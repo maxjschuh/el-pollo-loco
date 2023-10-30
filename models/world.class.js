@@ -8,9 +8,9 @@ class World {
     bottleBar = new BottleBar();
     endbossBar = new EndbossBar();
     throwableObjects = [];
-    intervalIds = [];
     game_over;
     game_won;
+    deathAnimationFrameCount = 0;
 
     canvas;
     ctx;
@@ -25,8 +25,26 @@ class World {
         this.keyboard = keyboard;
         this.setWorld();
         this.draw();
-        this.addInterval(this.run, 1000 / 60);
-        this.addInterval(this.checkForGameOver, 1000 / 60);
+        addInterval(this.run, 1000 / 60);
+        addInterval(() => {
+
+            // if (this.deathAnimationFrameCount > 5) {
+            //     this.stopAllIntervals();
+            // }
+    
+            if (this.game_over) return;
+    
+            if (world.character.energy == 0) {
+    
+                this.game_over = true;
+    
+                world.playDeathAnimation();            
+    
+                // setTimeout(() => (document.getElementById('endscreen-game-over').classList.remove('d-none')), 700);
+            }
+            
+        }, 1000 / 60);
+        // this.addInterval(this.checkForGameOver, 1000 / 60);
     }
 
     setWorld() {
@@ -47,7 +65,7 @@ class World {
     }
 
     stopAllIntervals() {
-        this.intervalIds.forEach(clearInterval);
+        intervalIds.forEach(clearInterval);
     }
 
     checkThrowableObjects() { // noch in den Character Klasse umziehen
@@ -162,7 +180,7 @@ class World {
                     this.endbossBar.setFilling(enemy.energy, this.endbossBar.IMAGES);
                 }
 
-                setInterval(() => {
+                addInterval(() => {
                     bottle.playAnimation(bottle.IMAGES_SPLASH);
                 }, 80);
 
@@ -229,25 +247,27 @@ class World {
         mo.x = mo.x * -1;
     }
 
-    addInterval(fn, delay) {
+    // checkForGameOver() {
 
-        let id = setInterval(fn, delay);
-        this.intervalIds.push(id);
-    }
 
-    checkForGameOver() {
+    // }
 
-        if (world.character.energy == 0) {
-            let n = 0;
-            // let deathAnimation = setInterval( () => {
-            //     world.character.playAnimation(world.character.IMAGES_DEAD);
+    playDeathAnimation() {
 
-            //     if (n == 7) {
-            //         deathAnimation.clearInterval();
-            //     }
-            //     n++;
-            // }, 100);
-            document.getElementById('endscreen-game-over').classList.remove('d-none');
-        }
+        this.stopAllIntervals();
+
+        addInterval( () => {
+
+
+            console.log(this.deathAnimationFrameCount);
+            if (this.deathAnimationFrameCount < 6) {
+                
+                this.character.playAnimation(world.character.IMAGES_DEAD, 'dead');
+                this.deathAnimationFrameCount++;
+            }
+            this.character.previousAnimation = 'dead';
+
+
+        }, 500);
     }
 }
