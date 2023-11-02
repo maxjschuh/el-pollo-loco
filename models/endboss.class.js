@@ -70,7 +70,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_ALERT);
 
-        this.x = 1800;
+        this.x = 5200;
         this.y = -50;
         this.offset = {
             left: 50,
@@ -125,7 +125,11 @@ class Endboss extends MovableObject {
                     this.acceleration = 0.1;
                     this.groundLevel = 2000;
                 }, 2000);
-                this.showVictoryScreen();
+
+                setTimeout(() => {
+                    world.stopAllIntervals();
+                    this.showVictoryScreen();
+                }, 3000);
 
             } else if (!this.isHurt(this.lastHit) && this.lastHit) {
                 this.playAnimation(this.IMAGES_HURT);
@@ -209,7 +213,7 @@ class Endboss extends MovableObject {
 
         let walkInterval = addInterval(() => {
 
-            if (this.x < 1800) {
+            if (this.x < 5200) {
                 this.moveRight(this.speedX);
 
             }

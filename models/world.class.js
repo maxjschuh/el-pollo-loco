@@ -45,7 +45,7 @@ class World {
                     document.getElementById('game-over-img').classList.remove('d-none');
                     document.getElementById('button-try-again').classList.remove('d-none');
 
-                }, 700);
+                }, 3000);
             }
             
         }, 1000 / 60);
