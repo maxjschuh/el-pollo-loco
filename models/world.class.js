@@ -92,6 +92,7 @@ class World {
             }
 
             if (enemy.characterIsAbove && this.character.isColliding(enemy)) {
+                this.character.stomp_sound.volume = 0.3;
                 this.character.stomp_sound.play();
                 enemy.dead = true;
                 this.character.jump();
@@ -160,6 +161,7 @@ class World {
                 let collectedCoinsPercent = (this.character.collectedCoins / this.character.coinsToCollect) * 100;
 
                 this.coinsBar.setFilling(collectedCoinsPercent, this.coinsBar.IMAGES);
+                this.coinsBar.coin_collect_sound.volume = 0.5;
                 this.coinsBar.coin_collect_sound.play();
             }
         });

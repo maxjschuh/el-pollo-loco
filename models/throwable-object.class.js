@@ -24,6 +24,7 @@ class ThrowableObject extends MovableObject {
         this.x = 100;
         this.height = 80;
         this.width = 80;
+        this.speedX = 12;
         this.offset = {
             left: 10,
             right: 10,
@@ -48,12 +49,12 @@ class ThrowableObject extends MovableObject {
         if (world.character.mirrored) {
             addInterval(() => {
                 this.moveLeft(this.speedX);
-            }, 20);
+            }, 1000 / 60);
 
         } else {
             addInterval(() => {
                 this.moveRight(this.speedX);
-            }, 20);
+            }, 1000 / 60);
         }
 
 

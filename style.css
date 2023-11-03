@@ -224,6 +224,10 @@ canvas {
     background-color: rgba(0, 0, 0, 0.3);
 }
 
+#game-won-statistics-coins {
+    font-size: 24px;
+}
+
 @media only screen and (max-width: 720px) {
 
     canvas {

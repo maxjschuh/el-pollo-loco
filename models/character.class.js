@@ -74,6 +74,7 @@ class Character extends MovableObject {
     walking_sound = new Audio('./audio/walk.mp3');
     hurt_sound = new Audio('./audio/player_hurt.mp3');
     stomp_sound = new Audio('./audio/stomped.mp3');
+    jump_sound = new Audio('./audio/jump.mp3');
 
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);
@@ -117,6 +118,7 @@ class Character extends MovableObject {
             }
 
             if (this.world.keyboard.SPACE && this.y > 270) {
+                this.jump_sound.play();
                 this.jump();
             }
 

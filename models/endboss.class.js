@@ -70,7 +70,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_ALERT);
 
-        this.x = 5200;
+        this.x = 5000;
         this.y = -50;
         this.offset = {
             left: 50,
@@ -99,13 +99,14 @@ class Endboss extends MovableObject {
 
         let attackInterval = addInterval(() => {
 
-            if (timer == 8) {
+            if (timer >= 6 && world.character.x > 4500) {
                 this.attack();
                 timer = 0;
 
             } else {
                 timer++;
             }
+            console.log(timer)
 
         }, 1000);
     }
@@ -113,6 +114,7 @@ class Endboss extends MovableObject {
     showVictoryScreen() {
         document.getElementById('endscreen-game-won').classList.remove('d-none');
         document.getElementById('button-try-again').classList.remove('d-none');
+        renderVictoryScreen();
     }
 
     animate() {
@@ -120,33 +122,40 @@ class Endboss extends MovableObject {
         addInterval(() => {
 
             if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
+                this.playAnimation(this.IMAGES_DEAD, 'dead');
                 setTimeout(() => {
                     this.acceleration = 0.1;
                     this.groundLevel = 2000;
-                }, 2000);
+                }, 20000);
 
-                setTimeout(() => {
-                    world.stopAllIntervals();
-                    this.showVictoryScreen();
-                }, 3000);
+                // setTimeout(() => {
+                //     world.stopAllIntervals();
+                //     this.showVictoryScreen();
+                // }, 3000);
 
             } else if (!this.isHurt(this.lastHit) && this.lastHit) {
-                this.playAnimation(this.IMAGES_HURT);
+                this.playAnimation(this.IMAGES_HURT, 'hurt');
+                this.bottle_hit_sound.volume = 0.3;
+                this.hurt_sound.volume = 0.5;
                 this.bottle_hit_sound.play();
                 this.hurt_sound.play();
+                this.previousAnimation = 'hurt';
 
             } else if (this.animationSequence == 'attack') {
-                this.playAnimation(this.IMAGES_ATTACK);
+                this.playAnimation(this.IMAGES_ATTACK, this.animationSequence);
+                this.previousAnimation = this.animationSequence;
 
             } else if (this.animationSequence == 'walk') {
-                this.playAnimation(this.IMAGES_WALK);
+                this.playAnimation(this.IMAGES_WALK, this.animationSequence);
+                this.previousAnimation = this.animationSequence;
 
             } else if (this.animationSequence == 'alert') {
-                this.playAnimation(this.IMAGES_ALERT);
+                this.playAnimation(this.IMAGES_ALERT, this.animationSequence);
+                this.previousAnimation = this.animationSequence;
 
             } else {
-                this.playAnimation(this.IMAGES_IDLE);
+                this.playAnimation(this.IMAGES_IDLE, 'idle');
+                this.previousAnimation = 'idle';
             }
 
         }, 200);
@@ -155,15 +164,16 @@ class Endboss extends MovableObject {
     attack() {
 
         this.animationSequence = 'alert';
-        this.attack_sound.play();
 
         setTimeout(() => {
             this.animationSequence = 'attack';
+            this.attack_sound.play();
         }, 1600);
 
         setTimeout(() => {
 
-            if (Math.random() > 0.5) {
+            if (this.isDead()) return;
+            else if (Math.random() > 0.5) {
                 this.attackJump();
 
             } else {
@@ -175,7 +185,7 @@ class Endboss extends MovableObject {
 
     attackRun() {
 
-        this.speed = 20;
+        this.speedX = 30;
 
         let walkInterval = addInterval(() => {
 
@@ -191,7 +201,7 @@ class Endboss extends MovableObject {
 
     attackJump() {
 
-        this.speed = 15;
+        this.speedX = 20;
         this.jump();
 
         let walkInterval = addInterval(() => {
@@ -208,12 +218,13 @@ class Endboss extends MovableObject {
 
     retreat() {
 
-        this.speed = 5;
+        this.speedX = 5;
         this.animationSequence = 'walk';
 
         let walkInterval = addInterval(() => {
 
-            if (this.x < 5200) {
+            if (this.isDead()) return;
+            else if (this.x < 5000) {
                 this.moveRight(this.speedX);
 
             }

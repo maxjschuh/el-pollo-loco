@@ -173,7 +173,7 @@ function terminate() {
 function renderVictoryScreen() {
 
     document.getElementById('game-won-statistics-coins').innerHTML = /*html*/ `
-    Collected coins: ${world.character.collectedCoins} out of ${world.character.coinsToCollect}
+    You collected ${world.character.collectedCoins} out of ${world.character.coinsToCollect} coins!
     `;
 }
 
