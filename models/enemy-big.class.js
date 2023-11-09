@@ -16,10 +16,10 @@ class EnemyBig extends Enemy {
         this.loadImages(this.IMAGES_WALK);
         this.loadImages(this.IMAGES_DEAD);
 
-        this.x = Math.random() * 5000 + 200;
+        this.x = Math.random() * 4800 + 400;
         this.y = 280;
         this.groundLevel = 280;
-        this.speed = 0.15 + Math.random() * 0.25;
+        this.speedX = 8 + Math.random() * 8;
         this.animate();
     }
 }

@@ -33,6 +33,13 @@ function hideElements(elements) {
     });
 }
 
+function showElements(elements) {
+
+    elements.forEach(element => {
+        document.getElementById(element).classList.remove('d-none');
+    });
+}
+
 function toggleHelpOverlay() {
 
     document.getElementById('help-overlay').classList.toggle('d-none');
@@ -45,12 +52,12 @@ function toggleHelpOverlay() {
 
 function toggleImprintOverlay() {
 
+    document.getElementById('help-overlay').classList.add('d-none');
+    document.getElementById('button-show-help').classList.remove('d-none');
+    document.getElementById('button-hide-help').classList.add('d-none');
     document.getElementById('imprint-overlay').classList.toggle('d-none');
     document.getElementById('button-show-imprint').classList.toggle('d-none');
     document.getElementById('button-hide-imprint').classList.toggle('d-none');
-    document.getElementById('button-hide-help').classList.add('d-none');
-    document.getElementById('button-show-help').classList.remove('d-none');
-    document.getElementById('help-overlay').classList.add('d-none');
 }
 
 function createTouchListeners() {

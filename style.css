@@ -212,6 +212,7 @@ canvas {
     justify-content: center;
     font-size: 48px;
     background-color: rgba(0, 0, 0, 0.3);
+    color: #FEAC00;
 }
 
 .overlay {
@@ -226,6 +227,7 @@ canvas {
 
 #game-won-statistics-coins {
     font-size: 24px;
+    color: black;
 }
 
 @media only screen and (max-width: 720px) {

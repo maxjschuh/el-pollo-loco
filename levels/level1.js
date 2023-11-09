@@ -11,9 +11,9 @@ function initLevel() {
             new EnemyBig(),
             new EnemySmall(),
             new EnemyBig(),
-            new EnemyBig(),
-            new Endboss()
+            new EnemyBig()
         ],
+            new Endboss(),
         [
             new Clouds(0),
             new Clouds(1),

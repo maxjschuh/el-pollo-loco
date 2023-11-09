@@ -92,7 +92,7 @@ class Endboss extends MovableObject {
 
             if (this.isDead()) {
                 clearInterval(attackInterval);
-                this.speed = 0;
+                this.speedX = 0;
             }
 
         }, 1000 / 30);

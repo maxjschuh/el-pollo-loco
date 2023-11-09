@@ -28,26 +28,34 @@ class World {
         addInterval(this.run, 1000 / 60);
         addInterval(() => {
 
-            // if (this.deathAnimationFrameCount > 5) {
-            //     this.stopAllIntervals();
-            // }
-    
             if (this.game_over) return;
-    
+
             if (world.character.energy == 0) {
-    
+
                 this.game_over = true;
-    
-                world.playDeathAnimation();            
-    
+
+                world.playDeathAnimation();
+
                 setTimeout(() => {
+
+                    hideElements([
+                        'help-overlay',
+                        'button-hide-help',
+                        'imprint-overlay',
+                        'button-hide-imprint'               
+                    ]);
+
+                    showElements([
+                        'button-show-help',
+                        'button-show-imprint'
+                    ]);
 
                     document.getElementById('game-over-img').classList.remove('d-none');
                     document.getElementById('button-try-again').classList.remove('d-none');
 
                 }, 3000);
             }
-            
+
         }, 1000 / 60);
     }
 
@@ -64,7 +72,23 @@ class World {
     }
 
     run() {
-        world.checkCollisions();
+
+        if (world.character.energy == 0 || level1.endboss.energy == 0) {
+            return;
+        }
+
+        level1.enemies.forEach((enemy) => {
+
+            world.checkCollision(enemy);
+            enemy.saveCharacterAbove();
+
+        });
+
+        world.checkCollision(level1.endboss);
+        world.checkBottleHits(level1.endboss);
+
+
+        world.checkCollectables();
         world.checkThrowableObjects();
     }
 
@@ -83,54 +107,45 @@ class World {
         this.keyboard.D = false;
     }
 
-    checkCollisions() {
+    checkCollision(enemy) {
 
-        this.level.enemies.forEach((enemy) => {
+        if (enemy.dead || enemy.energy <= 0) {
+            return;
+        }
 
-            if (enemy.dead) {
-                return;
+        if (enemy.characterIsAbove && this.character.isColliding(enemy)) {
+            this.character.stomp_sound.volume = 0.3;
+            this.character.stomp_sound.play();
+            enemy.dead = true;
+            this.character.jump();
+            setTimeout(() => {
+                enemy.groundLevel = 1000;
+            }, 500);
+
+        } else if (this.character.isColliding(enemy)) {
+
+            if (!this.character.lastHit) {
+                this.character.hit();
+                this.character.hurt = true;
+                this.character.lastHit = new Date().getTime();
+                this.healthBar.setFilling(this.character.energy, this.healthBar.IMAGES);
             }
 
-            if (enemy.characterIsAbove && this.character.isColliding(enemy)) {
-                this.character.stomp_sound.volume = 0.3;
-                this.character.stomp_sound.play();
-                enemy.dead = true;
-                this.character.jump();
-                setTimeout(() => {
-                    enemy.groundLevel = 1000;
-                }, 500);
+            if (this.character.isHurt(this.character.lastHit)) {
 
-            } else if (this.character.isColliding(enemy)) {
-
-                if (!this.character.lastHit) {
-                    this.character.hit();
-                    this.character.hurt = true;
-                    this.character.lastHit = new Date().getTime();
-                    this.healthBar.setFilling(this.character.energy, this.healthBar.IMAGES);
-                }
-
-                if (this.character.isHurt(this.character.lastHit)) {
-
-                    this.character.hit();
-                    this.character.hurt = true;
-                    this.character.lastHit = new Date().getTime();
-                    this.healthBar.setFilling(this.character.energy, this.healthBar.IMAGES);
-                }
+                this.character.hit();
+                this.character.hurt = true;
+                this.character.lastHit = new Date().getTime();
+                this.healthBar.setFilling(this.character.energy, this.healthBar.IMAGES);
             }
-
-
-            if (enemy instanceof Enemy) {
-                enemy.saveCharacterAbove();
-            }
-
-            if (enemy instanceof Endboss) {
-                this.checkBottleHits(enemy);
-            }
-
-            this.checkCollectables();
-        });
-
+        }
     }
+
+
+
+
+
+
 
     checkCollectables() {
 
@@ -206,6 +221,7 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
+        this.addToMap(this.level.endboss);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.throwableObjects);
@@ -260,10 +276,10 @@ class World {
 
         this.stopAllIntervals();
 
-        addInterval( () => {
+        addInterval(() => {
 
             if (this.deathAnimationFrameCount < 6) {
-                
+
                 this.character.playAnimation(world.character.IMAGES_DEAD, 'dead');
                 this.deathAnimationFrameCount++;
             }
