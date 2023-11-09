@@ -24,7 +24,7 @@ class Coin extends Collectable {
 
     getRandomValueY() {
 
-        return this.random ** 2 * 200 + 50;
+        return this.random * 200 + 50;
     }
 
     animate() {

@@ -96,6 +96,9 @@ class World {
                 this.character.stomp_sound.play();
                 enemy.dead = true;
                 this.character.jump();
+                setTimeout(() => {
+                    enemy.groundLevel = 1000;
+                }, 500);
 
             } else if (this.character.isColliding(enemy)) {
 

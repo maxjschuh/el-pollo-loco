@@ -2,7 +2,6 @@ class Endboss extends MovableObject {
 
     height = 520;
     width = 608;
-    groundLevel = -50;
     animationSequence;
 
 
@@ -78,6 +77,7 @@ class Endboss extends MovableObject {
             top: 100,
             bottom: 20
         };
+        this.groundLevel = -50;
         this.run();
         this.applyGravity();
         this.hurt_sound.volume = 0.7;
@@ -106,7 +106,6 @@ class Endboss extends MovableObject {
             } else {
                 timer++;
             }
-            console.log(timer)
 
         }, 1000);
     }
@@ -123,15 +122,15 @@ class Endboss extends MovableObject {
 
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD, 'dead');
+                this.previousAnimation = 'dead';
                 setTimeout(() => {
-                    this.acceleration = 0.1;
                     this.groundLevel = 2000;
-                }, 20000);
+                }, 2000);
 
-                // setTimeout(() => {
-                //     world.stopAllIntervals();
-                //     this.showVictoryScreen();
-                // }, 3000);
+                setTimeout(() => {
+                    world.stopAllIntervals();
+                    this.showVictoryScreen();
+                }, 3000);
 
             } else if (!this.isHurt(this.lastHit) && this.lastHit) {
                 this.playAnimation(this.IMAGES_HURT, 'hurt');

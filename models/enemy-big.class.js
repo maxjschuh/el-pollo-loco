@@ -13,12 +13,12 @@ class EnemyBig extends Enemy {
     constructor() {
         super();
         this.loadImage(this.IMAGES_WALK[0]);
-
         this.loadImages(this.IMAGES_WALK);
         this.loadImages(this.IMAGES_DEAD);
 
         this.x = Math.random() * 5000 + 200;
         this.y = 280;
+        this.groundLevel = 280;
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
     }

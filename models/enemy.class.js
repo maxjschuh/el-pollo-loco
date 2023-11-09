@@ -14,6 +14,7 @@ class Enemy extends MovableObject {
             top: 10,
             bottom: 10
         };
+        this.applyGravity();
     }
 
     animate() {

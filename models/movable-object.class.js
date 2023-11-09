@@ -13,6 +13,7 @@ class MovableObject extends DrawableObject {
         top: 0,
         bottom: 0
     };
+    groundLevel;
 
     moveRight(speedX) {
         this.x += speedX;

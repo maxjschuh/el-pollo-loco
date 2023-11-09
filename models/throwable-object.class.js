@@ -24,7 +24,7 @@ class ThrowableObject extends MovableObject {
         this.x = 100;
         this.height = 80;
         this.width = 80;
-        this.speedX = 12;
+        this.speedX = 8;
         this.offset = {
             left: 10,
             right: 10,
