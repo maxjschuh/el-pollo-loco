@@ -10,6 +10,7 @@ class World {
     throwableObjects = [];
     game_over;
     game_won;
+    game_over_sound = new Audio('./audio/game_over_sound.m4a');
     deathAnimationFrameCount = 0;
 
     canvas;
@@ -36,19 +37,25 @@ class World {
 
                 world.playDeathAnimation();
 
+
+
                 setTimeout(() => {
+
+                    this.game_over_sound.play();
+
 
                     hideElements([
                         'help-overlay',
                         'button-hide-help',
                         'imprint-overlay',
-                        'button-hide-imprint'               
+                        'button-hide-imprint'
                     ]);
 
                     showElements([
                         'button-show-help',
                         'button-show-imprint'
                     ]);
+
 
                     document.getElementById('game-over-img').classList.remove('d-none');
                     document.getElementById('button-try-again').classList.remove('d-none');
@@ -189,7 +196,9 @@ class World {
 
         this.throwableObjects.forEach(bottle => {
 
-            if (enemy.isColliding(bottle)) {
+            if (enemy.isColliding(bottle) && !bottle.enemy_hit) {
+
+                bottle.enemy_hit = true;
 
                 if (!enemy.lastHit) {
                     enemy.hit();
@@ -205,8 +214,17 @@ class World {
                 }
 
                 addInterval(() => {
-                    bottle.playAnimation(bottle.IMAGES_SPLASH);
+                    bottle.playAnimation(bottle.IMAGES_SPLASH, 'splash');
+                    bottle.previousAnimation = 'splash';
+                    bottle.acceleration = 0;
+                    bottle.speedY = 0;
+                    bottle.speedX = 0;
                 }, 80);
+
+                setTimeout(() => {
+                    const index = this.throwableObjects.indexOf(bottle);
+                    this.throwableObjects.splice(index, 1);
+                }, 3000);
 
             }
         });

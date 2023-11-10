@@ -3,6 +3,7 @@ class Endboss extends MovableObject {
     height = 520;
     width = 608;
     animationSequence;
+    game_won_sound = new Audio('./audio/game_won_sound.wav');
 
 
     IMAGES_WALK = [ //animationSequence = 'walk'
@@ -125,9 +126,12 @@ class Endboss extends MovableObject {
                 this.previousAnimation = 'dead';
                 setTimeout(() => {
                     this.groundLevel = 2000;
+                    this.game_won_sound.play();
+
                 }, 2000);
 
                 setTimeout(() => {
+
                     world.stopAllIntervals();
                     this.showVictoryScreen();
                 }, 3000);

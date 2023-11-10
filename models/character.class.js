@@ -58,8 +58,6 @@ class Character extends MovableObject {
     ];
 
     IMAGES_JUMP = [
-        './img/2_character_pepe/3_jump/J-31.png',
-        './img/2_character_pepe/3_jump/J-32.png',
         './img/2_character_pepe/3_jump/J-33.png',
         './img/2_character_pepe/3_jump/J-34.png',
         './img/2_character_pepe/3_jump/J-35.png',
@@ -84,6 +82,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_JUMP);
+        this.walking_sound.volume = 0.7;
         this.offset = {
             left: 20,
             right: 20,
