@@ -71,8 +71,18 @@ class MovableObject extends DrawableObject {
         return timePassed > 0.5;
     }
 
-    die(mo) {
-        mo.img = mo.IMAGES_DEAD;
+    kill() {
+        this.dead = true;
+        setTimeout(() => {
+            this.groundLevel = 1000;
+        }, 500);
+    }
+
+    stompKill() {
+
+        this.kill();
+        world.character.stomp_sound.play();
+        world.character.jump();
     }
 
     jump() {

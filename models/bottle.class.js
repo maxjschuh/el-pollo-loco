@@ -11,7 +11,7 @@ class Bottle extends Collectable {
         this.y = 350; 
         this.height = 80;
         this.width = 80;
-        this.x = this.getRandomValueX();
+        this.x = this.getRandomValueX(level_end_x);
         this.offset = {
             left: 25,
             right: 25,

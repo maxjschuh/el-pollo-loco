@@ -3,25 +3,45 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 
-function init() {
+window.addEventListener('keyup', (e) => {
 
-    canvas = document.getElementById('canvas');
-}
+    e = e || window.event;
+
+    if (e.keyCode == 37) keyboard.LEFT = false;
+
+    if (e.keyCode == 39) keyboard.RIGHT = false;
+
+    if (e.keyCode == 32) keyboard.SPACE = false;
+});
+
+window.addEventListener('keydown', (e) => {
+
+    e = e || window.event;
+
+    if (e.keyCode == 37) keyboard.LEFT = true;
+
+    if (e.keyCode == 39) keyboard.RIGHT = true;
+
+    if (e.keyCode == 32) keyboard.SPACE = true;
+
+    if (e.keyCode == 68) keyboard.D = true;
+});
 
 function startGame() {
 
+    canvas = document.getElementById('canvas');
     initLevel();
 
     world = new World(canvas, keyboard);
-    createTouchListeners();
-    createClickListeners();
+
+    createEventListeners();
 
     hideElements([
-        'button-start', 
-        'startscreen', 
-        'endscreen-game-won', 
-        'button-try-again', 
-        'game-over-img', 
+        'button-start',
+        'startscreen',
+        'endscreen-game-won',
+        'button-try-again',
+        'game-over-img',
         'button-try-again'
     ]);
 }
@@ -60,121 +80,40 @@ function toggleImprintOverlay() {
     document.getElementById('button-hide-imprint').classList.toggle('d-none');
 }
 
-function createTouchListeners() {
+function createEventListeners() {
 
-    document.getElementById('button-left').addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        keyboard.LEFT = true;
-    });
+    const keys = ['left', 'right', 'space', 'd'];
+    keys.forEach(key => addEventsOnButton(key));
 
-    document.getElementById('button-left').addEventListener('touchend', (e) => {
-        e.preventDefault();
-        keyboard.LEFT = false;
-    });
-
-    document.getElementById('button-right').addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        keyboard.RIGHT = true;
-    });
-
-    document.getElementById('button-right').addEventListener('touchend', (e) => {
-        e.preventDefault();
-        keyboard.RIGHT = false;
-    });
-
-    document.getElementById('button-jump').addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        keyboard.SPACE = true;
-    });
-
-    document.getElementById('button-jump').addEventListener('touchend', (e) => {
-        e.preventDefault();
-        keyboard.SPACE = false;
-    });
-
-    document.getElementById('button-throw').addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        keyboard.D = true;
-    });
-
-    document.getElementById('button-throw').addEventListener('touchend', (e) => {
-        e.preventDefault();
-        keyboard.D = false;
-    });
+    addEventsOnWindow();   
 }
 
-function createClickListeners() {
+function addEventsOnButton(key) {
 
-    document.getElementById('button-left').addEventListener('mousedown', (e) => {
-        e.preventDefault();
-        keyboard.LEFT = true;
-    });
+    const events = ['mousedown', 'touchstart'];
 
-    document.getElementById('button-right').addEventListener('mousedown', (e) => {
-        e.preventDefault();
-        keyboard.RIGHT = true;
-    });
+    for (let i = 0; i < events.length; i++) {
+        const event = events[i];
 
-    document.getElementById('button-jump').addEventListener('mousedown', (e) => {
-        e.preventDefault();
-        keyboard.SPACE = true;
-    });
+        document.getElementById('button-' + key).addEventListener(event, (e) => {
 
-    document.getElementById('button-throw').addEventListener('mousedown', (e) => {
-        e.preventDefault();
-        keyboard.D = true;
-    });
-
-    window.addEventListener('mouseup', (e) => {
-        e.preventDefault();
-        keyboard.LEFT = false;
-        keyboard.RIGHT = false;
-        keyboard.SPACE = false;
-        keyboard.D = false;
-    });
+            e.preventDefault();
+            keyboard[key.toUpperCase()] = true;
+        });
+    }
 }
 
-window.addEventListener('keyup', (e) => {
+function addEventsOnWindow() {
 
-    e = e || window.event;
+    const events = ['mouseup', 'touchend'];
 
-    if (e.keyCode == 37) {
-        keyboard.LEFT = false;
-    }
+    events.forEach((event) => {
 
-    if (e.keyCode == 39) {
-        keyboard.RIGHT = false;
-    }
-
-    if (e.keyCode == 32) {
-        keyboard.SPACE = false;
-    }
-});
-
-window.addEventListener('keydown', (e) => {
-
-    e = e || window.event;
-
-    if (e.keyCode == 37) {
-        keyboard.LEFT = true;
-    }
-
-    if (e.keyCode == 39) {
-        keyboard.RIGHT = true;
-    }
-
-    if (e.keyCode == 32) {
-        keyboard.SPACE = true;
-    }
-
-    if (e.keyCode == 68) {
-        keyboard.D = true;
-    }
-});
-
-function terminate() {
-
-    world = undefined;
+        window.addEventListener(event, (e) => {
+            e.preventDefault();
+            for (i in keyboard) keyboard[i] = false;
+        });
+    })
 }
 
 function renderVictoryScreen() {

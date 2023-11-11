@@ -1,7 +1,6 @@
 class Enemy extends MovableObject {
 
     characterIsAbove;
-    world;
     dead;
 
     constructor() {
@@ -34,6 +33,6 @@ class Enemy extends MovableObject {
     }
 
     saveCharacterAbove() {
-        this.characterIsAbove = this.y + this.offset.top > (this.world.character.y + this.world.character.height - this.world.character.offset.bottom);
+        this.characterIsAbove = this.y + this.offset.top > (world.character.y + world.character.height - world.character.offset.bottom);
     }
 }

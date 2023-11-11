@@ -24,7 +24,6 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.setWorld();
         this.draw();
         addInterval(this.run, 1000 / 60);
         addInterval(() => {
@@ -66,33 +65,22 @@ class World {
         }, 1000 / 60);
     }
 
-    setWorld() {
-        this.character.world = this;
-
-        this.level.enemies.forEach(enemy => {
-            enemy.world = this;
-        });
-
-        this.level.bottles.forEach(bottle => {
-            bottle.world = this;
-        });
-    }
-
     run() {
 
-        if (world.character.energy == 0 || level1.endboss.energy == 0) {
+        if (world.character.energy == 0 || world.level.endboss.energy == 0) {
             return;
         }
 
-        level1.enemies.forEach((enemy) => {
+        world.level.enemies.forEach((enemy) => {
 
             world.checkCollision(enemy);
+            world.checkBottleHits(enemy);
             enemy.saveCharacterAbove();
 
         });
 
-        world.checkCollision(level1.endboss);
-        world.checkBottleHits(level1.endboss);
+        world.checkCollision(world.level.endboss);
+        world.checkBottleHits(world.level.endboss);
 
 
         world.checkCollectables();
@@ -121,13 +109,8 @@ class World {
         }
 
         if (enemy.characterIsAbove && this.character.isColliding(enemy)) {
-            this.character.stomp_sound.volume = 0.3;
-            this.character.stomp_sound.play();
-            enemy.dead = true;
-            this.character.jump();
-            setTimeout(() => {
-                enemy.groundLevel = 1000;
-            }, 500);
+
+            enemy.stompKill();
 
         } else if (this.character.isColliding(enemy)) {
 
@@ -147,12 +130,6 @@ class World {
             }
         }
     }
-
-
-
-
-
-
 
     checkCollectables() {
 
@@ -192,6 +169,8 @@ class World {
         });
     }
 
+
+
     checkBottleHits(enemy) {
 
         this.throwableObjects.forEach(bottle => {
@@ -199,19 +178,6 @@ class World {
             if (enemy.isColliding(bottle) && !bottle.enemy_hit) {
 
                 bottle.enemy_hit = true;
-
-                if (!enemy.lastHit) {
-                    enemy.hit();
-                    enemy.lastHit = new Date().getTime();
-                    this.endbossBar.setFilling(enemy.energy, this.endbossBar.IMAGES);
-                }
-
-                if (enemy.isHurt(enemy.lastHit)) {
-
-                    enemy.hit();
-                    enemy.lastHit = new Date().getTime();
-                    this.endbossBar.setFilling(enemy.energy, this.endbossBar.IMAGES);
-                }
 
                 addInterval(() => {
                     bottle.playAnimation(bottle.IMAGES_SPLASH, 'splash');
@@ -224,7 +190,20 @@ class World {
                 setTimeout(() => {
                     const index = this.throwableObjects.indexOf(bottle);
                     this.throwableObjects.splice(index, 1);
-                }, 3000);
+                }, 1000);
+
+                if (enemy instanceof Endboss) {
+                    
+                    if (enemy.isHurt(enemy.lastHit) || !enemy.lastHi) {
+                        enemy.hit();
+                        enemy.lastHit = new Date().getTime();
+                        this.endbossBar.setFilling(enemy.energy, this.endbossBar.IMAGES);
+                    }
+
+                } else  {
+                    
+                    enemy.kill();
+                }
 
             }
         });

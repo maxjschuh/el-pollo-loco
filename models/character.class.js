@@ -67,8 +67,6 @@ class Character extends MovableObject {
         './img/2_character_pepe/3_jump/J-39.png'
     ];
 
-    world;
-
     walking_sound = new Audio('./audio/walk.mp3');
     hurt_sound = new Audio('./audio/player_hurt.mp3');
     stomp_sound = new Audio('./audio/stomped.mp3');
@@ -83,6 +81,8 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_JUMP);
         this.walking_sound.volume = 0.7;
+        this.stomp_sound.volume = 0.3;
+
         this.offset = {
             left: 20,
             right: 20,
@@ -98,7 +98,7 @@ class Character extends MovableObject {
 
         addInterval(() => {
 
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            if (world.keyboard.RIGHT && this.x < world.level.level_end_x) {
                 this.moveRight(this.speedX);
                 this.mirrored = false;
 
@@ -107,7 +107,7 @@ class Character extends MovableObject {
                 }
             }
 
-            if (this.world.keyboard.LEFT && this.x > 0) {
+            if (world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft(this.speedX);
                 this.mirrored = true;
 
@@ -116,12 +116,12 @@ class Character extends MovableObject {
                 }
             }
 
-            if (this.world.keyboard.SPACE && this.y > 270) {
+            if (world.keyboard.SPACE && this.y > 270) {
                 this.jump_sound.play();
                 this.jump();
             }
 
-            this.world.camera_x = -this.x + 100;
+            world.camera_x = -this.x + 100;
 
         }, 1000 / 60);
 
@@ -142,7 +142,7 @@ class Character extends MovableObject {
                 this.lastEvent = new Date().getTime();
                 this.previousAnimation = 'jump';
 
-            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            } else if (world.keyboard.RIGHT || world.keyboard.LEFT) {
                 this.playAnimation(this.IMAGES_WALK, 'walk');
                 this.lastEvent = new Date().getTime();
                 this.previousAnimation = 'walk';
