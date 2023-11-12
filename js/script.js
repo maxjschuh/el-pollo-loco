@@ -134,3 +134,18 @@ function addInterval(fn, delay) {
     intervalIds.push(id);
     return id;
 }
+
+function muteMusic(musicEnabled) {
+
+    if (musicEnabled) {
+        world.musicEnabled = true;
+
+    } else {
+        world.musicEnabled = false;
+
+    }
+    world.bossfight_sound.pause();
+    world.desert_sound.pause();
+
+    world.bossfight_sound.play()
+}

@@ -60,14 +60,21 @@ class ThrowableObject extends MovableObject {
             }, 1000 / 60);
         }
 
+        let frameCount = 0;
+
 
         addInterval(() => {
+            if (frameCount == 6) return;
+
             if (this.enemy_hit) {
 
                 this.playAnimation(this.IMAGES_SPLASH, 'splash');
                 this.previousAnimation = 'splash';
+                frameCount++;
 
-            } else this.playAnimation(this.IMAGES);
+            } else {
+                this.playAnimation(this.IMAGES);
+            }
 
         }, 80);
     }

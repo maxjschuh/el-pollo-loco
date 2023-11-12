@@ -72,10 +72,10 @@ class Endboss extends MovableObject {
         this.x = 5000;
         this.y = -50;
         this.offset = {
-            left: 50,
+            left: 90,
             right: 25,
-            top: 100,
-            bottom: 20
+            top: 120,
+            bottom: 30
         };
         this.groundLevel = -50;
         this.run();

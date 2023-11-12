@@ -11,6 +11,11 @@ class World {
     game_over;
     game_won;
     game_over_sound = new Audio('./audio/game_over_sound.m4a');
+    bossfight_sound = new Audio('./audio/bossfight.wav');
+    desert_sound = new Audio('./audio/desert_ambient.wav');
+    musicEnabled = true;
+    currentTrack;
+
     deathAnimationFrameCount = 0;
 
     canvas;
@@ -25,6 +30,11 @@ class World {
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.draw();
+        this.bossfight_sound.volume = 0.5;
+        this.desert_sound.loop = true;
+        this.bossfight_sound.loop = true;
+        this.desert_sound.play();
+
         addInterval(this.run, 1000 / 60);
         addInterval(() => {
 
@@ -69,8 +79,11 @@ class World {
     run() {
 
         if (world.character.energy == 0 || world.level.endboss.energy == 0) {
+            world.muteMusic();
             return;
         }
+
+        world.playMusic();
 
         world.level.enemies.forEach((enemy) => {
 
@@ -86,6 +99,26 @@ class World {
 
         world.checkCollectables();
         world.checkThrowableObjects();
+    }
+
+    async muteMusic() {
+        await world.bossfight_sound.pause();
+        await world.desert_sound.pause();
+    }
+
+    playMusic() {
+
+        if (!world.musicEnabled) world.muteMusic();
+
+        else if (world.currentTrack == 'bossfight') world.bossfight_sound.play();
+
+        else if (world.character.x > 4500) {
+            world.currentTrack = 'bossfight';
+            world.desert_sound.pause();
+            world.bossfight_sound.play()
+            
+        } else world.desert_sound.play();
+
     }
 
     stopAllIntervals() {
@@ -269,6 +302,7 @@ class World {
 
     playDeathAnimation() {
 
+        world.muteMusic();
         this.stopAllIntervals();
 
         addInterval(() => {
