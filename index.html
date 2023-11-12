@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de" translate="no" class="bg-img">
+<html lang="de" translate="no">
 
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,8 @@
     <title>El Pollo Loco</title>
 
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style2.css">
+
     <link rel="shortcut icon" href="./img/3_enemies_chicken/chicken_normal/1_walk/2_w.png" type="image/x-icon">
 
     <script src="./models/drawable-object.class.js"></script>
@@ -39,11 +41,18 @@
 
 <body>
 
-    <div class="pos-relative">
+    <main>
 
-        <canvas id="canvas" width="720" height="480">
+        <canvas id="canvas" width="720" height="480"></canvas>
 
-        </canvas>
+        <img id="startscreen" src="./img/9_intro_outro_screens/start/startscreen_1.png" alt="" class="overlay d-none">
+
+        <div id="button-start">
+            <div onclick="startGame()" class="button">
+                <span>START</span>
+                <img src="./img/10_additional/Bar_002.png" alt="">
+            </div>
+        </div>
 
         <div id="hud-top">
 
@@ -114,15 +123,6 @@
 
         </div>
 
-        <img id="startscreen" src="./img/9_intro_outro_screens/start/startscreen_1.png" alt="">
-
-        <div id="button-start" class="centered-buttons">
-            <div onclick="startGame()">
-                <div>START</div>
-                <img src="./img/10_additional/Bar_002.png" alt="">
-            </div>
-        </div>
-
         <img id="game-over-img" class="endscreen d-none" src="./img/9_intro_outro_screens/game_over/game over.png"
             alt="">
 
@@ -141,7 +141,7 @@
 
 
 
-    </div>
+    </main>
 
 </body>
 

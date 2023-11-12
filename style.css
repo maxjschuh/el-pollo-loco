@@ -1,3 +1,6 @@
+/*-------------
+fonts
+-------------*/
 @font-face {
     font-family: Rio Grande;
     src: url('./fonts/RioGrande.ttf');
@@ -8,6 +11,9 @@
     src: url('./fonts/Roboto-Regular.ttf');
 }
 
+/*-------------
+imprint-pages
+-------------*/
 .imprint {
     font-family: 'Roboto';
     display: block;
@@ -22,49 +28,12 @@
     color: unset;
 }
 
+
+/*-------------
+js utilities
+-------------*/
 .d-none {
     display: none !important;
-}
-
-.bg-img {
-    background: url('./img/10_additional/6zif_0t9r_210426_generated.png') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    font-family: 'Rio Grande';
-    margin: 0;
-}
-
-h1 {
-    font-family: 'Rio Grande', serif;
-    text-shadow: 4px 2px 2px rgba(0, 0, 0, 0.3);
-}
-
-canvas {
-    background-color: white;
-    display: block;
-}
-
-.hud-button {
-    width: 40px;
-}
-
-.hud-button:hover {
-    filter: brightness(80%);
-    cursor: pointer;
-}
-
-.hud-button:active {
-    filter: brightness(60%);
 }
 
 .mirrored {
@@ -72,29 +41,65 @@ canvas {
     transform: scaleX(-1);
 }
 
-.flex-row {
+
+/*-------------
+individual elements top -> down
+-------------*/
+body {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    font-family: 'Rio Grande';
+    margin: 0;
+
+    background: url('./img/10_additional/6zif_0t9r_210426_generated.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
-.help-img {
-    height: 60px;
-}
-
-.pos-relative {
+main {
     position: relative;
     height: 480px;
+    width: 720px;
 }
 
-.centered {
+canvas {
+    background-color: white;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+#startscreen {
+    z-index: 12;
+}
+
+#button-start {
+    z-index: 13;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size: 24px;
+    display: flex;
     justify-content: center;
+    padding-bottom: 8px;
 }
 
-.gap-32 {
-    gap: 32px;
+#button-start div {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.text-centered {
-    text-align: center;
+#button-start div span {
+    position: absolute;
 }
 
 #hud-top {
@@ -116,14 +121,7 @@ canvas {
     z-index: 10;
 }
 
-#startscreen {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 720px;
-    height: 480px;
-    z-index: 12;
-}
+
 
 #imprint-overlay {
     z-index: 3;
@@ -131,12 +129,7 @@ canvas {
     padding-top: 130px;
 }
 
-#button-start {
-    z-index: 13;
-    bottom: 0;
-    height: 75px;
-    font-size: 24px;
-}
+
 
 #button-try-again {
     z-index: 16;
@@ -145,35 +138,51 @@ canvas {
     font-size: 24px;
 }
 
-.centered-buttons {
-    position: absolute;
-    left: 0;
-    right: 0;
+#endscreen-game-won {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    gap: 16px;
+    justify-content: center;
+    font-size: 48px;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #FEAC00;
 }
 
-.centered-buttons img {
-    width: 120px;
+
+
+
+
+
+/*-------------
+non-positioning-properties
+-------------*/
+
+h1 {
+    font-family: 'Rio Grande', serif;
+    text-shadow: 4px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
-.centered-buttons div {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
+
+
+#game-won-statistics-coins {
+    font-size: 24px;
+    color: black;
 }
 
-.centered-buttons a {
-    color: unset;
-    text-decoration: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+
+
+
+/*-------------
+interactivity
+-------------*/
+
+.hud-button:hover {
+    filter: brightness(80%);
+    cursor: pointer;
+}
+
+.hud-button:active {
+    filter: brightness(60%);
 }
 
 .centered-buttons div:hover {
@@ -192,96 +201,4 @@ canvas {
 
 .centered-buttons a:active {
     filter: brightness(60%);
-}
-
-.endscreen {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 720px;
-    height: 480px;
-    z-index: 14;
-}
-
-#endscreen-game-won {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 48px;
-    background-color: rgba(0, 0, 0, 0.3);
-    color: #FEAC00;
-}
-
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding-top: 100px;
-    background-color: rgba(0, 0, 0, 0.3);
-}
-
-#game-won-statistics-coins {
-    font-size: 24px;
-    color: black;
-}
-
-@media only screen and (max-width: 720px) {
-
-    canvas {
-        width: 100%;
-    }
-
-    .hud-button {
-        width: 6vw;
-    }
-
-    .centered-buttons img {
-        width: 17vw;
-    }
-
-    .help-img {
-        height: 8vw;
-    }
-
-    .overlay {
-        padding-top: 14vw;
-    }
-
-    #imprint-overlay {
-        padding-top: 14vw;
-    }
-
-    #button-start {
-        font-size: 4vw;
-    }
-
-    .centered-buttons div {
-        font-size: 2vw;
-    }
-
-    .pos-relative {
-        width: 100%;
-        height: 67vw;
-    }
-
-    .endscreen {
-        width: 100%;
-        height: 67vw;
-    }
-}
-
-@media only screen and (max-height: 480px) {
-
-    canvas {
-        height: 100vh;
-    }
-
-    .pos-relative {
-        height: 100vh;
-    }
 }

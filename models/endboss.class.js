@@ -59,7 +59,6 @@ class Endboss extends MovableObject {
 
     hurt_sound = new Audio('./audio/boss_hurt.mp3');
     attack_sound = new Audio('./audio/boss_attack.mp3');
-    bottle_hit_sound = new Audio('./audio/bottle_hit.mp3');
 
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);
@@ -81,7 +80,7 @@ class Endboss extends MovableObject {
         this.groundLevel = -50;
         this.run();
         this.applyGravity();
-        this.hurt_sound.volume = 0.7;
+        this.hurt_sound.volume = 0.5;
     }
 
     run() {
@@ -138,10 +137,6 @@ class Endboss extends MovableObject {
 
             } else if (!this.isHurt(this.lastHit) && this.lastHit) {
                 this.playAnimation(this.IMAGES_HURT, 'hurt');
-                this.bottle_hit_sound.volume = 0.3;
-                this.hurt_sound.volume = 0.5;
-                this.bottle_hit_sound.play();
-                this.hurt_sound.play();
                 this.previousAnimation = 'hurt';
 
             } else if (this.animationSequence == 'attack') {

@@ -178,14 +178,11 @@ class World {
             if (enemy.isColliding(bottle) && !bottle.enemy_hit) {
 
                 bottle.enemy_hit = true;
+                bottle.hit_sound.play();
+                bottle.acceleration = 0;
+                bottle.speedY = 0;
+                bottle.speedX = 0;
 
-                addInterval(() => {
-                    bottle.playAnimation(bottle.IMAGES_SPLASH, 'splash');
-                    bottle.previousAnimation = 'splash';
-                    bottle.acceleration = 0;
-                    bottle.speedY = 0;
-                    bottle.speedX = 0;
-                }, 80);
 
                 setTimeout(() => {
                     const index = this.throwableObjects.indexOf(bottle);

@@ -17,6 +17,7 @@ class ThrowableObject extends MovableObject {
     ];
 
     throw_sound = new Audio('./audio/throw.mp3');
+    hit_sound = new Audio('./audio/bottle_hit.mp3');
     enemy_hit = false;
 
     constructor(x, y) {
@@ -32,6 +33,7 @@ class ThrowableObject extends MovableObject {
             top: 10,
             bottom: 10
         };
+        this.hit_sound.volume = 0.3;
 
         this.throw_sound.play();
         this.loadImage(this.IMAGES[0]);
@@ -45,7 +47,7 @@ class ThrowableObject extends MovableObject {
 
         if (world.keyboard.LEFT || world.keyboard.RIGHT) {
             this.speedX += world.character.speedX;
-        } 
+        }
 
         if (world.character.mirrored) {
             addInterval(() => {
@@ -60,9 +62,13 @@ class ThrowableObject extends MovableObject {
 
 
         addInterval(() => {
-            if (!this.enemy_hit) {
-                this.playAnimation(this.IMAGES);
-            }
+            if (this.enemy_hit) {
+
+                this.playAnimation(this.IMAGES_SPLASH, 'splash');
+                this.previousAnimation = 'splash';
+
+            } else this.playAnimation(this.IMAGES);
+
         }, 80);
     }
 

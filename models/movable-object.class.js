@@ -57,6 +57,7 @@ class MovableObject extends DrawableObject {
     }
 
     hit() {
+        this.hurt_sound.play();
         this.energy -= 20;
         if (this.energy < 0) {
             this.energy = 0;
@@ -68,7 +69,7 @@ class MovableObject extends DrawableObject {
         let timePassed = new Date().getTime() - hitTime; // Difference in ms
         timePassed = timePassed / 1000;
 
-        return timePassed > 0.5;
+        return timePassed > 0.8;
     }
 
     kill() {
