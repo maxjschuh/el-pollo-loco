@@ -49,7 +49,7 @@
 
         <div id="button-start">
             <div onclick="startGame()" class="button">
-                <span>START</span>
+                <span id="button-start-label" class="pos-absolute">START</span>
                 <img src="./img/10_additional/Bar_002.png" alt="">
             </div>
         </div>
@@ -80,7 +80,7 @@
             </div>
         </div>
 
-        <div id="help-overlay" class="overlay d-none">
+        <div id="help-overlay" class="overlay bg-darkened d-none">
 
             <div class="flex-row centered gap-32">
                 <div>
@@ -109,15 +109,15 @@
 
         </div>
 
-        <div id="imprint-overlay" class="overlay centered-buttons d-none">
+        <div id="imprint-overlay" class="overlay bg-darkened d-none">
 
-            <a href="./imprint.html">
-                <div>IMPRESSUM</div>
+            <a href="./imprint.html" class="button">
+                <span class="pos-absolute">IMPRESSUM</span>
                 <img src="./img/10_additional/Bar_002.png" alt="">
             </a>
 
-            <a href="./data-protection.html">
-                <div>DATENSCHUTZ</div>
+            <a href="./data-protection.html" class="button">
+                <span class="pos-absolute">DATENSCHUTZ</span>
                 <img src="./img/10_additional/Bar_002.png" alt="">
             </a>
 
@@ -126,14 +126,7 @@
         <img id="game-over-img" class="endscreen d-none" src="./img/9_intro_outro_screens/game_over/game over.png"
             alt="">
 
-        <div id="button-try-again" class="centered-buttons d-none">
-            <div onclick="startGame()">
-                <div>PLAY AGAIN</div>
-                <img src="./img/10_additional/Bar_002.png" alt="">
-            </div>
-        </div>
-
-        <div id="endscreen-game-won" class="endscreen d-none">
+        <div id="endscreen-game-won" class="endscreen bg-darkened d-none">
             YOU WON!
             <span id="game-won-statistics-coins"></span>
         </div>

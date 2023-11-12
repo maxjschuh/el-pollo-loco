@@ -17,8 +17,15 @@ imprint-pages
 .imprint {
     font-family: 'Roboto';
     display: block;
-    margin: 16px;
     height: unset;
+    width: unset;
+}
+
+.bg-opacity {
+    background-color: rgba(255, 255, 255, 0.85);
+    height: 100%;
+    min-height: calc(100vh - 64px);
+    padding: 32px;
 }
 
 .imprint-headline {
@@ -70,7 +77,6 @@ main {
 
 canvas {
     background-color: white;
-    display: block;
     width: 100%;
     height: 100%;
 }
@@ -80,7 +86,7 @@ canvas {
 }
 
 #button-start {
-    z-index: 13;
+    z-index: 14;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -96,10 +102,6 @@ canvas {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-#button-start div span {
-    position: absolute;
 }
 
 #hud-top {
@@ -121,22 +123,37 @@ canvas {
     z-index: 10;
 }
 
-
-
 #imprint-overlay {
     z-index: 3;
+    display: flex;
+    justify-content: center;
     align-items: flex-start;
     padding-top: 130px;
+    height: calc(100% - 130px);
+    gap: 24px;
+}
+
+#imprint-overlay a {
+    color: unset;
+    text-decoration: none;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#help-overlay {
+    padding-top: 130px;
+    height: calc(100% - 130px);
 }
 
 
 
-#button-try-again {
-    z-index: 16;
-    bottom: 0;
-    height: 75px;
-    font-size: 24px;
-}
+
+
+
+
 
 #endscreen-game-won {
     display: flex;
@@ -144,7 +161,6 @@ canvas {
     align-items: center;
     justify-content: center;
     font-size: 48px;
-    background-color: rgba(0, 0, 0, 0.3);
     color: #FEAC00;
 }
 
@@ -169,6 +185,10 @@ h1 {
     color: black;
 }
 
+.bg-darkened {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
 
 
 
@@ -176,29 +196,20 @@ h1 {
 interactivity
 -------------*/
 
+.button:hover {
+    filter: brightness(80%);
+    cursor: pointer;
+}
+
+.button:active {
+    filter: brightness(60%);
+}
+
 .hud-button:hover {
     filter: brightness(80%);
     cursor: pointer;
 }
 
 .hud-button:active {
-    filter: brightness(60%);
-}
-
-.centered-buttons div:hover {
-    filter: brightness(80%);
-    cursor: pointer;
-}
-
-.centered-buttons a:hover {
-    filter: brightness(80%);
-    cursor: pointer;
-}
-
-.centered-buttons div:active {
-    filter: brightness(60%);
-}
-
-.centered-buttons a:active {
     filter: brightness(60%);
 }

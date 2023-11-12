@@ -14,6 +14,10 @@ positioning-classes
     width: 120px;
 }
 
+.pos-absolute {
+    position: absolute;
+}
+
 
 
 
@@ -21,9 +25,7 @@ positioning-classes
     position: absolute;
     left: 0;
     right: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
     gap: 16px;
 }
 
@@ -39,22 +41,9 @@ positioning-classes
     font-size: 16px;
 }
 
-.centered-buttons a {
-    color: unset;
-    text-decoration: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
 
 
 
-
-
-
-/* padding-top: 100px;
-background-color: rgba(0, 0, 0, 0.3); */
 
 .flex-row {
     display: flex;
@@ -89,7 +78,7 @@ background-color: rgba(0, 0, 0, 0.3); */
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 14;
+    z-index: 13;
 }
 
 @media only screen and (max-width: 720px) {
@@ -104,34 +93,34 @@ background-color: rgba(0, 0, 0, 0.3); */
     }
 
     .button img {
-        width: 17vw;
+        width: 22vw;
     }
 
+    .button span {
+        font-size: 3vw;
+    }
 
+    #button-start span {
+        font-size: 4vw;
+    }
 
+    #imprint-overlay {
+        padding-top: 18vw;
+        height: calc(100% - 18vw);
+    }
 
-
-
-    
-    .centered-buttons img {
-        width: 17vw;
+    #help-overlay {
+        padding-top: 18vw;
+        height: calc(100% - 18vw);
     }
 
     .help-img {
         height: 8vw;
     }
 
-    #imprint-overlay {
-        padding-top: 14vw;
-    }
 
-    #button-start {
-        font-size: 4vw;
-    }
 
-    .centered-buttons div {
-        font-size: 2vw;
-    }
+
 
     .endscreen {
         width: 100%;

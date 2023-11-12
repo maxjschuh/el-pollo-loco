@@ -111,8 +111,8 @@ class Endboss extends MovableObject {
     }
 
     showVictoryScreen() {
-        document.getElementById('endscreen-game-won').classList.remove('d-none');
-        document.getElementById('button-try-again').classList.remove('d-none');
+
+        activateRestartButton();
         renderVictoryScreen();
     }
 

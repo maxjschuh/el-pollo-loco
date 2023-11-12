@@ -40,9 +40,7 @@ function startGame() {
         'button-start',
         'startscreen',
         'endscreen-game-won',
-        'button-try-again',
-        'game-over-img',
-        'button-try-again'
+        'game-over-img'
     ]);
 }
 
@@ -121,6 +119,13 @@ function renderVictoryScreen() {
     document.getElementById('game-won-statistics-coins').innerHTML = /*html*/ `
     You collected ${world.character.collectedCoins} out of ${world.character.coinsToCollect} coins!
     `;
+    document.getElementById('endscreen-game-won').classList.remove('d-none');
+}
+
+function activateRestartButton() {
+
+    document.getElementById('button-start-label').innerHTML = 'RESTART';
+    document.getElementById('button-start').classList.remove('d-none');
 }
 
 function addInterval(fn, delay) {
