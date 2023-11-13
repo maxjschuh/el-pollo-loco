@@ -10,8 +10,7 @@ class HealthBar extends StatusBar {
     ];
 
     constructor() {
-        super();
-        this.loadImages(this.IMAGES);
+        super().loadImages(this.IMAGES);
         this.setFilling(100, this.IMAGES);
         this.y = 0;
     }

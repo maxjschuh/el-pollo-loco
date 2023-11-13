@@ -1,8 +1,8 @@
 class World {
 
     ctx;
-    character = new Character();
     level;
+    character = new Character();
     healthBar = new HealthBar();
     coinsBar = new CoinsBar();
     bottleBar = new BottleBar();
@@ -10,29 +10,24 @@ class World {
     throwableObjects = [];
     game_over;
     game_won;
-    game_over_sound = new Audio('./audio/game_over_sound.m4a');
-    bossfight_sound = new Audio('./audio/bossfight.wav');
-    desert_sound = new Audio('./audio/desert_ambient.wav');
     musicEnabled = true;
     currentTrack;
-
     deathAnimationFrameCount = 0;
-
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
 
-    constructor(canvas, keyboard) {
-        this.level = level1;
+    game_over_sound = new Audio('./audio/game_over_sound.m4a');
+    bossfight_sound = new Audio('./audio/bossfight.wav');
+    desert_sound = new Audio('./audio/desert_ambient.wav');
 
-        this.ctx = canvas.getContext('2d');
-        this.canvas = canvas;
-        this.keyboard = keyboard;
+
+
+    constructor(canvas, keyboard) {
+
+        this.setVariables(canvas, keyboard);
         this.draw();
-        this.bossfight_sound.volume = 0.5;
-        this.desert_sound.loop = true;
-        this.bossfight_sound.loop = true;
         this.desert_sound.play();
 
         addInterval(this.run, 1000 / 60);
@@ -76,6 +71,17 @@ class World {
         }, 1000 / 60);
     }
 
+    setVariables(canvas, keyboard) {
+        
+        this.level = level1;
+        this.ctx = canvas.getContext('2d');
+        this.canvas = canvas;
+        this.keyboard = keyboard;
+        this.bossfight_sound.volume = 0.5;
+        this.desert_sound.loop = true;
+        this.bossfight_sound.loop = true;
+    }
+
     run() {
 
         if (world.character.energy == 0 || world.level.endboss.energy == 0) {
@@ -101,9 +107,9 @@ class World {
         world.checkThrowableObjects();
     }
 
-    async muteMusic() {
-        await world.bossfight_sound.pause();
-        await world.desert_sound.pause();
+    muteMusic() {
+        world.bossfight_sound.pause();
+        world.desert_sound.pause();
     }
 
     playMusic() {

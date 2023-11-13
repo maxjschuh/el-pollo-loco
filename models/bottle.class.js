@@ -6,8 +6,7 @@ class Bottle extends Collectable {
     ];
 
     constructor() {
-        super();
-        this.getRandomImage();
+        super().getRandomImage();
         this.y = 350; 
         this.height = 80;
         this.width = 80;
@@ -22,11 +21,8 @@ class Bottle extends Collectable {
 
     getRandomImage() {
 
-        if (this.random > 0.5) {
-            this.loadImage(this.IMAGES[0]);
+        if (this.random > 0.5) this.loadImage(this.IMAGES[0]);
 
-        } else {
-            this.loadImage(this.IMAGES[1]);
-        }
+        else this.loadImage(this.IMAGES[1]);
     }
 }

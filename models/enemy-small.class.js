@@ -11,9 +11,7 @@ class EnemySmall extends Enemy {
     ];
 
     constructor() {
-        super();
-        this.loadImage(this.IMAGES_WALK[0]);
-
+        super().loadImage(this.IMAGES_WALK[0]);
         this.loadImages(this.IMAGES_WALK);
         this.loadImages(this.IMAGES_DEAD);
 

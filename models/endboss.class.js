@@ -4,6 +4,8 @@ class Endboss extends MovableObject {
     width = 608;
     animationSequence;
     game_won_sound = new Audio('./audio/game_won_sound.wav');
+    hurt_sound = new Audio('./audio/boss_hurt.mp3');
+    attack_sound = new Audio('./audio/boss_attack.mp3');
 
 
     IMAGES_WALK = [ //animationSequence = 'walk'
@@ -57,9 +59,6 @@ class Endboss extends MovableObject {
         './img/4_enemie_boss_chicken/5_dead/G26.png'
     ];
 
-    hurt_sound = new Audio('./audio/boss_hurt.mp3');
-    attack_sound = new Audio('./audio/boss_attack.mp3');
-
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);
         this.loadImages(this.IMAGES_IDLE);
@@ -68,6 +67,13 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_ALERT);
+
+        this.setVariables();
+        this.run();
+        this.applyGravity();
+    }
+
+    setVariables() {
 
         this.x = 5000;
         this.y = -50;
@@ -78,8 +84,6 @@ class Endboss extends MovableObject {
             bottom: 30
         };
         this.groundLevel = -50;
-        this.run();
-        this.applyGravity();
         this.hurt_sound.volume = 0.5;
     }
 

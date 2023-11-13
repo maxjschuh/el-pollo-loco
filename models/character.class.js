@@ -8,6 +8,11 @@ class Character extends MovableObject {
     y = 275;
     groundLevel = 270;
 
+    walking_sound = new Audio('./audio/walk.mp3');
+    hurt_sound = new Audio('./audio/player_hurt.mp3');
+    stomp_sound = new Audio('./audio/stomped.mp3');
+    jump_sound = new Audio('./audio/jump.mp3');
+
     IMAGES_IDLE = [
         './img/2_character_pepe/1_idle/idle/I-1.png',
         './img/2_character_pepe/1_idle/idle/I-2.png',
@@ -67,11 +72,6 @@ class Character extends MovableObject {
         './img/2_character_pepe/3_jump/J-39.png'
     ];
 
-    walking_sound = new Audio('./audio/walk.mp3');
-    hurt_sound = new Audio('./audio/player_hurt.mp3');
-    stomp_sound = new Audio('./audio/stomped.mp3');
-    jump_sound = new Audio('./audio/jump.mp3');
-
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);
         this.loadImages(this.IMAGES_IDLE);
@@ -80,80 +80,93 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_JUMP);
+
+        this.setVariables();
+        this.animate();
+        this.applyGravity();
+    }
+
+    setVariables() {
+
         this.walking_sound.volume = 0.7;
         this.stomp_sound.volume = 0.3;
-
         this.offset = {
             left: 20,
             right: 20,
             top: 60,
             bottom: 10
         };
+    }
 
-        this.animate();
-        this.applyGravity();
+    handleMovement() {
+
+        if (world.keyboard.RIGHT && this.x < world.level.level_end_x) {
+            this.moveRight(this.speedX);
+            this.mirrored = false;
+
+            if (this.y > 270) { // play walking sound only when character is not currently in the air (jumping)
+                this.walking_sound.play();
+            }
+        }
+
+        if (world.keyboard.LEFT && this.x > 0) {
+            this.moveLeft(this.speedX);
+            this.mirrored = true;
+
+            if (this.y > 270) { // play walking sound only when character is not currently in the air (jumping)
+                this.walking_sound.play();
+            }
+        }
+
+        if (world.keyboard.SPACE && this.y > 270) {
+            this.jump_sound.play();
+            this.jump();
+        }
+
+        world.camera_x = -this.x + 100;
+
+    }
+
+    animateGraphics() {
+
+        if (this.isDead()) {
+            return;
+
+        } else if (!this.isHurt(this.lastHit) && this.lastHit) {
+            this.playAnimation(this.IMAGES_HURT, 'hurt');
+            this.lastEvent = new Date().getTime();
+            this.previousAnimation = 'hurt';
+
+        } else if (this.isAboveGround()) {
+            this.playAnimation(this.IMAGES_JUMP, 'jump');
+            this.lastEvent = new Date().getTime();
+            this.previousAnimation = 'jump';
+
+        } else if (world.keyboard.RIGHT || world.keyboard.LEFT) {
+            this.playAnimation(this.IMAGES_WALK, 'walk');
+            this.lastEvent = new Date().getTime();
+            this.previousAnimation = 'walk';
+
+        } else if (this.isSleeping()) {
+            this.playAnimation(this.IMAGES_SLEEP, 'sleep');
+            this.previousAnimation = 'sleep';
+
+        } else {
+            this.playAnimation(this.IMAGES_IDLE, 'idle');
+            this.previousAnimation = 'idle';
+        }
     }
 
     animate() {
 
         addInterval(() => {
 
-            if (world.keyboard.RIGHT && this.x < world.level.level_end_x) {
-                this.moveRight(this.speedX);
-                this.mirrored = false;
-
-                if (this.y > 270) { // play walking sound only when character is not currently in the air (jumping)
-                    this.walking_sound.play();
-                }
-            }
-
-            if (world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft(this.speedX);
-                this.mirrored = true;
-
-                if (this.y > 270) { // play walking sound only when character is not currently in the air (jumping)
-                    this.walking_sound.play();
-                }
-            }
-
-            if (world.keyboard.SPACE && this.y > 270) {
-                this.jump_sound.play();
-                this.jump();
-            }
-
-            world.camera_x = -this.x + 100;
-
+            this.handleMovement();
         }, 1000 / 60);
 
         addInterval(() => {
 
-            if (this.isDead()) {
-                return;
-
-            } else if (!this.isHurt(this.lastHit) && this.lastHit) {
-                this.playAnimation(this.IMAGES_HURT, 'hurt');
-                this.lastEvent = new Date().getTime();
-                this.previousAnimation = 'hurt';
-
-            } else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMP, 'jump');
-                this.lastEvent = new Date().getTime();
-                this.previousAnimation = 'jump';
-
-            } else if (world.keyboard.RIGHT || world.keyboard.LEFT) {
-                this.playAnimation(this.IMAGES_WALK, 'walk');
-                this.lastEvent = new Date().getTime();
-                this.previousAnimation = 'walk';
-
-            } else if (this.isSleeping()) {
-                this.playAnimation(this.IMAGES_SLEEP, 'sleep');
-                this.previousAnimation = 'sleep';
-
-            } else {
-                this.playAnimation(this.IMAGES_IDLE, 'idle');
-                this.previousAnimation = 'idle';
-            }
-
+            this.animateGraphics();
         }, 100);
     }
 

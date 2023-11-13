@@ -11,21 +11,25 @@ class EnemyBig extends Enemy {
     ];
 
     constructor() {
-        super();
-        this.loadImage(this.IMAGES_WALK[0]);
+        super().loadImage(this.IMAGES_WALK[0]);
         this.loadImages(this.IMAGES_WALK);
         this.loadImages(this.IMAGES_DEAD);
+
+        this.setVariables();
+        this.animate();
+    }
+
+    setVariables() {
+
+        this.x = Math.random() * 4800 + 400;
+        this.y = 280;
+        this.groundLevel = 280;
+        this.speedX = 8 + Math.random() * 8;
         this.offset = {
             left: 10,
             right: 10,
             top: 30,
             bottom: 10
         };
-
-        this.x = Math.random() * 4800 + 400;
-        this.y = 280;
-        this.groundLevel = 280;
-        this.speedX = 8 + Math.random() * 8;
-        this.animate();
     }
 }

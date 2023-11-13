@@ -1,13 +1,10 @@
 class Enemy extends MovableObject {
 
-    characterIsAbove;
-    dead;
+    characterIsAbove = false;
+    dead = false;
 
     constructor() {
-        super();
-        this.characterIsAbove = false;
-        this.dead = false;
-        this.offset = {
+        super().offset = {
             left: 10,
             right: 10,
             top: 10,

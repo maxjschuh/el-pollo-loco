@@ -45,43 +45,43 @@
 
         <canvas id="canvas" width="720" height="480"></canvas>
 
-        <img id="startscreen" src="./img/9_intro_outro_screens/start/startscreen_1.png" alt="" class="overlay d-none">
+        <img id="startscreen" src="./img/9_intro_outro_screens/start/startscreen_1.png" alt="startscreen background" class="overlay d-none">
 
         <div id="button-start">
             <div onclick="startGame()" class="button">
                 <span id="button-start-label" class="pos-absolute">START</span>
-                <img src="./img/10_additional/Bar_002.png" alt="">
+                <img src="./img/10_additional/Bar_002.png" alt="yellow button">
             </div>
         </div>
 
         <div id="hud-top">
 
             <img id="button-mute-music" onclick="muteMusic(true)" class="hud-button"
-                src="./img/10_additional/hud/button_mute.png" alt="">
+                src="./img/10_additional/hud/button_mute.png" alt="button mute music">
             <img id="button-unmute-music" onclick="muteMusic(false)" class="hud-button d-none"
-                src="./img/10_additional/hud/button_unmute.png" alt="">
+                src="./img/10_additional/hud/button_unmute.png" alt="button unmute music">
 
             <img id="button-show-help" onclick="toggleHelpOverlay()" class="hud-button"
-                src="./img/10_additional/hud/button_help.png" alt="">
+                src="./img/10_additional/hud/button_help.png" alt="button show help">
             <img id="button-hide-help" onclick="toggleHelpOverlay()" class="hud-button d-none"
-                src="./img/10_additional/hud/button_close.png" alt="">
+                src="./img/10_additional/hud/button_close.png" alt="button hide help">
 
             <img id="button-show-imprint" onclick="toggleImprintOverlay()" class="hud-button"
-                src="./img/10_additional/hud/button_imprint.png" alt="">
+                src="./img/10_additional/hud/button_imprint.png" alt="button show imprint">
             <img id="button-hide-imprint" onclick="toggleImprintOverlay()" class="hud-button d-none"
-                src="./img/10_additional/hud/button_close.png" alt="">
+                src="./img/10_additional/hud/button_close.png" alt="button hide imprint">
 
         </div>
 
         <div id="hud-bottom">
             <div>
-                <img id="button-left" class="hud-button" src="./img/10_additional/hud/button_left.png" alt="">
-                <img id="button-right" class="hud-button" src="./img/10_additional/hud/button_right.png" alt="">
+                <img id="button-left" class="hud-button" src="./img/10_additional/hud/button_left.png" alt="button walk left">
+                <img id="button-right" class="hud-button" src="./img/10_additional/hud/button_right.png" alt="button walk right">
             </div>
 
             <div>
-                <img id="button-space" class="hud-button" src="./img/10_additional/hud/button_jump.png" alt="">
-                <img id="button-d" class="hud-button" src="./img/10_additional/hud/button_throw.png" alt="">
+                <img id="button-space" class="hud-button" src="./img/10_additional/hud/button_jump.png" alt="button jump">
+                <img id="button-d" class="hud-button" src="./img/10_additional/hud/button_throw.png" alt="button throw bottle">
             </div>
         </div>
 
@@ -89,26 +89,26 @@
 
             <div class="flex-row centered gap-32">
                 <div>
-                    <img class="help-img" src="./img/10_additional/arrow_left_key.png" alt="">
-                    <img class="help-img mirrored" src="./img/10_additional/help-img/W-22_cropped.png" alt="">
+                    <img class="help-img" src="./img/10_additional/arrow_left_key.png" alt="keyboard key arrow left">
+                    <img class="help-img mirrored" src="./img/10_additional/help-img/W-22_cropped.png" alt="character walk left">
                 </div>
 
                 <div>
-                    <img class="help-img" src="./img/10_additional/help-img/W-22_cropped.png" alt="">
-                    <img class="help-img" src="./img/10_additional/arrow_right_key.png" alt="">
+                    <img class="help-img" src="./img/10_additional/help-img/W-22_cropped.png" alt="character walk right">
+                    <img class="help-img" src="./img/10_additional/arrow_right_key.png" alt="keyboard key arrow right">
                 </div>
             </div>
 
             <div class="flex-row centered gap-32">
 
                 <div>
-                    <img class="help-img" src="./img/10_additional/space_key.png" alt="">
-                    <img class="help-img" src="./img/10_additional/help-img/J-36_cropped.png" alt="">
+                    <img class="help-img" src="./img/10_additional/space_key.png" alt="keyboard key spacebar">
+                    <img class="help-img" src="./img/10_additional/help-img/J-36_cropped.png" alt="character jump">
                 </div>
 
                 <div>
-                    <img class="help-img" src="./img/10_additional/d_key.png" alt="">
-                    <img class="help-img" src="./img/10_additional/help-img/salsa_bottle_cropped.png" alt="">
+                    <img class="help-img" src="./img/10_additional/d_key.png" alt="keyboard key d">
+                    <img class="help-img" src="./img/10_additional/help-img/salsa_bottle_cropped.png" alt="throwable salsa bottle">
                 </div>
             </div>
 
@@ -118,18 +118,18 @@
 
             <a href="./imprint.html" class="button">
                 <span class="pos-absolute">IMPRESSUM</span>
-                <img src="./img/10_additional/Bar_002.png" alt="">
+                <img src="./img/10_additional/Bar_002.png" alt="yellow button">
             </a>
 
             <a href="./data-protection.html" class="button">
                 <span class="pos-absolute">DATENSCHUTZ</span>
-                <img src="./img/10_additional/Bar_002.png" alt="">
+                <img src="./img/10_additional/Bar_002.png" alt="yellow button">
             </a>
 
         </div>
 
         <img id="game-over-img" class="endscreen d-none" src="./img/9_intro_outro_screens/game_over/game over.png"
-            alt="">
+            alt="game over screen">
 
         <div id="endscreen-game-won" class="endscreen bg-darkened d-none">
             YOU WON!

@@ -9,7 +9,13 @@ class Coin extends Collectable {
         super().loadImage(this.IMAGES[0]);
         this.loadImages(this.IMAGES);
 
-        this.y = this.getRandomValueY();
+        this.setVariables(level_end_x);
+        this.animate();
+    }
+
+    setVariables(level_end_x) {
+
+        this.y = this.random * 200 + 50;
         this.height = 80;
         this.width = 80;
         this.x = this.getRandomValueX(level_end_x);
@@ -19,12 +25,6 @@ class Coin extends Collectable {
             top: 25,
             bottom: 25
         };
-        this.animate();
-    }
-
-    getRandomValueY() {
-
-        return this.random * 200 + 50;
     }
 
     animate() {

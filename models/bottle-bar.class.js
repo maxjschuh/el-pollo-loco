@@ -1,5 +1,7 @@
 class BottleBar extends StatusBar {
 
+    bottle_collect_sound = new Audio('./audio/bottle_collect.mp3');
+
     IMAGES = [
         './img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/0.png',
         './img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/20.png',
@@ -8,12 +10,9 @@ class BottleBar extends StatusBar {
         './img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/80.png',
         './img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/100.png'
     ];
-
-    bottle_collect_sound = new Audio('./audio/bottle_collect.mp3');
     
     constructor() {
-        super();
-        this.loadImages(this.IMAGES);
+        super().loadImages(this.IMAGES);
         this.setFilling(0, this.IMAGES);
         this.y = 80;
     }

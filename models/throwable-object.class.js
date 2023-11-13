@@ -21,7 +21,17 @@ class ThrowableObject extends MovableObject {
     enemy_hit = false;
 
     constructor(x, y) {
-        super();
+        super().throw_sound.play();
+        this.loadImage(this.IMAGES[0]);
+        this.loadImages(this.IMAGES);
+        this.loadImages(this.IMAGES_SPLASH);
+        this.setVariables();
+        this.animate();
+        this.throw(x, y);
+    }
+
+    setVariables() {
+
         this.y = 100;
         this.x = 100;
         this.height = 80;
@@ -34,13 +44,6 @@ class ThrowableObject extends MovableObject {
             bottom: 10
         };
         this.hit_sound.volume = 0.3;
-
-        this.throw_sound.play();
-        this.loadImage(this.IMAGES[0]);
-        this.loadImages(this.IMAGES);
-        this.loadImages(this.IMAGES_SPLASH);
-        this.animate();
-        this.throw(x, y);
     }
 
     animate() {
