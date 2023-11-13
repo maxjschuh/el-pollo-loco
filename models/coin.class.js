@@ -4,12 +4,12 @@ class Coin extends Collectable {
         './img/8_coin/coin_1.png',
         './img/8_coin/coin_2.png'
     ];
-    
+
     constructor(level_end_x) {
         super().loadImage(this.IMAGES[0]);
         this.loadImages(this.IMAGES);
-        
-        this.y = this.getRandomValueY(); 
+
+        this.y = this.getRandomValueY();
         this.height = 80;
         this.width = 80;
         this.x = this.getRandomValueX(level_end_x);

@@ -33,43 +33,40 @@ class DrawableObject {
 
     playAnimation(animation_images, currentAnimation) {
 
-        if (this.previousAnimation != currentAnimation) {
-            this.currentImage = 0;
-        }
+        if (this.previousAnimation != currentAnimation) this.currentImage = 0;
 
         let i = this.currentImage % animation_images.length;
         let path = animation_images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
-
     }
 
     drawFrame(ctx) {
 
-        if (this instanceof Character || 
-            this instanceof Enemy || 
-            this instanceof Endboss ||
-            this instanceof ThrowableObject ||
-            this instanceof Collectable) {
-            ctx.beginPath();
-            ctx.lineWidth = '1';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(
-                this.x,
-                this.y,
-                this.width,
-                this.height);
-            ctx.stroke();
+        // if (this instanceof Character || 
+        //     this instanceof Enemy || 
+        //     this instanceof Endboss ||
+        //     this instanceof ThrowableObject ||
+        //     this instanceof Collectable) {
+        //     ctx.beginPath();
+        //     ctx.lineWidth = '1';
+        //     ctx.strokeStyle = 'blue';
+        //     ctx.rect(
+        //         this.x,
+        //         this.y,
+        //         this.width,
+        //         this.height);
+        //     ctx.stroke();
 
-            ctx.beginPath();
-            ctx.lineWidth = '1';
-            ctx.strokeStyle = 'red';
-            ctx.rect(
-                this.x + this.offset.left,
-                this.y + this.offset.top,
-                this.width - this.offset.left - this.offset.right,
-                this.height - this.offset.top - this.offset.bottom);
-            ctx.stroke();
-        }
+        //     ctx.beginPath();
+        //     ctx.lineWidth = '1';
+        //     ctx.strokeStyle = 'red';
+        //     ctx.rect(
+        //         this.x + this.offset.left,
+        //         this.y + this.offset.top,
+        //         this.width - this.offset.left - this.offset.right,
+        //         this.height - this.offset.top - this.offset.bottom);
+        //     ctx.stroke();
+        // }
     }
 }

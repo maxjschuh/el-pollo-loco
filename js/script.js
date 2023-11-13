@@ -137,15 +137,7 @@ function addInterval(fn, delay) {
 
 function muteMusic(musicEnabled) {
 
-    if (musicEnabled) {
-        world.musicEnabled = true;
-
-    } else {
-        world.musicEnabled = false;
-
-    }
-    world.bossfight_sound.pause();
-    world.desert_sound.pause();
-
-    world.bossfight_sound.play()
+    world.musicEnabled = musicEnabled;
+    document.getElementById('button-mute-music').classList.toggle('d-none');
+    document.getElementById('button-unmute-music').classList.toggle('d-none');
 }
