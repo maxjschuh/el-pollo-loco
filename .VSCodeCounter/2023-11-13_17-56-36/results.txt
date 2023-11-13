@@ -1,0 +1,58 @@
+Date : 2023-11-13 17:56:36
+Directory : c:\Users\maxim\DA\el-pollo-loco
+Total : 28 files,  1947 codes, 45 comments, 523 blanks, all 2515 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JavaScript |         23 |      1,185 |         24 |        365 |      1,574 |
+| HTML       |          3 |        508 |          0 |         68 |        576 |
+| CSS        |          2 |        254 |         21 |         90 |        365 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                              | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                 |         28 |      1,947 |         45 |        523 |      2,515 |
+| . (Files)                                                         |          5 |        762 |         21 |        158 |        941 |
+| js                                                                |          1 |        100 |          0 |         44 |        144 |
+| levels                                                            |          1 |         61 |          0 |          6 |         67 |
+| models                                                            |         21 |      1,024 |         24 |        315 |      1,363 |
++-------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                          | language   | code       | comment    | blank      | total      |
++-------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\maxim\DA\el-pollo-loco\data-protection.html              | HTML       |        296 |          0 |         10 |        306 |
+| c:\Users\maxim\DA\el-pollo-loco\imprint.html                      | HTML       |         95 |          0 |         16 |        111 |
+| c:\Users\maxim\DA\el-pollo-loco\index.html                        | HTML       |        117 |          0 |         42 |        159 |
+| c:\Users\maxim\DA\el-pollo-loco\js\script.js                      | JavaScript |        100 |          0 |         44 |        144 |
+| c:\Users\maxim\DA\el-pollo-loco\levels\level1.js                  | JavaScript |         61 |          0 |          6 |         67 |
+| c:\Users\maxim\DA\el-pollo-loco\models\background-object.class.js | JavaScript |          9 |          0 |          1 |         10 |
+| c:\Users\maxim\DA\el-pollo-loco\models\bottle-bar.class.js        | JavaScript |         16 |          0 |          3 |         19 |
+| c:\Users\maxim\DA\el-pollo-loco\models\bottle.class.js            | JavaScript |         23 |          0 |          5 |         28 |
+| c:\Users\maxim\DA\el-pollo-loco\models\character.class.js         | JavaScript |        193 |          0 |         53 |        246 |
+| c:\Users\maxim\DA\el-pollo-loco\models\clouds.class.js            | JavaScript |         17 |          0 |          4 |         21 |
+| c:\Users\maxim\DA\el-pollo-loco\models\coin.class.js              | JavaScript |         29 |          0 |          7 |         36 |
+| c:\Users\maxim\DA\el-pollo-loco\models\coins-bar.class.js         | JavaScript |         16 |          0 |          3 |         19 |
+| c:\Users\maxim\DA\el-pollo-loco\models\collectable.class.js       | JavaScript |          8 |          0 |          4 |         12 |
+| c:\Users\maxim\DA\el-pollo-loco\models\drawable-object.class.js   | JavaScript |         38 |         24 |         10 |         72 |
+| c:\Users\maxim\DA\el-pollo-loco\models\endboss-bar.class.js       | JavaScript |         16 |          0 |          2 |         18 |
+| c:\Users\maxim\DA\el-pollo-loco\models\endboss.class.js           | JavaScript |        190 |          0 |         72 |        262 |
+| c:\Users\maxim\DA\el-pollo-loco\models\enemy-big.class.js         | JavaScript |         29 |          0 |          6 |         35 |
+| c:\Users\maxim\DA\el-pollo-loco\models\enemy-small.class.js       | JavaScript |         22 |          0 |          4 |         26 |
+| c:\Users\maxim\DA\el-pollo-loco\models\enemy.class.js             | JavaScript |         27 |          0 |          8 |         35 |
+| c:\Users\maxim\DA\el-pollo-loco\models\health-bar.class.js        | JavaScript |         15 |          0 |          2 |         17 |
+| c:\Users\maxim\DA\el-pollo-loco\models\keyboard.class.js          | JavaScript |          6 |          0 |          0 |          6 |
+| c:\Users\maxim\DA\el-pollo-loco\models\level.class.js             | JavaScript |         18 |          0 |          1 |         19 |
+| c:\Users\maxim\DA\el-pollo-loco\models\movable-object.class.js    | JavaScript |         73 |          0 |         22 |         95 |
+| c:\Users\maxim\DA\el-pollo-loco\models\status-bar.class.js        | JavaScript |         21 |          0 |          5 |         26 |
+| c:\Users\maxim\DA\el-pollo-loco\models\throwable-object.class.js  | JavaScript |         93 |          0 |         27 |        120 |
+| c:\Users\maxim\DA\el-pollo-loco\models\world.class.js             | JavaScript |        165 |          0 |         76 |        241 |
+| c:\Users\maxim\DA\el-pollo-loco\style.css                         | CSS        |        160 |         18 |         50 |        228 |
+| c:\Users\maxim\DA\el-pollo-loco\style2.css                        | CSS        |         94 |          3 |         40 |        137 |
+| Total                                                             |            |      1,947 |         45 |        523 |      2,515 |
++-------------------------------------------------------------------+------------+------------+------------+------------+------------+

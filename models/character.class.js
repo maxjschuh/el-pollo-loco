@@ -192,4 +192,55 @@ class Character extends MovableObject {
             this.collectedCoins = this.coinsToCollect
         }
     }
+
+    playDeathAnimation() {
+
+        world.muteMusic();
+        world.stopAllIntervals();
+
+        let frameCount = 0;
+
+        addInterval(() => {
+
+            if (frameCount < this.IMAGES_DEAD.length) {
+
+                this.hurt_sound.play();
+                this.playAnimation(this.IMAGES_DEAD, 'dead');
+                frameCount++;
+                this.previousAnimation = 'dead';
+            } else {
+                world.muteMusic();
+            }
+
+        }, 250);
+    }
+
+
+    checkForBottleThrow() {
+
+        if (world.keyboard.D && this.collectedBottles > 0) {
+            this.collectedBottles--;
+            const collectedBottlesPercent = (this.collectedBottles / this.bottlesToCollect) * 100;
+            world.bottleBar.setFilling(collectedBottlesPercent, world.bottleBar.IMAGES);
+            let bottle = new ThrowableObject(this.x, this.y);
+            world.throwableObjects.push(bottle);
+        }
+        world.keyboard.D = false;
+    }
+
+    checkCollision(enemy) {
+
+        if (enemy.isDead()) return;
+        if (!this.isColliding(enemy)) return;
+
+        if (enemy.characterIsAbove) enemy.stompKill();
+
+        else if (this.isHurt(this.lastHit)) {
+
+            this.hit();
+            this.hurt = true;
+            this.lastHit = new Date().getTime();
+            world.healthBar.setFilling(this.energy, world.healthBar.IMAGES);
+        }
+    }
 }

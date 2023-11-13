@@ -65,7 +65,6 @@ class ThrowableObject extends MovableObject {
 
         let frameCount = 0;
 
-
         addInterval(() => {
             if (frameCount == 6) return;
 
@@ -87,5 +86,35 @@ class ThrowableObject extends MovableObject {
         this.y = y;
         this.speedY = 10;
         this.applyGravity();
+    }
+
+    splashAndVanish() {
+
+        this.enemy_hit = true;
+        this.hit_sound.play();
+        this.acceleration = 0;
+        this.speedY = 0;
+        this.speedX = 0;
+
+        setTimeout(() => {
+            const index = world.throwableObjects.indexOf(this);
+            world.throwableObjects.splice(index, 1);
+        }, 1000);
+    }
+
+
+    
+    attack(enemy) {
+
+        this.splashAndVanish();
+
+        if (enemy instanceof EnemySmall || enemy instanceof EnemyBig) enemy.kill();       
+
+        else if (enemy.isHurt(enemy.lastHit)) {
+
+            enemy.hit();
+            enemy.lastHit = new Date().getTime();
+            world.endbossBar.setFilling(enemy.energy, world.endbossBar.IMAGES);
+        }
     }
 }

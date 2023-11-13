@@ -1,3 +1,16 @@
+.fade-in-text {
+    animation: fade-in 0.2s;
+}
+
+@keyframes fade-in {
+    0% { opacity: 0;}
+    100% { opacity: 1;}
+}
+
+.fade-in {
+    opacity: 1;
+}
+
 /*-------------
 fonts
 -------------*/
@@ -161,7 +174,8 @@ canvas {
     align-items: center;
     justify-content: center;
     font-size: 48px;
-    color: #FEAC00;
+    color: black;
+    text-shadow: 2px 2px #FEAC00;
 }
 
 
@@ -182,11 +196,10 @@ h1 {
 
 #game-won-statistics-coins {
     font-size: 24px;
-    color: black;
 }
 
 .bg-darkened {
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 

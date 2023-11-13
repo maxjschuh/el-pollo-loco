@@ -120,26 +120,47 @@ class Endboss extends MovableObject {
         renderVictoryScreen();
     }
 
+    handleEndbossDeath() {
+
+        setTimeout(() => {
+            this.groundLevel = 2000;
+            this.game_won_sound.play();
+
+        }, 2000);
+
+        setTimeout(() => {
+
+            world.stopAllIntervals();
+            this.showVictoryScreen();
+        }, 3000);
+
+
+    }
+
+
+    playDeathAnimation() {
+
+        let frameCount = 0;
+
+        addInterval(() => {
+
+            if (frameCount < this.IMAGES_DEAD.length) {
+            
+                this.playAnimation(this.IMAGES_DEAD, 'dead');
+                frameCount++;
+                this.previousAnimation = 'dead';
+            }
+
+        }, 250);
+    }
+
     animate() {
 
         addInterval(() => {
 
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD, 'dead');
-                this.previousAnimation = 'dead';
-                setTimeout(() => {
-                    this.groundLevel = 2000;
-                    this.game_won_sound.play();
+            if (this.isDead()) return;
 
-                }, 2000);
-
-                setTimeout(() => {
-
-                    world.stopAllIntervals();
-                    this.showVictoryScreen();
-                }, 3000);
-
-            } else if (!this.isHurt(this.lastHit) && this.lastHit) {
+            else if (!this.isHurt(this.lastHit) && this.lastHit) {
                 this.playAnimation(this.IMAGES_HURT, 'hurt');
                 this.previousAnimation = 'hurt';
 

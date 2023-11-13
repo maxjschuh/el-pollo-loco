@@ -3,29 +3,27 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 
-window.addEventListener('keyup', (e) => {
 
-    e = e || window.event;
 
-    if (e.keyCode == 37) keyboard.LEFT = false;
+function addWindowKeyEvents() {
 
-    if (e.keyCode == 39) keyboard.RIGHT = false;
+    window.addEventListener('keyup', (e) => {
 
-    if (e.keyCode == 32) keyboard.SPACE = false;
-});
-
-window.addEventListener('keydown', (e) => {
-
-    e = e || window.event;
-
-    if (e.keyCode == 37) keyboard.LEFT = true;
-
-    if (e.keyCode == 39) keyboard.RIGHT = true;
-
-    if (e.keyCode == 32) keyboard.SPACE = true;
-
-    if (e.keyCode == 68) keyboard.D = true;
-});
+        e = e || window.event;
+        if (e.keyCode == 37) keyboard.LEFT = false;
+        if (e.keyCode == 39) keyboard.RIGHT = false;
+        if (e.keyCode == 32) keyboard.SPACE = false;
+    });
+    
+    window.addEventListener('keydown', (e) => {
+    
+        e = e || window.event;
+        if (e.keyCode == 37) keyboard.LEFT = true;
+        if (e.keyCode == 39) keyboard.RIGHT = true;
+        if (e.keyCode == 32) keyboard.SPACE = true;
+        if (e.keyCode == 68) keyboard.D = true;
+    });
+}
 
 function startGame() {
 
@@ -40,7 +38,8 @@ function startGame() {
         'button-start',
         'startscreen',
         'endscreen-game-won',
-        'game-over-img'
+        'game-over-img',
+        'confetti'
     ]);
 }
 
@@ -119,7 +118,7 @@ function renderVictoryScreen() {
     document.getElementById('game-won-statistics-coins').innerHTML = /*html*/ `
     You collected ${world.character.collectedCoins} out of ${world.character.coinsToCollect} coins!
     `;
-    document.getElementById('endscreen-game-won').classList.remove('d-none');
+    showElements(['confetti', 'endscreen-game-won']);
 }
 
 function activateRestartButton() {
