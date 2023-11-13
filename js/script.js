@@ -5,27 +5,27 @@ let keyboard = new Keyboard();
 
 
 
-function addWindowKeyEvents() {
+window.addEventListener('keyup', (e) => {
 
-    window.addEventListener('keyup', (e) => {
+    e = e || window.event;
+    if (e.keyCode == 37) keyboard.LEFT = false;
+    if (e.keyCode == 39) keyboard.RIGHT = false;
+    if (e.keyCode == 32) keyboard.SPACE = false;
+    if (e.keyCode == 68) keyboard.D = false;
+});
 
-        e = e || window.event;
-        if (e.keyCode == 37) keyboard.LEFT = false;
-        if (e.keyCode == 39) keyboard.RIGHT = false;
-        if (e.keyCode == 32) keyboard.SPACE = false;
-    });
-    
-    window.addEventListener('keydown', (e) => {
-    
-        e = e || window.event;
-        if (e.keyCode == 37) keyboard.LEFT = true;
-        if (e.keyCode == 39) keyboard.RIGHT = true;
-        if (e.keyCode == 32) keyboard.SPACE = true;
-        if (e.keyCode == 68) keyboard.D = true;
-    });
-}
+window.addEventListener('keydown', (e) => {
+
+    e = e || window.event;
+    if (e.keyCode == 37) keyboard.LEFT = true;
+    if (e.keyCode == 39) keyboard.RIGHT = true;
+    if (e.keyCode == 32) keyboard.SPACE = true;
+    if (e.keyCode == 68) keyboard.D = true;
+});
 
 function startGame() {
+
+    if (world) world.stopAllIntervals();
 
     canvas = document.getElementById('canvas');
     initLevel();
@@ -82,7 +82,7 @@ function createEventListeners() {
     const keys = ['left', 'right', 'space', 'd'];
     keys.forEach(key => addEventsOnButton(key));
 
-    addEventsOnWindow();   
+    addEventsOnWindow();
 }
 
 function addEventsOnButton(key) {
@@ -116,9 +116,14 @@ function addEventsOnWindow() {
 function renderVictoryScreen() {
 
     document.getElementById('game-won-statistics-coins').innerHTML = /*html*/ `
-    You collected ${world.character.collectedCoins} out of ${world.character.coinsToCollect} coins!
+    You collected ${world.bottleBar.amount_collected} out of ${world.bottleBar.amount_max} coins!
     `;
     showElements(['confetti', 'endscreen-game-won']);
+}
+
+function renderGameOverScreen() {
+
+    document.getElementById('game-over-img').classList.remove('d-none');
 }
 
 function activateRestartButton() {
@@ -134,9 +139,35 @@ function addInterval(fn, delay) {
     return id;
 }
 
-function muteMusic(musicEnabled) {
+function muteMusic(muted) {
 
-    world.musicEnabled = musicEnabled;
+    if (muted) {
+        world.desert_sound.pause();
+        world.bossfight_sound.pause();
+        
+    } else if (world.currentTrack) {
+        world.bossfight_sound.play();
+
+    } else {
+        world.desert_sound.play();
+    }
+
     document.getElementById('button-mute-music').classList.toggle('d-none');
     document.getElementById('button-unmute-music').classList.toggle('d-none');
+}
+
+
+function resetButtons() {
+
+    hideElements([
+        'help-overlay',
+        'button-hide-help',
+        'imprint-overlay',
+        'button-hide-imprint'
+    ]);
+
+    showElements([
+        'button-show-help',
+        'button-show-imprint',
+    ]);
 }

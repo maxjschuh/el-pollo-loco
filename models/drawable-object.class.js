@@ -12,7 +12,6 @@ class DrawableObject {
         top: 0,
         bottom: 0
     };
-    previousAnimation;
 
     loadImage(path) {
         this.img = new Image();
@@ -31,15 +30,7 @@ class DrawableObject {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
-    playAnimation(animation_images, currentAnimation) {
 
-        if (this.previousAnimation != currentAnimation) this.currentImage = 0;
-
-        let i = this.currentImage % animation_images.length;
-        let path = animation_images[i];
-        this.img = this.imageCache[path];
-        this.currentImage++;
-    }
 
     drawFrame(ctx) {
 

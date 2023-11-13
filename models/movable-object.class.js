@@ -14,6 +14,8 @@ class MovableObject extends DrawableObject {
         bottom: 0
     };
     groundLevel;
+    currentAnimation;
+    previousAnimation;
 
     moveRight(speedX) {
         this.x += speedX;
@@ -37,11 +39,10 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        if (this instanceof ThrowableObject) { // Trowable objects should always fall
-            return true;
-        } else {
-            return this.y <= this.groundLevel;
-        }
+
+        if (this instanceof ThrowableObject) return true;
+
+        else return this.y <= this.groundLevel;
     }
 
     isColliding(mo) { 
@@ -57,14 +58,22 @@ class MovableObject extends DrawableObject {
     }
 
     hit() {
+
+        if (world.level_complete) return;
+            
+
         this.hurt_sound.play();
+
         this.energy -= 20;
-        if (this.energy < 0) {
-            this.energy = 0;
-        }
+
+        if (this.energy > 0) return;
+
+        this.energy = 0;
+
+        if (this instanceof Character || this instanceof Endboss) this.handleDeath();
     }
 
-    isHurt(hitTime) {
+    isVulnerable(hitTime) {
 
         if (!hitTime) return true;
 
@@ -74,22 +83,83 @@ class MovableObject extends DrawableObject {
         return timePassed > 0.8;
     }
 
-    kill() {
-        this.dead = true;
-        setTimeout(() => {
-            this.groundLevel = 1000;
-        }, 500);
-    }
-
-    stompKill() {
-
-        this.kill();
-        world.character.stomp_sound.play();
-        world.character.jump();
-    }
-
     jump() {
         this.speedY = 25;
+    }
+
+
+    playAnimation(animation_images) {
+
+        if (this.previousAnimation != this.currentAnimation) this.currentImage = 0;
+
+        let i = this.currentImage % animation_images.length;
+        let path = animation_images[i];
+        this.img = this.imageCache[path];
+        this.currentImage++;
+
+        this.previousAnimation = this.currentAnimation;
+    }
+
+
+    handleDeath() {
+
+        world.level_complete = true;
+        resetButtons();
+        world.muteMusic();
+        
+
+        if (this instanceof Endboss) {
+
+            this.death_sound.play();
+
+            addInterval(() => {
+
+                    this.playAnimation(this.IMAGES_DEAD);
+    
+                
+    
+            }, 100);
+
+            this.handleDeathEndboss();
+
+        } else {
+
+            this.playDeathAnimation();
+            this.handleDeathCharacter();
+
+        }
+
+
+        setTimeout(() => {
+
+            activateRestartButton();
+
+        }, 3000);        
+    }
+
+
+    playDeathAnimation() {
+
+        let frameCount = 0;
+        const interval = 1100 / this.IMAGES_DEAD.length;
+        this.currentAnimation = 'dead';
+
+        setTimeout(() => {
+            this.death_sound.play();
+
+        }, 400);
+
+        addInterval(() => {
+
+            if (frameCount < this.IMAGES_DEAD.length) {
+
+                
+                this.playAnimation(this.IMAGES_DEAD);
+                frameCount++;
+
+            }
+
+        }, interval);
     }
 
 }

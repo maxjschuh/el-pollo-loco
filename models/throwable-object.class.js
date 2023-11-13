@@ -110,7 +110,7 @@ class ThrowableObject extends MovableObject {
 
         if (enemy instanceof EnemySmall || enemy instanceof EnemyBig) enemy.kill();       
 
-        else if (enemy.isHurt(enemy.lastHit)) {
+        else if (enemy.isVulnerable(enemy.lastHit)) {
 
             enemy.hit();
             enemy.lastHit = new Date().getTime();

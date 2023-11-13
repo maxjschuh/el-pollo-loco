@@ -2,13 +2,14 @@ class Endboss extends MovableObject {
 
     height = 520;
     width = 608;
-    animationSequence;
+    currentAnimation;
     game_won_sound = new Audio('./audio/game_won_sound.wav');
     hurt_sound = new Audio('./audio/boss_hurt.mp3');
     attack_sound = new Audio('./audio/boss_attack.mp3');
+    death_sound = new Audio('./audio/fire.m4a');
 
 
-    IMAGES_WALK = [ //animationSequence = 'walk'
+    IMAGES_WALK = [
         './img/4_enemie_boss_chicken/1_walk/G1.png',
         './img/4_enemie_boss_chicken/1_walk/G2.png',
         './img/4_enemie_boss_chicken/1_walk/G3.png',
@@ -25,7 +26,7 @@ class Endboss extends MovableObject {
         './img/4_enemie_boss_chicken/2_alert/G8.png'
     ];
 
-    IMAGES_ALERT = [ //animationSequence = 'alert'
+    IMAGES_ALERT = [
         './img/4_enemie_boss_chicken/2_alert/G5.png',
         './img/4_enemie_boss_chicken/2_alert/G6.png',
         './img/4_enemie_boss_chicken/2_alert/G7.png',
@@ -36,7 +37,7 @@ class Endboss extends MovableObject {
         './img/4_enemie_boss_chicken/2_alert/G12.png'
     ];
 
-    IMAGES_ATTACK = [ //animationSequence = 'attack'
+    IMAGES_ATTACK = [
         './img/4_enemie_boss_chicken/3_attack/G13.png',
         './img/4_enemie_boss_chicken/3_attack/G14.png',
         './img/4_enemie_boss_chicken/3_attack/G15.png',
@@ -94,31 +95,17 @@ class Endboss extends MovableObject {
 
         addInterval(() => {
 
-            if (this.isDead()) {
-                clearInterval(attackInterval);
-                this.speedX = 0;
-            }
+            if (world.level_complete) return;
 
-        }, 1000 / 30);
-
-        let attackInterval = addInterval(() => {
-
-            if (timer >= 6 && world.character.x > 4500) {
+            else if (timer >= 6 && world.character.x > 4500) {
                 this.attack();
                 timer = 0;
 
-            } else {
-                timer++;
-            }
+            } else timer++;
 
         }, 1000);
     }
 
-    showVictoryScreen() {
-
-        activateRestartButton();
-        renderVictoryScreen();
-    }
 
     handleEndbossDeath() {
 
@@ -137,74 +124,51 @@ class Endboss extends MovableObject {
 
     }
 
-
-    playDeathAnimation() {
-
-        let frameCount = 0;
-
-        addInterval(() => {
-
-            if (frameCount < this.IMAGES_DEAD.length) {
-            
-                this.playAnimation(this.IMAGES_DEAD, 'dead');
-                frameCount++;
-                this.previousAnimation = 'dead';
-            }
-
-        }, 250);
-    }
-
     animate() {
 
         addInterval(() => {
 
             if (this.isDead()) return;
 
-            else if (!this.isHurt(this.lastHit) && this.lastHit) {
-                this.playAnimation(this.IMAGES_HURT, 'hurt');
-                this.previousAnimation = 'hurt';
+            if (!this.isVulnerable(this.lastHit)) this.playAnimation(this.IMAGES_HURT);
 
-            } else if (this.animationSequence == 'attack') {
-                this.playAnimation(this.IMAGES_ATTACK, this.animationSequence);
-                this.previousAnimation = this.animationSequence;
+            else if (this.currentAnimation == 'attack') this.playAnimation(this.IMAGES_ATTACK);
 
-            } else if (this.animationSequence == 'walk') {
-                this.playAnimation(this.IMAGES_WALK, this.animationSequence);
-                this.previousAnimation = this.animationSequence;
+            else if (this.currentAnimation == 'walk') this.playAnimation(this.IMAGES_WALK);
 
-            } else if (this.animationSequence == 'alert') {
-                this.playAnimation(this.IMAGES_ALERT, this.animationSequence);
-                this.previousAnimation = this.animationSequence;
+            else if (this.currentAnimation == 'alert') this.playAnimation(this.IMAGES_ALERT);
 
-            } else {
-                this.playAnimation(this.IMAGES_IDLE, 'idle');
-                this.previousAnimation = 'idle';
-            }
+            else this.playAnimation(this.IMAGES_IDLE);
 
         }, 200);
     }
 
+
+    
     attack() {
 
-        this.animationSequence = 'alert';
+        this.currentAnimation = 'alert';
 
         setTimeout(() => {
-            this.animationSequence = 'attack';
+
+            if (world.level_complete) return;
+
+            this.currentAnimation = 'attack';
             this.attack_sound.play();
+
         }, 1600);
 
         setTimeout(() => {
 
-            if (this.isDead()) return;
-            else if (Math.random() > 0.5) {
-                this.attackJump();
+            if (world.level_complete) return;
 
-            } else {
-                this.attackRun();
-            }
+            else if (Math.random() > 0.5) this.attackJump();
+            else this.attackRun();
 
         }, 2200);
     }
+
+
 
     attackRun() {
 
@@ -239,24 +203,38 @@ class Endboss extends MovableObject {
         }, 500);
     }
 
+
+
     retreat() {
 
         this.speedX = 5;
-        this.animationSequence = 'walk';
+        this.currentAnimation = 'walk';
 
         let walkInterval = addInterval(() => {
 
             if (this.isDead()) return;
-            else if (this.x < 5000) {
-                this.moveRight(this.speedX);
-
-            }
+            else if (this.x < 5000) this.moveRight(this.speedX);
 
         }, 1000 / 60);
 
         setTimeout(() => {
             clearInterval(walkInterval);
-            this.animationSequence = undefined;
+            this.currentAnimation = undefined;
         }, 2000);
+    }
+
+
+    handleDeathEndboss() {
+
+        setTimeout(() => {
+
+            this.groundLevel = 2000;
+            this.game_won_sound.play();
+        }, 2000);
+
+        setTimeout(() => {
+
+            renderVictoryScreen();
+        }, 3000);
     }
 }

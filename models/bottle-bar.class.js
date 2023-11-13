@@ -1,6 +1,6 @@
 class BottleBar extends StatusBar {
 
-    bottle_collect_sound = new Audio('./audio/bottle_collect.mp3');
+    collect_sound = new Audio('./audio/bottle_collect.mp3');
 
     IMAGES = [
         './img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/0.png',
