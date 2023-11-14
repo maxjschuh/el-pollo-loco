@@ -19,6 +19,8 @@ class EnemyBig extends Enemy {
         this.animate();
     }
 
+
+    
     setVariables() {
 
         this.x = Math.random() * 4800 + 400;

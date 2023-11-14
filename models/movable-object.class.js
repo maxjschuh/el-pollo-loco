@@ -17,13 +17,19 @@ class MovableObject extends DrawableObject {
     currentAnimation;
     previousAnimation;
 
+
+
     moveRight(speedX) {
         this.x += speedX;
     }
 
+
+
     moveLeft(speedX) {
         this.x -= speedX;
     }
+
+
 
     applyGravity() {
 
@@ -35,8 +41,9 @@ class MovableObject extends DrawableObject {
                 this.speedY -= this.acceleration;
             }
         }, 1000 / 60);
-
     }
+
+
 
     isAboveGround() {
 
@@ -44,6 +51,8 @@ class MovableObject extends DrawableObject {
 
         else return this.y <= this.groundLevel;
     }
+
+
 
     isColliding(mo) { 
 
@@ -53,17 +62,19 @@ class MovableObject extends DrawableObject {
         this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
     }
 
+
+
     isDead() {
         return this.energy == 0;
     }
 
+
+
     hit() {
 
-        if (world.level_complete) return;
-            
+        if (world.level_complete) return;            
 
         this.hurt_sound.play();
-
         this.energy -= 20;
 
         if (this.energy > 0) return;
@@ -72,6 +83,8 @@ class MovableObject extends DrawableObject {
 
         if (this instanceof Character || this instanceof Endboss) this.handleDeath();
     }
+
+
 
     isVulnerable(hitTime) {
 
@@ -83,9 +96,12 @@ class MovableObject extends DrawableObject {
         return timePassed > 0.8;
     }
 
+
+
     jump() {
         this.speedY = 25;
     }
+
 
 
     playAnimation(animation_images) {
@@ -101,65 +117,16 @@ class MovableObject extends DrawableObject {
     }
 
 
+
     handleDeath() {
 
         world.level_complete = true;
         resetButtons();
         world.muteMusic();
-        
-
-        if (this instanceof Endboss) {
-
-            this.death_sound.play();
-
-            addInterval(() => {
-
-                    this.playAnimation(this.IMAGES_DEAD);
-    
-                
-    
-            }, 100);
-
-            this.handleDeathEndboss();
-
-        } else {
-
-            this.playDeathAnimation();
-            this.handleDeathCharacter();
-
-        }
-
-
-        setTimeout(() => {
-
-            activateRestartButton();
-
-        }, 3000);        
-    }
-
-
-    playDeathAnimation() {
-
-        let frameCount = 0;
-        const interval = 1100 / this.IMAGES_DEAD.length;
         this.currentAnimation = 'dead';
+        this.playDeathAnimation();
+        this.handleDeathSpecificForTarget();
 
-        setTimeout(() => {
-            this.death_sound.play();
-
-        }, 400);
-
-        addInterval(() => {
-
-            if (frameCount < this.IMAGES_DEAD.length) {
-
-                
-                this.playAnimation(this.IMAGES_DEAD);
-                frameCount++;
-
-            }
-
-        }, interval);
+        setTimeout(activateRestartButton, 3000);        
     }
-
 }

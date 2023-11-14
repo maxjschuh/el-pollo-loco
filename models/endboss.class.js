@@ -60,6 +60,8 @@ class Endboss extends MovableObject {
         './img/4_enemie_boss_chicken/5_dead/G26.png'
     ];
 
+
+
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);
         this.loadImages(this.IMAGES_IDLE);
@@ -74,6 +76,8 @@ class Endboss extends MovableObject {
         this.applyGravity();
     }
 
+
+
     setVariables() {
 
         this.x = 5000;
@@ -87,6 +91,8 @@ class Endboss extends MovableObject {
         this.groundLevel = -50;
         this.hurt_sound.volume = 0.5;
     }
+
+
 
     run() {
         let timer = 0;
@@ -107,22 +113,21 @@ class Endboss extends MovableObject {
     }
 
 
+
     handleEndbossDeath() {
 
         setTimeout(() => {
             this.groundLevel = 2000;
             this.game_won_sound.play();
-
         }, 2000);
 
         setTimeout(() => {
-
             world.stopAllIntervals();
             this.showVictoryScreen();
         }, 3000);
-
-
     }
+
+
 
     animate() {
 
@@ -144,27 +149,23 @@ class Endboss extends MovableObject {
     }
 
 
-    
+
     attack() {
 
         this.currentAnimation = 'alert';
 
         setTimeout(() => {
-
             if (world.level_complete) return;
 
             this.currentAnimation = 'attack';
             this.attack_sound.play();
-
         }, 1600);
 
         setTimeout(() => {
-
             if (world.level_complete) return;
 
             else if (Math.random() > 0.5) this.attackJump();
             else this.attackRun();
-
         }, 2200);
     }
 
@@ -173,34 +174,30 @@ class Endboss extends MovableObject {
     attackRun() {
 
         this.speedX = 30;
+        let walkInterval = addInterval(() => this.moveLeft(this.speedX), 1000 / 60);
 
-        let walkInterval = addInterval(() => {
-
-            this.moveLeft(this.speedX);
-
-        }, 1000 / 60);
-
-        setTimeout(() => {
-            clearInterval(walkInterval);
-            this.retreat();
-        }, 300);
+        this.queueRetreat(300, walkInterval);
     }
+
+
 
     attackJump() {
 
         this.speedX = 20;
         this.jump();
+        let walkInterval = addInterval(() => this.moveLeft(this.speedX), 1000 / 60);
 
-        let walkInterval = addInterval(() => {
+        this.queueRetreat(500, walkInterval);
+    }
 
-            this.moveLeft(this.speedX);
 
-        }, 1000 / 60);
+
+    queueRetreat(timeout, intervalToClear) {
 
         setTimeout(() => {
-            clearInterval(walkInterval);
+            clearInterval(intervalToClear);
             this.retreat();
-        }, 500);
+        }, timeout);
     }
 
 
@@ -211,10 +208,8 @@ class Endboss extends MovableObject {
         this.currentAnimation = 'walk';
 
         let walkInterval = addInterval(() => {
-
             if (this.isDead()) return;
             else if (this.x < 5000) this.moveRight(this.speedX);
-
         }, 1000 / 60);
 
         setTimeout(() => {
@@ -224,7 +219,17 @@ class Endboss extends MovableObject {
     }
 
 
-    handleDeathEndboss() {
+
+    playDeathAnimation() {
+
+        addInterval(() => this.playAnimation(this.IMAGES_DEAD), 200);      
+    }
+
+
+    
+    handleDeathSpecificForTarget() {
+
+        this.death_sound.play();
 
         setTimeout(() => {
 
@@ -232,9 +237,6 @@ class Endboss extends MovableObject {
             this.game_won_sound.play();
         }, 2000);
 
-        setTimeout(() => {
-
-            renderVictoryScreen();
-        }, 3000);
+        setTimeout(renderVictoryScreen, 3000);
     }
 }

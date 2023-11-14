@@ -1,5 +1,9 @@
 class ThrowableObject extends MovableObject {
 
+    enemy_hit = false;
+    throw_sound = new Audio('./audio/throw.mp3');
+    hit_sound = new Audio('./audio/bottle_hit.mp3');
+
     IMAGES = [
         './img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
         './img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
@@ -16,9 +20,7 @@ class ThrowableObject extends MovableObject {
         './img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
     ];
 
-    throw_sound = new Audio('./audio/throw.mp3');
-    hit_sound = new Audio('./audio/bottle_hit.mp3');
-    enemy_hit = false;
+
 
     constructor(x, y) {
         super().throw_sound.play();
@@ -30,8 +32,9 @@ class ThrowableObject extends MovableObject {
         this.throw(x, y);
     }
 
-    setVariables() {
 
+
+    setVariables() {
         this.y = 100;
         this.x = 100;
         this.height = 80;
@@ -46,40 +49,42 @@ class ThrowableObject extends MovableObject {
         this.hit_sound.volume = 0.3;
     }
 
+
+
     animate() {
 
-        if (world.keyboard.LEFT || world.keyboard.RIGHT) {
-            this.speedX += world.character.speedX;
-        }
+        if (this.enemy_hit) return;
 
-        if (world.character.mirrored) {
-            addInterval(() => {
-                this.moveLeft(this.speedX);
-            }, 1000 / 60);
+        if (world.keyboard.LEFT || world.keyboard.RIGHT) this.speedX += world.character.speedX;
 
-        } else {
-            addInterval(() => {
-                this.moveRight(this.speedX);
-            }, 1000 / 60);
-        }
+        if (world.character.mirrored) addInterval(() => this.moveLeft(this.speedX), 1000 / 60);
+
+        else addInterval(() => this.moveRight(this.speedX), 1000 / 60);
+
+        this.animateGraphics();
+    }
+
+
+
+    animateGraphics() {
 
         let frameCount = 0;
 
-        addInterval(() => {
-            if (frameCount == 6) return;
+        addInterval(() => {         
+
+            if (frameCount == this.IMAGES_SPLASH.length) return;
 
             if (this.enemy_hit) {
-
-                this.playAnimation(this.IMAGES_SPLASH, 'splash');
-                this.previousAnimation = 'splash';
+                this.currentAnimation = 'splash';
+                this.playAnimation(this.IMAGES_SPLASH);
                 frameCount++;
 
-            } else {
-                this.playAnimation(this.IMAGES);
-            }
+            } else this.playAnimation(this.IMAGES);
 
         }, 80);
     }
+
+
 
     throw(x, y) {
         this.x = x;
@@ -87,6 +92,8 @@ class ThrowableObject extends MovableObject {
         this.speedY = 10;
         this.applyGravity();
     }
+
+
 
     splashAndVanish() {
 
@@ -103,12 +110,12 @@ class ThrowableObject extends MovableObject {
     }
 
 
-    
+
     attack(enemy) {
 
         this.splashAndVanish();
 
-        if (enemy instanceof EnemySmall || enemy instanceof EnemyBig) enemy.kill();       
+        if (enemy instanceof EnemySmall || enemy instanceof EnemyBig) enemy.kill();
 
         else if (enemy.isVulnerable(enemy.lastHit)) {
 

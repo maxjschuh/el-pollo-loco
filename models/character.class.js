@@ -107,15 +107,9 @@ class Character extends MovableObject {
 
     animate() {
 
-        addInterval(() => {
+        addInterval(() => this.handleMovement(), 1000 / 60);
 
-            this.handleMovement();
-        }, 1000 / 60);
-
-        addInterval(() => {
-
-            this.animateGraphics();
-        }, 100);
+        addInterval(() => this.animateGraphics(), 100);
     }
 
 
@@ -178,7 +172,7 @@ class Character extends MovableObject {
 
 
     isSleeping() {
-        let timePassed = new Date().getTime() - this.lastEvent; // Difference in ms
+        let timePassed = new Date().getTime() - this.lastEvent;
         timePassed = timePassed / 1000;
         return timePassed > 4;
     }
@@ -239,22 +233,32 @@ class Character extends MovableObject {
     }
 
 
+    playDeathAnimation() {
+
+        let frameCount = 0;
+        const interval = 1100 / this.IMAGES_DEAD.length;        
+
+        addInterval(() => {
+
+            if (frameCount < this.IMAGES_DEAD.length) {
+
+                this.playAnimation(this.IMAGES_DEAD);
+                frameCount++;
+            }
+
+        }, interval);
+    }
 
 
+    handleDeathSpecificForTarget() {
 
+        setTimeout(() => this.death_sound.play(), 400);
 
-    handleDeathCharacter() {
-
-        setTimeout(() => {
-
-            this.groundLevel = 2000;
-            
-        }, 2000);
+        setTimeout(() => this.groundLevel = 2000, 2000);
 
         setTimeout(() => {
             world.game_over_sound.play();
             renderGameOverScreen();
         }, 3000);
-
     }
 }

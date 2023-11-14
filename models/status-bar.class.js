@@ -1,10 +1,10 @@
 class StatusBar extends DrawableObject {
 
-
     filledPortion = 100;
     amount_collected = 0;
     amount_max = 5;
 
+    
 
     constructor() {
         super().height = 50;

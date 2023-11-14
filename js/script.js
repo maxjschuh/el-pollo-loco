@@ -38,23 +38,19 @@ function startGame() {
         'button-start',
         'startscreen',
         'endscreen-game-won',
-        'game-over-img',
+        'endscreen-game-over',
         'confetti'
     ]);
 }
 
 function hideElements(elements) {
 
-    elements.forEach(element => {
-        document.getElementById(element).classList.add('d-none');
-    });
+    elements.forEach(element => document.getElementById(element).classList.add('d-none'));
 }
 
 function showElements(elements) {
 
-    elements.forEach(element => {
-        document.getElementById(element).classList.remove('d-none');
-    });
+    elements.forEach(element => document.getElementById(element).classList.remove('d-none'));
 }
 
 function toggleHelpOverlay() {
@@ -116,14 +112,13 @@ function addEventsOnWindow() {
 function renderVictoryScreen() {
 
     document.getElementById('game-won-statistics-coins').innerHTML = /*html*/ `
-    You collected ${world.bottleBar.amount_collected} out of ${world.bottleBar.amount_max} coins!
-    `;
+    You collected ${world.bottleBar.amount_collected} out of ${world.bottleBar.amount_max} coins!`;
     showElements(['confetti', 'endscreen-game-won']);
 }
 
 function renderGameOverScreen() {
 
-    document.getElementById('game-over-img').classList.remove('d-none');
+    document.getElementById('endscreen-game-over').classList.remove('d-none');
 }
 
 function activateRestartButton() {
@@ -145,12 +140,9 @@ function muteMusic(muted) {
         world.desert_sound.pause();
         world.bossfight_sound.pause();
         
-    } else if (world.currentTrack) {
-        world.bossfight_sound.play();
+    } else if (world.currentTrack) world.bossfight_sound.play();
 
-    } else {
-        world.desert_sound.play();
-    }
+    else world.desert_sound.play();
 
     document.getElementById('button-mute-music').classList.toggle('d-none');
     document.getElementById('button-unmute-music').classList.toggle('d-none');

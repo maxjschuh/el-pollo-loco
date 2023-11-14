@@ -9,6 +9,8 @@ class HealthBar extends StatusBar {
         './img/7_statusbars/1_statusbar/2_statusbar_health/orange/100.png'
     ];
 
+
+    
     constructor() {
         super().loadImages(this.IMAGES);
         this.setFilling(100, this.IMAGES);

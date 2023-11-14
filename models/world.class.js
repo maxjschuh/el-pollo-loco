@@ -42,6 +42,8 @@ class World {
         this.bossfight_sound.loop = true;
     }
 
+
+
     run() {
 
         if (!world.currentTrack && world.character.x > 4500) world.playBossfightMusic();
@@ -134,10 +136,7 @@ class World {
             this.level.coins,
         ];
 
-        const individuals = [
-            this.character,
-            this.level.endboss
-        ];
+        const individuals = [this.character, this.level.endboss];
 
         groups.forEach(group => this.addObjectsToMap(group));
         individuals.forEach(individual => this.addToMap(individual));
@@ -170,7 +169,6 @@ class World {
         if (mo.mirrored) this.flipImage(mo);
 
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
 
         if (mo.mirrored) this.flipImageBack(mo);
     }

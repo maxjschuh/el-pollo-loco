@@ -16,27 +16,31 @@ class Enemy extends MovableObject {
 
         addInterval(() => {
 
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
+            if (this.isDead()) this.playAnimation(this.IMAGES_DEAD);
 
-            } else {
+            else {
                 this.playAnimation(this.IMAGES_WALK);
                 this.moveLeft(this.speedX);
             }
         }, 200);
     }
 
+
+
     saveCharacterAbove() {
         this.characterIsAbove = this.y + this.offset.top > (world.character.y + world.character.height - world.character.offset.bottom);
     }
 
+
+
     kill() {
+
         this.energy = 0;
-        setTimeout(() => {
-            this.groundLevel = 1000;
-        }, 500);
+        setTimeout(() => this.groundLevel = 1000, 500);
     }
 
+
+    
     stompKill() {
 
         this.kill();
