@@ -2,46 +2,188 @@ let intervalIds = [];
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let event_listeners_created;
+let music_muted = false;
+let touchButtons = [
+    {
+        id: 'start-button',
+        pressed: false,
+        function: startGame
+    },
+    {
+        id: 'button-mute-music',
+        pressed: false,
+        function: toggleMusic
+    },
+    {
+        id: 'button-unmute-music',
+        pressed: false,
+        function: toggleMusic
+    },
+    {
+        id: 'button-show-help',
+        pressed: false,
+        function: toggleHelpOverlay
+    },
+    {
+        id: 'button-hide-help',
+        pressed: false,
+        function: toggleHelpOverlay
+    },
+    {
+        id: 'button-show-info',
+        pressed: false,
+        function: toggleImprintOverlay
+    },
+    {
+        id: 'button-hide-info',
+        pressed: false,
+        function: toggleImprintOverlay
+    },
+    {
+        id: 'button-imprint',
+        pressed: false,
+        function: redirect
+    },
+    {
+        id: 'button-data-protection',
+        pressed: false,
+        function: redirect
+    }
+];
 
 
 
-window.addEventListener('keyup', (e) => {
+function init() {
 
-    e = e || window.event;
-    if (e.keyCode == 37) keyboard.LEFT = false;
-    if (e.keyCode == 39) keyboard.RIGHT = false;
-    if (e.keyCode == 32) keyboard.SPACE = false;
-    if (e.keyCode == 68) keyboard.D = false;
-});
+    document.getElementById('main').oncontextmenu = () => { return false };
 
-window.addEventListener('keydown', (e) => {
+    getElements();
+    addKeyboardEvents();
+    addTouchForTopButtons();
+    addEventListenersForController();
+}
 
-    e = e || window.event;
-    if (e.keyCode == 37) keyboard.LEFT = true;
-    if (e.keyCode == 39) keyboard.RIGHT = true;
-    if (e.keyCode == 32) keyboard.SPACE = true;
-    if (e.keyCode == 68) keyboard.D = true;
-});
+
+
+function getElements() {
+
+    touchButtons.forEach(button => button.element = document.getElementById(button.id));
+}
+
+
+
+function addKeyboardEvents() {
+
+    const events = ['keydown', 'keyup'];
+
+    events.forEach((event) => {
+        let bool = event === 'keydown';        
+
+        window.addEventListener(event, (e) => {
+            e = e || window.event;
+            if (e.keyCode == 37) keyboard.LEFT = bool;
+            if (e.keyCode == 39) keyboard.RIGHT = bool;
+            if (e.keyCode == 32) keyboard.SPACE = bool;
+            if (e.keyCode == 68) keyboard.D = bool;
+        });
+    });
+}
+
+
+
+function addTouchForTopButtons() {
+
+    const events = ['touchstart', 'touchend', 'touchcancel'];
+
+    touchButtons.forEach((button) => {
+
+        events.forEach(e => addTouchListener(button, e));
+    });
+}
+
+
+
+function addTouchListener(button, eventType) {
+
+    button.element.addEventListener(eventType, (e) => {
+
+        e.preventDefault();
+        button.element.classList.toggle('active');
+
+        if (button.pressed && button.function && eventType === 'touchend') button.function();
+        button.pressed = !button.pressed;
+
+    }, { passive: false });
+}
+
+
+
+function addEventListenersForController() {
+
+    const controlKeys = ['left', 'right', 'space', 'd'];
+    controlKeys.forEach(controlKey => addEventListeners(controlKey));
+
+    window.addEventListener('mouseup', (e) => {
+
+        e.preventDefault();
+        for (i in keyboard) keyboard[i] = false;
+    });
+
+}
+
+
+
+function addEventListeners(key) {
+
+    const button = document.getElementById('button-' + key);
+    const events = ['touchstart', 'touchend', 'touchcancel', 'mousedown'];
+
+    events.forEach(e => button.addEventListener(e, handleEvent, { passive: false }))
+
+    function handleEvent(e) {
+
+        e.preventDefault();
+        keyboard[key.toUpperCase()] = !keyboard[key.toUpperCase()];
+
+        button.classList.toggle('active');
+    }
+}
+
+
+
+
+
+
+
+
 
 function startGame() {
 
-    if (world) world.stopAllIntervals();
+    if (world) terminateGame();
 
     canvas = document.getElementById('canvas');
     initLevel();
 
     world = new World(canvas, keyboard);
 
-    createEventListeners();
-
     hideElements([
-        'button-start',
+        'start',
         'startscreen',
         'endscreen-game-won',
         'endscreen-game-over',
         'confetti'
     ]);
 }
+
+
+function terminateGame() {
+
+    world.stopAllIntervals();
+    world.game_over_sound.pause();
+    world.game_won_sound.pause();
+}
+
 
 function hideElements(elements) {
 
@@ -59,8 +201,8 @@ function toggleHelpOverlay() {
     document.getElementById('button-show-help').classList.toggle('d-none');
     document.getElementById('button-hide-help').classList.toggle('d-none');
     document.getElementById('imprint-overlay').classList.add('d-none');
-    document.getElementById('button-show-imprint').classList.remove('d-none');
-    document.getElementById('button-hide-imprint').classList.add('d-none');
+    document.getElementById('button-show-info').classList.remove('d-none');
+    document.getElementById('button-hide-info').classList.add('d-none');
 }
 
 function toggleImprintOverlay() {
@@ -69,45 +211,12 @@ function toggleImprintOverlay() {
     document.getElementById('button-show-help').classList.remove('d-none');
     document.getElementById('button-hide-help').classList.add('d-none');
     document.getElementById('imprint-overlay').classList.toggle('d-none');
-    document.getElementById('button-show-imprint').classList.toggle('d-none');
-    document.getElementById('button-hide-imprint').classList.toggle('d-none');
+    document.getElementById('button-show-info').classList.toggle('d-none');
+    document.getElementById('button-hide-info').classList.toggle('d-none');
 }
 
-function createEventListeners() {
 
-    const keys = ['left', 'right', 'space', 'd'];
-    keys.forEach(key => addEventsOnButton(key));
 
-    addEventsOnWindow();
-}
-
-function addEventsOnButton(key) {
-
-    const events = ['mousedown', 'touchstart'];
-
-    for (let i = 0; i < events.length; i++) {
-        const event = events[i];
-
-        document.getElementById('button-' + key).addEventListener(event, (e) => {
-
-            e.preventDefault();
-            keyboard[key.toUpperCase()] = true;
-        });
-    }
-}
-
-function addEventsOnWindow() {
-
-    const events = ['mouseup', 'touchend'];
-
-    events.forEach((event) => {
-
-        window.addEventListener(event, (e) => {
-            e.preventDefault();
-            for (i in keyboard) keyboard[i] = false;
-        });
-    })
-}
 
 function renderVictoryScreen() {
 
@@ -116,16 +225,22 @@ function renderVictoryScreen() {
     showElements(['confetti', 'endscreen-game-won']);
 }
 
+
+
 function renderGameOverScreen() {
 
     document.getElementById('endscreen-game-over').classList.remove('d-none');
 }
 
+
+
 function activateRestartButton() {
 
-    document.getElementById('button-start-label').innerHTML = 'RESTART';
-    document.getElementById('button-start').classList.remove('d-none');
+    document.getElementById('start-button-label').innerHTML = 'RESTART';
+    document.getElementById('start').classList.remove('d-none');
 }
+
+
 
 function addInterval(fn, delay) {
 
@@ -134,9 +249,13 @@ function addInterval(fn, delay) {
     return id;
 }
 
-function muteMusic(muted) {
 
-    if (muted) {
+
+function toggleMusic() {
+
+    music_muted = !music_muted;
+
+    if (music_muted) {
         world.desert_sound.pause();
         world.bossfight_sound.pause();
         
@@ -155,11 +274,16 @@ function resetButtons() {
         'help-overlay',
         'button-hide-help',
         'imprint-overlay',
-        'button-hide-imprint'
+        'button-hide-info'
     ]);
 
     showElements([
         'button-show-help',
-        'button-show-imprint',
+        'button-show-info',
     ]);
+}
+
+
+function redirect() {
+    window.location.href = this.element.href;
 }

@@ -39,27 +39,27 @@
 
 </head>
 
-<body>
+<body onload="init()" class="user-select-none">
 
-    <main>
+    <main id="main">
 
         <canvas id="canvas" width="720" height="480"></canvas>
 
         <img id="startscreen" src="./img/9_intro_outro_screens/start/startscreen_1.png" alt="startscreen background"
-            class="overlay d-none">
+            class="overlay">
 
-        <div id="button-start">
-            <div onclick="startGame()" class="button">
-                <span id="button-start-label" class="pos-absolute">START</span>
+        <div id="start">
+            <div id ="start-button" onclick="startGame()" class="button fade-in">
+                <span id="start-button-label" class="pos-absolute">START</span>
                 <img src="./img/10_additional/Bar_002.png" alt="yellow button">
             </div>
         </div>
 
         <div id="hud-top">
 
-            <img id="button-mute-music" onclick="muteMusic(true)" class="hud-button"
+            <img id="button-mute-music" onclick="toggleMusic()" class="hud-button"
                 src="./img/10_additional/hud/button_mute.png" alt="button mute music">
-            <img id="button-unmute-music" onclick="muteMusic(false)" class="hud-button d-none"
+            <img id="button-unmute-music" onclick="toggleMusic()" class="hud-button d-none"
                 src="./img/10_additional/hud/button_unmute.png" alt="button unmute music">
 
             <img id="button-show-help" onclick="toggleHelpOverlay()" class="hud-button"
@@ -67,17 +67,16 @@
             <img id="button-hide-help" onclick="toggleHelpOverlay()" class="hud-button d-none"
                 src="./img/10_additional/hud/button_close.png" alt="button hide help">
 
-            <img id="button-show-imprint" onclick="toggleImprintOverlay()" class="hud-button"
+            <img id="button-show-info" onclick="toggleImprintOverlay()" class="hud-button"
                 src="./img/10_additional/hud/button_imprint.png" alt="button show imprint">
-            <img id="button-hide-imprint" onclick="toggleImprintOverlay()" class="hud-button d-none"
+            <img id="button-hide-info" onclick="toggleImprintOverlay()" class="hud-button d-none"
                 src="./img/10_additional/hud/button_close.png" alt="button hide imprint">
 
         </div>
 
         <div id="hud-bottom">
             <div>
-                <img id="button-left" class="hud-button" src="./img/10_additional/hud/button_left.png"
-                    alt="button walk left">
+                <img id="button-left" class="hud-button" src="./img/10_additional/hud/button_left.png" alt="button walk left">
                 <img id="button-right" class="hud-button" src="./img/10_additional/hud/button_right.png"
                     alt="button walk right">
             </div>
@@ -124,12 +123,12 @@
 
         <div id="imprint-overlay" class="overlay bg-darkened d-none">
 
-            <a href="./imprint.html" class="button">
+            <a id="button-imprint" href="./imprint.html" class="button">
                 <span class="pos-absolute">IMPRESSUM</span>
                 <img src="./img/10_additional/Bar_002.png" alt="yellow button">
             </a>
 
-            <a href="./data-protection.html" class="button">
+            <a id="button-data-protection" href="./data-protection.html" class="button">
                 <span class="pos-absolute">DATENSCHUTZ</span>
                 <img src="./img/10_additional/Bar_002.png" alt="yellow button">
             </a>
@@ -137,12 +136,12 @@
         </div>
 
 
-        <img id="endscreen-game-over" class="endscreen d-none" src="./img/9_intro_outro_screens/game_over/game over.png"
+        <img id="endscreen-game-over" class="endscreen fade-in d-none" src="./img/9_intro_outro_screens/game_over/game over.png"
             alt="game over screen">
 
         <img id="confetti" class="overlay bg-darkened d-none" src="./img/10_additional/confetti.gif" alt="">
 
-        <div id="endscreen-game-won" class="endscreen d-none fade-in-text">
+        <div id="endscreen-game-won" class="endscreen d-none fade-in">
             LEVEL COMPLETE!
             <span id="game-won-statistics-coins"></span>
         </div>

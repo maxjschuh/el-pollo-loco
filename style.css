@@ -1,10 +1,15 @@
-.fade-in-text {
+.fade-in {
     animation: fade-in 0.2s;
 }
 
 @keyframes fade-in {
-    0% { opacity: 0;}
-    100% { opacity: 1;}
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 .fade-in {
@@ -86,6 +91,7 @@ main {
     position: relative;
     height: 480px;
     width: 720px;
+    touch-action: none;
 }
 
 canvas {
@@ -98,8 +104,8 @@ canvas {
     z-index: 12;
 }
 
-#button-start {
-    z-index: 14;
+#start {
+    z-index: 16;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -110,7 +116,7 @@ canvas {
     padding-bottom: 8px;
 }
 
-#button-start div {
+#start div {
     position: relative;
     display: flex;
     justify-content: center;
@@ -202,6 +208,20 @@ h1 {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
+#confetti {
+    z-index: 12;
+}
+
+.user-select-none {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
 
 
 
@@ -209,20 +229,33 @@ h1 {
 interactivity
 -------------*/
 
-.button:hover {
-    filter: brightness(80%);
-    cursor: pointer;
+
+@media (hover: hover) {
+
+    .button:hover {
+        filter: brightness(80%);
+        cursor: pointer;
+    }
+
+    .hud-button:hover {
+        filter: brightness(80%);
+        cursor: pointer;
+    }
+
+    .hud-button:active {
+        filter: brightness(60%);
+    }
+
+    .button:active {
+        filter: brightness(60%);
+    }
 }
 
-.button:active {
-    filter: brightness(60%);
-}
 
-.hud-button:hover {
-    filter: brightness(80%);
-    cursor: pointer;
-}
 
-.hud-button:active {
-    filter: brightness(60%);
+@media (hover: none) {
+
+    .active {
+        filter: brightness(60%) !important;
+    }
 }

@@ -16,6 +16,7 @@ class World {
     keyboard;
     camera_x = 0;
     game_over_sound = new Audio('./audio/game_over_sound.m4a');
+    game_won_sound = new Audio('./audio/game_won_sound.wav');
     bossfight_sound = new Audio('./audio/bossfight.wav');
     desert_sound = new Audio('./audio/desert_ambient.wav');
 
@@ -46,6 +47,8 @@ class World {
 
     run() {
 
+        if (world.level_complete) return;
+
         if (!world.currentTrack && world.character.x > 4500) world.playBossfightMusic();
 
         world.level.enemies.forEach((enemy) => {
@@ -65,6 +68,8 @@ class World {
     playBossfightMusic() {
 
         world.currentTrack = 'bossfight';
+
+        if (music_muted) return;         
         world.desert_sound.pause();
         world.bossfight_sound.play()
     }
@@ -136,7 +141,7 @@ class World {
             this.level.coins,
         ];
 
-        const individuals = [this.character, this.level.endboss];
+        const individuals = [this.level.endboss, this.character];
 
         groups.forEach(group => this.addObjectsToMap(group));
         individuals.forEach(individual => this.addToMap(individual));

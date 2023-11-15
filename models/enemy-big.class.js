@@ -20,7 +20,7 @@ class EnemyBig extends Enemy {
     }
 
 
-    
+
     setVariables() {
 
         this.x = Math.random() * 4800 + 400;

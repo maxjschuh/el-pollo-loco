@@ -3,7 +3,6 @@ class Endboss extends MovableObject {
     height = 520;
     width = 608;
     currentAnimation;
-    game_won_sound = new Audio('./audio/game_won_sound.wav');
     hurt_sound = new Audio('./audio/boss_hurt.mp3');
     attack_sound = new Audio('./audio/boss_attack.mp3');
     death_sound = new Audio('./audio/fire.m4a');
@@ -118,7 +117,7 @@ class Endboss extends MovableObject {
 
         setTimeout(() => {
             this.groundLevel = 2000;
-            this.game_won_sound.play();
+            world.game_won_sound.play();
         }, 2000);
 
         setTimeout(() => {
@@ -162,7 +161,7 @@ class Endboss extends MovableObject {
         }, 1600);
 
         setTimeout(() => {
-            if (world.level_complete) return;
+            if (this.isDead()) return;
 
             else if (Math.random() > 0.5) this.attackJump();
             else this.attackRun();
@@ -222,11 +221,11 @@ class Endboss extends MovableObject {
 
     playDeathAnimation() {
 
-        addInterval(() => this.playAnimation(this.IMAGES_DEAD), 200);      
+        addInterval(() => this.playAnimation(this.IMAGES_DEAD), 200);
     }
 
 
-    
+
     handleDeathSpecificForTarget() {
 
         this.death_sound.play();
@@ -234,7 +233,7 @@ class Endboss extends MovableObject {
         setTimeout(() => {
 
             this.groundLevel = 2000;
-            this.game_won_sound.play();
+            world.game_won_sound.play();
         }, 2000);
 
         setTimeout(renderVictoryScreen, 3000);
