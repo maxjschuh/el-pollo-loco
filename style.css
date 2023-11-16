@@ -1,24 +1,7 @@
-.fade-in {
-    animation: fade-in 0.2s;
-}
-
-@keyframes fade-in {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
-.fade-in {
-    opacity: 1;
-}
-
 /*-------------
 fonts
 -------------*/
+
 @font-face {
     font-family: Rio Grande;
     src: url('./fonts/RioGrande.ttf');
@@ -29,47 +12,11 @@ fonts
     src: url('./fonts/Roboto-Regular.ttf');
 }
 
-/*-------------
-imprint-pages
--------------*/
-.imprint {
-    font-family: 'Roboto';
-    display: block;
-    height: unset;
-    width: unset;
-}
-
-.bg-opacity {
-    background-color: rgba(255, 255, 255, 0.85);
-    height: 100%;
-    min-height: calc(100vh - 64px);
-    padding: 32px;
-}
-
-.imprint-headline {
-    font-family: 'Roboto';
-    text-shadow: none;
-    text-decoration: none;
-    color: unset;
-}
-
 
 /*-------------
-js utilities
+unique elements
 -------------*/
-.d-none {
-    display: none !important;
-}
 
-.mirrored {
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
-}
-
-
-/*-------------
-individual elements top -> down
--------------*/
 body {
     display: flex;
     flex-direction: column;
@@ -79,7 +26,6 @@ body {
     width: 100vw;
     font-family: 'Rio Grande';
     margin: 0;
-
     background: url('./img/10_additional/body_bg.png') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -167,13 +113,6 @@ canvas {
     height: calc(100% - 130px);
 }
 
-
-
-
-
-
-
-
 #endscreen-game-won {
     display: flex;
     flex-direction: column;
@@ -184,32 +123,94 @@ canvas {
     text-shadow: 2px 2px #FEAC00;
 }
 
-
-
-
-
-
-/*-------------
-non-positioning-properties
--------------*/
-
-h1 {
-    font-family: 'Rio Grande', serif;
-    text-shadow: 4px 2px 2px rgba(0, 0, 0, 0.3);
-}
-
-
-
 #game-won-statistics-coins {
     font-size: 24px;
 }
 
-.bg-darkened {
-    background-color: rgba(0, 0, 0, 0.2);
-}
-
 #confetti {
     z-index: 12;
+}
+
+
+/*-------------
+classes for positioning / sizing 
+-------------*/
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.button img {
+    width: 120px;
+}
+
+.pos-absolute {
+    position: absolute;
+}
+
+.centered-buttons {
+    position: absolute;
+    left: 0;
+    right: 0;
+    gap: 16px;
+}
+
+.centered-buttons img {
+    width: 120px;
+}
+
+.centered-buttons div {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
+
+.flex-row {
+    display: flex;
+}
+
+.help-img {
+    height: 60px;
+}
+
+.centered {
+    justify-content: center;
+}
+
+.gap-32 {
+    gap: 32px;
+}
+
+.text-centered {
+    text-align: center;
+}
+
+.hud-button {
+    width: 40px;
+}
+
+.endscreen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 13;
+}
+
+
+/*-------------
+non-positioning-classes
+-------------*/
+
+.bg-darkened {
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 .user-select-none {
@@ -223,12 +224,9 @@ h1 {
 }
 
 
-
-
 /*-------------
 interactivity
 -------------*/
-
 
 @media (hover: hover) {
 
@@ -251,11 +249,233 @@ interactivity
     }
 }
 
-
-
 @media (hover: none) {
 
     .active {
         filter: brightness(60%) !important;
+    }
+}
+
+.keydown-active {
+    filter: brightness(60%) !important;
+}
+
+
+/*-------------
+javascript utilities
+-------------*/
+
+.d-none {
+    display: none !important;
+}
+
+.mirrored {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+
+/*-------------
+animations
+-------------*/
+
+.fade-in {
+    animation: fade-in 0.2s;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+/*-------------
+imprint-pages
+-------------*/
+
+.imprint {
+    font-family: 'Roboto';
+    display: block;
+    height: unset;
+    width: unset;
+}
+
+.bg-opacity {
+    background-color: rgba(255, 255, 255, 0.85);
+    height: 100%;
+    min-height: calc(100vh - 64px);
+    padding: 32px;
+}
+
+.home-link {
+    font-family: 'Rio Grande', serif;
+    text-shadow: 4px 2px 2px rgba(0, 0, 0, 0.3);
+    font-size: 2em;
+    text-decoration: none;
+    color: black;
+}
+
+
+/*-------------
+responsive design
+-------------*/
+
+@media only screen and (max-width: 720px) {
+
+    main {
+        width: 100%;
+        height: auto;
+    }
+
+    #hud-top {
+        padding: 1vw;
+    }
+
+    .hud-button {
+        width: 6vw;
+    }
+
+    .button img {
+        width: 18vw;
+    }
+
+    .button span {
+        font-size: 4vw;
+    }
+
+    #imprint-overlay {
+        padding-top: 18vw;
+        height: calc(100% - 18vw);
+        gap: 3vw;
+    }
+
+    #help-overlay {
+        padding-top: 18vw;
+        height: calc(100% - 18vw);
+    }
+
+    .help-img {
+        height: 8vw;
+    }
+
+    .gap-32 {
+        gap: 5vw;
+    }
+
+    .large-button-mobile {
+        width: 29vw !important;
+    }
+
+    #endscreen-game-won {
+        font-size: 7vw;
+    }
+
+    #game-won-statistics-coins {
+        font-size: 4vw;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+
+    #start {
+        padding-bottom: 4px;
+    }
+
+    .imprint h1 {
+        font-size: 24px;
+    }
+
+    .imprint h2 {
+        font-size: 20px;
+    }
+
+    .imprint h3 {
+        font-size: 16px;
+    }
+
+    .bg-opacity {
+        padding: 16px;
+    }
+}
+
+@media only screen and (max-width: 340px) {
+
+    .imprint h1 {
+        font-size: 22px;
+    }
+
+    .imprint h2 {
+        font-size: 18px;
+    }
+
+    .imprint h3 {
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+
+    main {
+        height: 100%;
+        width: auto;
+    }
+
+    #hud-top {
+        padding: 1vh;
+    }
+
+    .hud-button {
+        width: 8vh;
+    }
+
+    #imprint-overlay {
+        padding-top: 27vh;
+        height: calc(100% - 27vh);
+        gap: 5vh;
+    }
+
+    #help-overlay {
+        padding-top: 27vh;
+        height: calc(100% - 27vh);
+    }
+
+    .help-img {
+        height: 13vh;
+    }
+
+    .button img {
+        width: 25vh;
+    }
+
+    .button span {
+        font-size: 5vh;
+    }
+
+    .gap-32 {
+        gap: 7vh;
+    }
+
+    .large-button-mobile {
+        width: 36vh !important;
+    }
+
+    #endscreen-game-won {
+        font-size: 10vh;
+    }
+
+    #game-won-statistics-coins {
+        font-size: 6vh;
+    }
+}
+
+@media only screen and (max-height: 300px) {
+
+    #start {
+        padding-bottom: 4px;
     }
 }

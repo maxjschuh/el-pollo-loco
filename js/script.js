@@ -7,56 +7,51 @@ let music_muted = false;
 let touchButtons = [
     {
         id: 'start-button',
-        pressed: false,
         function: startGame
     },
     {
         id: 'button-mute-music',
-        pressed: false,
         function: toggleMusic
     },
     {
         id: 'button-unmute-music',
-        pressed: false,
         function: toggleMusic
     },
     {
         id: 'button-show-help',
-        pressed: false,
         function: toggleHelpOverlay
     },
     {
         id: 'button-hide-help',
-        pressed: false,
         function: toggleHelpOverlay
     },
     {
         id: 'button-show-info',
-        pressed: false,
         function: toggleImprintOverlay
     },
     {
         id: 'button-hide-info',
-        pressed: false,
         function: toggleImprintOverlay
     },
     {
         id: 'button-imprint',
-        pressed: false,
         function: redirect
     },
     {
         id: 'button-data-protection',
-        pressed: false,
         function: redirect
     }
 ];
 
 
-
+/**
+ * Sets basic properties and calls functions that create the event listeners for the touch and click functionality of the buttons in the head-up display.
+ */
 function init() {
 
-    document.getElementById('main').oncontextmenu = () => { return false };
+    document.getElementById('main').oncontextmenu = () => { 
+        return false; 
+    };
 
     getElements();
     addKeyboardEvents();
@@ -65,33 +60,45 @@ function init() {
 }
 
 
-
+/**
+ * Sets for every touch button in the touch buttons array its associated html element as element property.
+ */
 function getElements() {
 
     touchButtons.forEach(button => button.element = document.getElementById(button.id));
 }
 
 
-
+/**
+ * Adds event listeners for controlling the player character with keyboard keys.
+ */
 function addKeyboardEvents() {
 
     const events = ['keydown', 'keyup'];
 
     events.forEach((event) => {
-        let bool = event === 'keydown';        
+        let pressedDown = event === 'keydown';        
 
         window.addEventListener(event, (e) => {
             e = e || window.event;
-            if (e.keyCode == 37) keyboard.LEFT = bool;
-            if (e.keyCode == 39) keyboard.RIGHT = bool;
-            if (e.keyCode == 32) keyboard.SPACE = bool;
-            if (e.keyCode == 68) keyboard.D = bool;
+            if (e.keyCode == 37) handleKeyPress('button-left', pressedDown, 'LEFT');
+            if (e.keyCode == 39) handleKeyPress('button-right', pressedDown, 'RIGHT');
+            if (e.keyCode == 32) handleKeyPress('button-space', pressedDown, 'SPACE');
+            if (e.keyCode == 68) handleKeyPress('button-d', pressedDown, 'D');
         });
     });
 }
 
+function handleKeyPress(id, pressedDown, key) {
+
+    document.getElementById(id).classList.toggle('keydown-active', pressedDown)
+    keyboard[key] = pressedDown;
+}
 
 
+/**
+ * Adds touch functionality for the buttons in the 
+ */
 function addTouchForTopButtons() {
 
     const events = ['touchstart', 'touchend', 'touchcancel'];
@@ -111,7 +118,7 @@ function addTouchListener(button, eventType) {
         e.preventDefault();
         button.element.classList.toggle('active');
 
-        if (button.pressed && button.function && eventType === 'touchend') button.function();
+        if (eventType === 'touchend') button.function();
         button.pressed = !button.pressed;
 
     }, { passive: false });
@@ -127,7 +134,7 @@ function addEventListenersForController() {
     window.addEventListener('mouseup', (e) => {
 
         e.preventDefault();
-        for (i in keyboard) keyboard[i] = false;
+        for (let i in keyboard) keyboard[i] = false;
     });
 
 }
@@ -139,7 +146,7 @@ function addEventListeners(key) {
     const button = document.getElementById('button-' + key);
     const events = ['touchstart', 'touchend', 'touchcancel', 'mousedown'];
 
-    events.forEach(e => button.addEventListener(e, handleEvent, { passive: false }))
+    events.forEach(e => button.addEventListener(e, handleEvent, { passive: false }));
 
     function handleEvent(e) {
 
@@ -149,12 +156,6 @@ function addEventListeners(key) {
         button.classList.toggle('active');
     }
 }
-
-
-
-
-
-
 
 
 
@@ -177,6 +178,7 @@ function startGame() {
 }
 
 
+
 function terminateGame() {
 
     world.stopAllIntervals();
@@ -185,15 +187,20 @@ function terminateGame() {
 }
 
 
+
 function hideElements(elements) {
 
     elements.forEach(element => document.getElementById(element).classList.add('d-none'));
 }
 
+
+
 function showElements(elements) {
 
     elements.forEach(element => document.getElementById(element).classList.remove('d-none'));
 }
+
+
 
 function toggleHelpOverlay() {
 
@@ -205,6 +212,8 @@ function toggleHelpOverlay() {
     document.getElementById('button-hide-info').classList.add('d-none');
 }
 
+
+
 function toggleImprintOverlay() {
 
     document.getElementById('help-overlay').classList.add('d-none');
@@ -214,7 +223,6 @@ function toggleImprintOverlay() {
     document.getElementById('button-show-info').classList.toggle('d-none');
     document.getElementById('button-hide-info').classList.toggle('d-none');
 }
-
 
 
 
@@ -268,6 +276,7 @@ function toggleMusic() {
 }
 
 
+
 function resetButtons() {
 
     hideElements([
@@ -282,6 +291,7 @@ function resetButtons() {
         'button-show-info',
     ]);
 }
+
 
 
 function redirect() {

@@ -21,7 +21,9 @@ function initLevel() {
             new Clouds(1),
             new Clouds(2),
             new Clouds(3),
-            new Clouds(4)
+            new Clouds(4),
+            new Clouds(5),
+            new Clouds(6)
         ],
         [
             new BackgroundObject('./img/5_background/layers/air.png', -1),

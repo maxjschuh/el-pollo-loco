@@ -1,10 +1,6 @@
 class Character extends MovableObject {
 
     lastEvent;
-    collectedBottles = 0;
-    bottlesToCollect = 5;
-    collectedCoins = 0;
-    coinsToCollect = 5;
     y = 275;
     groundLevel = 270;
     ready_to_throw = true;
