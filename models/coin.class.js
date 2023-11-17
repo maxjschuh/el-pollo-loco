@@ -5,6 +5,11 @@ class Coin extends Collectable {
         './img/8_coin/coin_2.png'
     ];
 
+    
+    /**
+     * Creates a new collectable coin.
+     * @param {number} level_end_x farthest x-position that the character can reach
+     */
     constructor(level_end_x) {
         super().loadImage(this.IMAGES[0]);
         this.loadImages(this.IMAGES);
@@ -13,6 +18,11 @@ class Coin extends Collectable {
         this.animate();
     }
 
+
+    /**
+     * Sets a random y and x position for the coin and other basic variables.
+     * @param {number} level_end_x farthest x-position that the character can reach
+     */
     setVariables(level_end_x) {
 
         this.y = this.random * 200 + 50;
@@ -27,6 +37,10 @@ class Coin extends Collectable {
         };
     }
 
+
+    /**
+     * Animates the coin by switching through the animation images.
+     */
     animate() {
 
         addInterval(() => this.playAnimation(this.IMAGES), 100);

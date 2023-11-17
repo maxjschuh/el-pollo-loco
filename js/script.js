@@ -45,7 +45,7 @@ let touchButtons = [
 
 
 /**
- * Sets basic properties and calls functions that create the event listeners for the touch and click functionality of the buttons in the head-up display.
+ * Sets basic properties and calls functions that create the event listeners for the touch and click functionality of all buttons.
  */
 function init() {
 
@@ -55,7 +55,7 @@ function init() {
 
     getElements();
     addKeyboardEvents();
-    addTouchForTopButtons();
+    addTouchForButtons();
     addEventListenersForController();
 }
 
@@ -89,6 +89,13 @@ function addKeyboardEvents() {
     });
 }
 
+
+/**
+ * Handles the operations for when a key for controlling the player character is pressed or released: (Un-)Setting the "active" state of the corresponding button on the screen and the setting the corresponding variable in the keyboard object to "true" or "false".
+ * @param {string} id html id of the corresponding button to the keyboard key
+ * @param {boolean} pressedDown true for keydown event, false for keyup event
+ * @param {string} key name of the key in upper case, which is the name of its corresponding property in the keyboard object
+ */
 function handleKeyPress(id, pressedDown, key) {
 
     document.getElementById(id).classList.toggle('keydown-active', pressedDown)
@@ -97,9 +104,9 @@ function handleKeyPress(id, pressedDown, key) {
 
 
 /**
- * Adds touch functionality for the buttons in the 
+ * Adds touch functionality for all buttons that are not part of the controller.
  */
-function addTouchForTopButtons() {
+function addTouchForButtons() {
 
     const events = ['touchstart', 'touchend', 'touchcancel'];
 
@@ -110,7 +117,11 @@ function addTouchForTopButtons() {
 }
 
 
-
+/**
+ * Adds a single touch event listener that toggles the "active" state of the html element that functions as button. If the event is a "touchend" event, the associated function of the button is called.
+ * @param {object} button contains the following information for the button: the id of its html element, the html element itself, the function of the button
+ * @param {string} eventType one of three touch events: "touchstart", "touchend" or "touchcancel"
+ */
 function addTouchListener(button, eventType) {
 
     button.element.addEventListener(eventType, (e) => {
@@ -119,13 +130,14 @@ function addTouchListener(button, eventType) {
         button.element.classList.toggle('active');
 
         if (eventType === 'touchend') button.function();
-        button.pressed = !button.pressed;
 
     }, { passive: false });
 }
 
 
-
+/**
+ * Adds the event listeners for the controller (arrow-buttons and bottle throw) which can be used to control the player character.
+ */
 function addEventListenersForController() {
 
     const controlKeys = ['left', 'right', 'space', 'd'];
@@ -140,7 +152,10 @@ function addEventListenersForController() {
 }
 
 
-
+/**
+ * Adds touch and click event listeners for a specific controller key.
+ * @param {string} key one of these keys: 'left', 'right', 'space', 'd'
+ */
 function addEventListeners(key) {
 
     const button = document.getElementById('button-' + key);
@@ -148,6 +163,10 @@ function addEventListeners(key) {
 
     events.forEach(e => button.addEventListener(e, handleEvent, { passive: false }));
 
+    /**
+     * Handles the operations for when a controller button experiences a touch or click event: Toggling the "active" state of the corresponding button on the screen and inverting the value of the corresponding variable in the keyboard object.
+     * @param {object} e a touch or click event
+     */
     function handleEvent(e) {
 
         e.preventDefault();
@@ -158,7 +177,9 @@ function addEventListeners(key) {
 }
 
 
-
+/**
+ * Handles operations when the user (re-)starts the game.
+ */
 function startGame() {
 
     if (world) terminateGame();
@@ -168,17 +189,19 @@ function startGame() {
 
     world = new World(canvas, keyboard);
 
-    hideElements([
+    toggleElements([
         'start',
         'startscreen',
         'endscreen-game-won',
         'endscreen-game-over',
         'confetti'
-    ]);
+    ], true);
 }
 
 
-
+/**
+ * Terminates a running game by stopping all intervals and pausing the background music.
+ */
 function terminateGame() {
 
     world.stopAllIntervals();
@@ -187,61 +210,63 @@ function terminateGame() {
 }
 
 
+/**
+ * Shows or hides the elements that are passed as parameter.
+ * @param {Array} elements contains html ids as strings
+ * @param {boolean} direction_of_operation true for when the elements should only be hidden, false for when they should only be shown, undefined for inverting the current state
+ */
+function toggleElements(elements, direction_of_operation) {
 
-function hideElements(elements) {
+    elements.forEach(element => document.getElementById(element).classList.toggle('d-none', direction_of_operation));
 
-    elements.forEach(element => document.getElementById(element).classList.add('d-none'));
 }
 
 
-
-function showElements(elements) {
-
-    elements.forEach(element => document.getElementById(element).classList.remove('d-none'));
-}
-
-
-
+/**
+ * Toggles the visibility of the help overlay.
+ */
 function toggleHelpOverlay() {
 
-    document.getElementById('help-overlay').classList.toggle('d-none');
-    document.getElementById('button-show-help').classList.toggle('d-none');
-    document.getElementById('button-hide-help').classList.toggle('d-none');
-    document.getElementById('imprint-overlay').classList.add('d-none');
-    document.getElementById('button-show-info').classList.remove('d-none');
-    document.getElementById('button-hide-info').classList.add('d-none');
+    toggleElements(['help-overlay', 'button-show-help', 'button-hide-help']);
+    toggleElements(['imprint-overlay', 'button-hide-info'], true);
+    toggleElements(['button-show-info'], false);
 }
 
 
-
+/**
+ * Toggles the visibility of the info (imprint and data protection) overlay.
+ */
 function toggleImprintOverlay() {
 
-    document.getElementById('help-overlay').classList.add('d-none');
-    document.getElementById('button-show-help').classList.remove('d-none');
-    document.getElementById('button-hide-help').classList.add('d-none');
-    document.getElementById('imprint-overlay').classList.toggle('d-none');
-    document.getElementById('button-show-info').classList.toggle('d-none');
-    document.getElementById('button-hide-info').classList.toggle('d-none');
+    toggleElements(['help-overlay', 'button-hide-help'], true);
+    toggleElements(['button-show-help'], false);
+    toggleElements(['imprint-overlay', 'button-show-info', 'button-hide-info']);
 }
 
 
-
+/**
+ * Renders the end screen for when the player has won the game.
+ */
 function renderVictoryScreen() {
 
     document.getElementById('game-won-statistics-coins').innerHTML = /*html*/ `
     You collected ${world.bottleBar.amount_collected} out of ${world.bottleBar.amount_max} coins!`;
-    showElements(['confetti', 'endscreen-game-won']);
+    toggleElements(['confetti', 'endscreen-game-won'], false);
 }
 
 
-
+/**
+ * Renders the end screen for when the player has lost the game;
+ */
 function renderGameOverScreen() {
 
     document.getElementById('endscreen-game-over').classList.remove('d-none');
 }
 
 
-
+/**
+ * Shows the button that (re-)starts the game and changes its inner text to "Restart".
+ */
 function activateRestartButton() {
 
     document.getElementById('start-button-label').innerHTML = 'RESTART';
@@ -249,7 +274,12 @@ function activateRestartButton() {
 }
 
 
-
+/**
+ * Sets a interval with the passed parameters and pushes its id to the intervalIds array.
+ * @param {function} fn - The function to be called at each interval.
+ * @param {number} delay - The delay, in milliseconds, between each function call.
+ * @returns {number} - The ID of the interval. This can be used to clear the interval later.
+ */
 function addInterval(fn, delay) {
 
     let id = setInterval(fn, delay);
@@ -258,7 +288,9 @@ function addInterval(fn, delay) {
 }
 
 
-
+/**
+ * Toggles the background music on or off and sets the visibility of the associated buttons accordingly.
+ */
 function toggleMusic() {
 
     music_muted = !music_muted;
@@ -276,24 +308,28 @@ function toggleMusic() {
 }
 
 
-
+/**
+ * Resets buttons and overlays to their default state.
+ */
 function resetButtons() {
 
-    hideElements([
+    toggleElements([
         'help-overlay',
         'button-hide-help',
         'imprint-overlay',
         'button-hide-info'
-    ]);
+    ], true);
 
-    showElements([
+    toggleElements([
         'button-show-help',
         'button-show-info',
-    ]);
+    ], false);
 }
 
 
-
+/**
+ * Redirects to the href attribute of the element on which this function is executed.
+ */
 function redirect() {
     window.location.href = this.element.href;
 }

@@ -21,7 +21,11 @@ class World {
     desert_sound = new Audio('./audio/desert_ambient.wav');
 
 
-
+    /**
+     * Initializes the world and calls the draw() function which renders the world on the canvas.
+     * @param {object} canvas the canvas element on which the game should be rendered
+     * @param {object} keyboard a virtual copy of the current state of the control keys or buttons (being pressed or not)
+     */
     constructor(canvas, keyboard) {
 
         this.setVariables(canvas, keyboard);
@@ -31,7 +35,11 @@ class World {
     }
 
 
-
+    /**
+     * Executed on world initalization. Configures various variables.
+     * @param {object} canvas the canvas element on which the game should be rendered
+     * @param {object} keyboard a virtual copy of the current state of the control keys or buttons (being pressed or not)
+     */
     setVariables(canvas, keyboard) {
 
         this.level = level1;
@@ -44,7 +52,10 @@ class World {
     }
 
 
-
+    /**
+     * Executed repeatedly for handling game progression. Checks every enemy (including the endboss) for collision with the character. Checks the character for collision with collectable items.  
+     * @returns if the level is complete, i. e. character or endboss have died
+     */
     run() {
 
         if (world.level_complete) return;
@@ -65,30 +76,41 @@ class World {
         world.character.checkForBottleThrow();
     }
 
+
+    /**
+     * Switches the background music to the bossfight track.
+     * @returns if the music is currently muted
+     */
     playBossfightMusic() {
 
         world.currentTrack = 'bossfight';
 
-        if (music_muted) return;         
+        if (music_muted) return;
         world.desert_sound.pause();
         world.bossfight_sound.play()
     }
 
 
-
+    /**
+     * Mutes the background music.
+     */
     muteMusic() {
         world.bossfight_sound.pause();
         world.desert_sound.pause();
     }
 
 
-
+    /**
+     * Stops all intervals by iterating through the intervalIds array.
+     */
     stopAllIntervals() {
         intervalIds.forEach(clearInterval);
     }
 
 
-
+    /**
+     * Checks for every collectable item whether the player character is colling with it. If so, collect() for collecting the item is called.
+     */
     checkCollectables() {
 
         this.level.bottles.forEach(bottle => {
@@ -103,7 +125,10 @@ class World {
     }
 
 
-
+    /**
+     * Checks for a passed enemy if any of the currently thrown bottles collides with it. If so, the enemy is attacked by the bottle.
+     * @param {object} enemy enemy that should be checked for bottle hits
+     */
     checkBottleHits(enemy) {
 
         this.throwableObjects.forEach(bottle => {
@@ -115,7 +140,9 @@ class World {
     }
 
 
-
+    /**
+     * Draws all objects on the canvas as often as the hardware allows.
+     */
     draw() {
 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -130,7 +157,9 @@ class World {
     }
 
 
-
+    /**
+     * Draws all movable objects on the canvas.
+     */
     addMovableObjects() {
 
         const groups = [
@@ -149,7 +178,9 @@ class World {
     }
 
 
-
+    /**
+     * Draws the static status bars on the canvas.
+     */
     addStatusBars() {
 
         const statusBars = [
@@ -163,13 +194,19 @@ class World {
     }
 
 
-
+    /**
+     * Adds a array of objects to the canvas.
+     * @param {Array} objects array of objects to be drawn
+     */
     addObjectsToMap(objects) {
         objects.forEach(object => this.addToMap(object));
     }
 
 
-
+    /**
+     * Adds a single object that is passed as parameter to the map. Accounts for the left-/right-orientation of the object.
+     * @param {object} mo movable object to be drawn
+     */
     addToMap(mo) {
         if (mo.mirrored) this.flipImage(mo);
 
@@ -179,7 +216,10 @@ class World {
     }
 
 
-
+    /**
+     * Saves the canvas context and afterwards flips its horizontal orientation, so that objects can be drawn mirrored.
+     * @param {object} mo object that should be drawn mirrored on the canvas
+     */
     flipImage(mo) {
         this.ctx.save();
         this.ctx.translate(mo.width, 0);
@@ -188,7 +228,10 @@ class World {
     }
 
 
-
+    /**
+     * Restores the canvas context to its default orientation.
+     * @param {object} mo object that should be drawn mirrored on the canvas
+     */
     flipImageBack(mo) {
         this.ctx.restore();
         mo.x = mo.x * -1;

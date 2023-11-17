@@ -10,7 +10,9 @@ class HealthBar extends StatusBar {
     ];
 
 
-
+    /**
+     * Loads the images for the character health bar and sets its filling to 100%.
+     */
     constructor() {
         super().loadImages(this.IMAGES);
         this.setFilling(100, this.IMAGES);

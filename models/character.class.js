@@ -70,7 +70,9 @@ class Character extends MovableObject {
     ];
 
 
-
+    /**
+     * Loads the images for character animation. Calls functions for animating the character and applying gravity to it.
+     */
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);
         this.loadImages(this.IMAGES_IDLE);
@@ -86,7 +88,9 @@ class Character extends MovableObject {
     }
 
 
-
+    /**
+     * Is only executed once. Sets basic variables of the character object.
+     */
     setVariables() {
 
         this.walking_sound.volume = 0.7;
@@ -100,7 +104,9 @@ class Character extends MovableObject {
     }
 
 
-
+    /**
+     * Adds intervals for handling player input on the controls and animating the character.
+     */
     animate() {
 
         addInterval(() => this.handleMovement(), 1000 / 60);
@@ -109,7 +115,10 @@ class Character extends MovableObject {
     }
 
 
-
+    /**
+     * Moves the character according to player input on controls.
+     * @returns if the character is dead
+     */
     handleMovement() {
 
         if (this.isDead()) return;
@@ -120,12 +129,14 @@ class Character extends MovableObject {
             this.jump_sound.play();
             this.jump();
         }
-
         world.camera_x = -this.x + 100;
     }
 
 
-
+    /**
+     * Moves the character to the left or right and plays a walking sound.
+     * @returns if there is no input to the left / right controls and thus the walking sound should not be played
+     */
     walk() {
 
         if (world.keyboard.RIGHT && this.x < world.level.level_end_x) {
@@ -144,7 +155,10 @@ class Character extends MovableObject {
     }
 
 
-
+    /**
+     * Animates the character based on its current behavior.
+     * @returns if the character is dead or if the character is idling
+     */
     animateGraphics() {
 
         if (this.isDead()) return;
@@ -166,7 +180,10 @@ class Character extends MovableObject {
     }
 
 
-
+    /**
+     * Checks if the character has been active in the last four seconds.
+     * @returns {boolean} true for when the character has not been active in the last four seconds
+     */
     isSleeping() {
         let timePassed = new Date().getTime() - this.lastEvent;
         timePassed = timePassed / 1000;
@@ -174,13 +191,20 @@ class Character extends MovableObject {
     }
 
 
-
+    /**
+     * Is called when the character is not idling.
+     */
     wakeUp() {
         this.lastEvent = new Date().getTime();
     }
 
 
-
+    /**
+     * Increases the collected amount of the passed collectable group. Removes the collected item from the game so that it can not be collected twice.
+     * @param {object} collectedItem object that has been colliding with the player and thus is now collected
+     * @param {Array} collectableGroup array which contains all collectable items of the specific group
+     * @param {object} statusbar of the collectable group
+     */
     collect(collectedItem, collectableGroup, statusbar) {
 
         statusbar.amount_collected++;
@@ -193,7 +217,9 @@ class Character extends MovableObject {
     }
 
 
-
+    /**
+     * Handles the throwing of a bottle if the player presses the according input.
+     */
     checkForBottleThrow() {
 
         if (!world.keyboard.D) this.ready_to_throw = true;
@@ -211,7 +237,11 @@ class Character extends MovableObject {
     }
 
 
-
+    /**
+     * Checks for a collision of the character with the passed enemy and if so handles the process of hitting the enemy (in case it is the endboss) or killing it (for normal enemies).
+     * @param {object} enemy that should be checked for a collision with the character
+     * @returns if the enemy is already dead, the game is over or there is no collision
+     */
     checkCollision(enemy) {
 
         if (enemy.isDead() || world.game_over) return;
@@ -229,10 +259,13 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Plays the non-looped death animation of the character.
+     */
     playDeathAnimation() {
 
         let frameCount = 0;
-        const interval = 1100 / this.IMAGES_DEAD.length;        
+        const interval = 1100 / this.IMAGES_DEAD.length;
 
         addInterval(() => {
 
@@ -246,6 +279,9 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Plays the death sound for the character, lets it fall out of the screen and renders the game over screen.
+     */
     handleDeathSpecificForTarget() {
 
         setTimeout(() => this.death_sound.play(), 400);

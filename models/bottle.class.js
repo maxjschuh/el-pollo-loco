@@ -5,6 +5,10 @@ class Bottle extends Collectable {
         './img/6_salsa_bottle/2_salsa_bottle_on_ground.png'
     ];
 
+    
+    /**
+     * Creates a collectable bottle item with a random x-position.
+     */
     constructor() {
         super().getRandomImage();
         this.y = 350; 
@@ -19,6 +23,10 @@ class Bottle extends Collectable {
         };
     }
 
+
+    /**
+     * Selects one of two image options (bottle oriented to the right or left) randomly.
+     */
     getRandomImage() {
 
         if (this.random > 0.5) this.loadImage(this.IMAGES[0]);

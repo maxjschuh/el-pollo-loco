@@ -2,6 +2,10 @@ class Enemy extends MovableObject {
 
     characterIsAbove = false;
 
+    
+    /**
+     * Sets the offsets for a new enemy and applies gravity to it.
+     */
     constructor() {
         super().offset = {
             left: 10,
@@ -12,6 +16,10 @@ class Enemy extends MovableObject {
         this.applyGravity();
     }
 
+
+    /**
+     * Animtes the enemy as walking or dead.
+     */
     animate() {
 
         addInterval(() => {
@@ -26,13 +34,17 @@ class Enemy extends MovableObject {
     }
 
 
-
+    /**
+     * Saves whether the character is currently above the enemy.
+     */
     saveCharacterAbove() {
         this.characterIsAbove = this.y + this.offset.top > (world.character.y + world.character.height - world.character.offset.bottom);
     }
 
 
-
+    /**
+     * Kills the enemy by letting it fall out of the screen.
+     */
     kill() {
 
         this.energy = 0;
@@ -40,7 +52,9 @@ class Enemy extends MovableObject {
     }
 
 
-    
+    /**
+     * Kills the enemy by letting it fall out of the screen. Lets the character bounce off.
+     */
     stompKill() {
 
         this.kill();

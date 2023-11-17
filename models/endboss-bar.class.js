@@ -9,6 +9,10 @@ class EndbossBar extends StatusBar {
         './img/7_statusbars/2_statusbar_endboss/endboss_health_100.png'
     ];
 
+
+    /**
+     * Loads the images for the endboss health bar and sets its filling to 100%.
+     */
     constructor() {
         super().loadImages(this.IMAGES);
         this.setFilling(100, this.IMAGES);

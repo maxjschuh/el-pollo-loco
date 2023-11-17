@@ -1,6 +1,10 @@
 let level1;
 const level_end_x = 5100;
 
+
+/**
+ * Initializes the level by creating a new Level object and passing customized parameters.
+ */
 function initLevel() {
 
     level1 = new Level(

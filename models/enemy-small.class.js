@@ -10,6 +10,10 @@ class EnemySmall extends Enemy {
         './img/3_enemies_chicken/chicken_small/2_dead/dead.png'
     ];
 
+    
+    /**
+     * Loads images for a enemySmall, sets basic variables and animates it.
+     */
     constructor() {
         super().loadImage(this.IMAGES_WALK[0]);
         this.loadImages(this.IMAGES_WALK);

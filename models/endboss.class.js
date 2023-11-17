@@ -7,7 +7,6 @@ class Endboss extends MovableObject {
     attack_sound = new Audio('./audio/boss_attack.mp3');
     death_sound = new Audio('./audio/fire.m4a');
 
-
     IMAGES_WALK = [
         './img/4_enemie_boss_chicken/1_walk/G1.png',
         './img/4_enemie_boss_chicken/1_walk/G2.png',
@@ -60,7 +59,9 @@ class Endboss extends MovableObject {
     ];
 
 
-
+    /**
+     * Loads the images for endboss animation. Calls functions for running its attack behavior and applying gravity to it.
+     */
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);
         this.loadImages(this.IMAGES_IDLE);
@@ -76,7 +77,9 @@ class Endboss extends MovableObject {
     }
 
 
-
+    /**
+     * Is only executed once. Sets basic variables of the endboss object.
+     */
     setVariables() {
 
         this.x = 5000;
@@ -92,7 +95,9 @@ class Endboss extends MovableObject {
     }
 
 
-
+    /**
+     * Initializes the animation of the endboss and its attack timer.
+     */
     run() {
         let timer = 0;
 
@@ -112,22 +117,9 @@ class Endboss extends MovableObject {
     }
 
 
-
-    handleEndbossDeath() {
-
-        setTimeout(() => {
-            this.groundLevel = 2000;
-            world.game_won_sound.play();
-        }, 2000);
-
-        setTimeout(() => {
-            world.stopAllIntervals();
-            this.showVictoryScreen();
-        }, 3000);
-    }
-
-
-
+    /**
+     * Animates the endboss based on its current behavior.
+     */
     animate() {
 
         addInterval(() => {
@@ -148,7 +140,9 @@ class Endboss extends MovableObject {
     }
 
 
-
+    /**
+     * Runs a pre-attack phase in which the endboss has a "alert" animation. Then randomly chooses one of two attack types to execute.
+     */
     attack() {
 
         this.currentAnimation = 'alert';
@@ -169,28 +163,36 @@ class Endboss extends MovableObject {
     }
 
 
-
+    /**
+     * Attack in which the endboss runs very fast to the player for a short time. Then a retreat to its default position follows.
+     */
     attackRun() {
 
         this.speedX = 30;
-        let walkInterval = addInterval(() => this.moveLeft(this.speedX), 1000 / 60);
+        let attackInterval = addInterval(() => this.moveLeft(this.speedX), 1000 / 60);
 
-        this.queueRetreat(300, walkInterval);
+        this.queueRetreat(300, attackInterval);
     }
 
 
-
+    /**
+     * Attack in which the endboss jumps towards the player and then retreats to its default position.
+     */
     attackJump() {
 
         this.speedX = 20;
         this.jump();
-        let walkInterval = addInterval(() => this.moveLeft(this.speedX), 1000 / 60);
+        let attackInterval = addInterval(() => this.moveLeft(this.speedX), 1000 / 60);
 
-        this.queueRetreat(500, walkInterval);
+        this.queueRetreat(500, attackInterval);
     }
 
 
-
+    /**
+     * Executes a retreat of the endboss after the passed time span.
+     * @param {number} timeout Time after which the endboss should retreat
+     * @param {number} intervalToClear id of the attack interval that should be aborted so that retreating is possible
+     */
     queueRetreat(timeout, intervalToClear) {
 
         setTimeout(() => {
@@ -200,7 +202,9 @@ class Endboss extends MovableObject {
     }
 
 
-
+    /**
+     * Lets the endboss walk to the right until it reaches its default position.
+     */
     retreat() {
 
         this.speedX = 5;
@@ -218,14 +222,18 @@ class Endboss extends MovableObject {
     }
 
 
-
+    /**
+     * Plays a looped death animation of the endboss.
+     */
     playDeathAnimation() {
 
         addInterval(() => this.playAnimation(this.IMAGES_DEAD), 200);
     }
 
 
-
+    /**
+     * Plays the death sound for the endboss, lets it fall out of the screen and renders the victory screen.
+     */
     handleDeathSpecificForTarget() {
 
         this.death_sound.play();

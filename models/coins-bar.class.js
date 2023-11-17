@@ -11,6 +11,10 @@ class CoinsBar extends StatusBar {
         './img/7_statusbars/1_statusbar/1_statusbar_coin/orange/100.png'
     ];
 
+
+    /**
+     * Loads the images for the coins bar and sets its filling to 0%.
+     */
     constructor() {
         super().loadImages(this.IMAGES);
         this.setFilling(0, this.IMAGES);

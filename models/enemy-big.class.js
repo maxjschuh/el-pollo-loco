@@ -10,6 +10,10 @@ class EnemyBig extends Enemy {
         './img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
     ];
 
+
+    /**
+     * Loads the images for a big enemy and animates it.
+     */
     constructor() {
         super().loadImage(this.IMAGES_WALK[0]);
         this.loadImages(this.IMAGES_WALK);
@@ -20,7 +24,9 @@ class EnemyBig extends Enemy {
     }
 
 
-
+    /**
+     * Is only executed once. Sets basic variables of the enemyBig object.
+     */
     setVariables() {
 
         this.x = Math.random() * 4800 + 400;

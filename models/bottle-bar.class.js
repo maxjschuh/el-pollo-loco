@@ -11,6 +11,10 @@ class BottleBar extends StatusBar {
         './img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/100.png'
     ];
     
+    
+    /**
+     * Loads the images for the bottle bar and sets its filling to 0%.
+     */
     constructor() {
         super().loadImages(this.IMAGES);
         this.setFilling(0, this.IMAGES);

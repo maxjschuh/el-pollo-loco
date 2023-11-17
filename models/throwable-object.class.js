@@ -21,7 +21,11 @@ class ThrowableObject extends MovableObject {
     ];
 
 
-
+    /**
+     * Loads images for a thrown bottle, sets basic variables and animates it.
+     * @param {number} x character x-position when the bottle is spawned 
+     * @param {number} y character y-position when the bottle is spawned 
+     */
     constructor(x, y) {
         super().throw_sound.play();
         this.loadImage(this.IMAGES[0]);
@@ -33,7 +37,9 @@ class ThrowableObject extends MovableObject {
     }
 
 
-
+    /**
+     * Is only executed once for every bottle. Sets basic variables.
+     */
     setVariables() {
         this.y = 100;
         this.x = 100;
@@ -50,7 +56,10 @@ class ThrowableObject extends MovableObject {
     }
 
 
-
+    /**
+     * Animates the movement of the bottle.
+     * @returns when the bottle has hit an enemy
+     */
     animate() {
 
         if (this.enemy_hit) return;
@@ -65,12 +74,14 @@ class ThrowableObject extends MovableObject {
     }
 
 
-
+    /**
+     * Shows either a splashing or rotating animation depending on whether the bottle has hit an enemy.
+     */
     animateGraphics() {
 
         let frameCount = 0;
 
-        addInterval(() => {         
+        addInterval(() => {
 
             if (frameCount == this.IMAGES_SPLASH.length) return;
 
@@ -85,7 +96,11 @@ class ThrowableObject extends MovableObject {
     }
 
 
-
+    /**
+     * Spawns the bottle at the current position of the character.
+     * @param {number} x character x-position
+     * @param {number} y character y-position
+     */
     throw(x, y) {
         this.x = x;
         this.y = y;
@@ -94,7 +109,9 @@ class ThrowableObject extends MovableObject {
     }
 
 
-
+    /**
+     *  Freezes the bottle in its current position, plays a glass shattering sound and removes the bottle from the game after a timeout for the splash animation.
+     */
     splashAndVanish() {
 
         this.enemy_hit = true;
@@ -110,7 +127,10 @@ class ThrowableObject extends MovableObject {
     }
 
 
-
+    /**
+     * Is executed when the bottle hits an enemy. Normal enemies are killed directly, while the endboss gets hit.
+     * @param {object} enemy enemy that is being hit with the bottle
+     */
     attack(enemy) {
 
         this.splashAndVanish();

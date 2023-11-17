@@ -14,7 +14,10 @@ class DrawableObject {
     };
 
 
-
+    /**
+     * Loads the image from the passed path.
+     * @param {string} path file path from where the image should be loaded
+     */
     loadImage(path) {
 
         this.img = new Image();
@@ -22,7 +25,10 @@ class DrawableObject {
     }
 
 
-
+    /**
+     * Loads all images from the passed array of paths.
+     * @param {Array} arr array of file paths from where the images should be loaded
+     */
     loadImages(arr) {
 
         arr.forEach((path) => {
@@ -33,7 +39,10 @@ class DrawableObject {
     }
 
 
-    
+    /**
+     * Draws the object, on which this function is executed, on the canvas.
+     * @param {object} ctx canvas rendering context 2D
+     */
     draw(ctx) {
 
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
