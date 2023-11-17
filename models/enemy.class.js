@@ -2,7 +2,7 @@ class Enemy extends MovableObject {
 
     characterIsAbove = false;
 
-    
+
     /**
      * Sets the offsets for a new enemy and applies gravity to it.
      */

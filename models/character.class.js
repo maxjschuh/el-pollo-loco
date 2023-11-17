@@ -85,6 +85,7 @@ class Character extends MovableObject {
         this.setVariables();
         this.animate();
         this.applyGravity();
+        this.wakeUp();
     }
 
 
@@ -101,6 +102,8 @@ class Character extends MovableObject {
             top: 60,
             bottom: 10
         };
+        this.x = 100;
+        this.currentAnimation = 'idle';
     }
 
 
@@ -129,7 +132,7 @@ class Character extends MovableObject {
             this.jump_sound.play();
             this.jump();
         }
-        world.camera_x = -this.x + 100;
+        world.camera_x = -this.x + 180;
     }
 
 
@@ -157,24 +160,21 @@ class Character extends MovableObject {
 
     /**
      * Animates the character based on its current behavior.
-     * @returns if the character is dead or if the character is idling
+     * @returns if the character is dead, if the character is sleeping or if the character is idling
      */
     animateGraphics() {
 
         if (this.isDead()) return;
 
-        if (!this.isVulnerable(this.lastHit)) this.playAnimation(this.IMAGES_HURT);
+        if (!this.isVulnerable(this.lastHit)) this.playAnimation(this.IMAGES_HURT, 'hurt');
 
-        else if (this.isAboveGround()) this.playAnimation(this.IMAGES_JUMP);
+        else if (this.isAboveGround()) this.playAnimation(this.IMAGES_JUMP, 'jump');
 
-        else if (world.keyboard.RIGHT || world.keyboard.LEFT) this.playAnimation(this.IMAGES_WALK);
+        else if (world.keyboard.RIGHT || world.keyboard.LEFT) this.playAnimation(this.IMAGES_WALK, 'walk');
 
-        else if (this.isSleeping()) this.playAnimation(this.IMAGES_SLEEP);
-
-        else {
-            this.playAnimation(this.IMAGES_IDLE);
-            return;
-        }
+        else if (this.isSleeping()) return this.playAnimation(this.IMAGES_SLEEP, 'sleep');
+        
+        else return this.playAnimation(this.IMAGES_IDLE, 'idle');
 
         this.wakeUp();
     }
@@ -252,7 +252,6 @@ class Character extends MovableObject {
         else if (this.isVulnerable(this.lastHit)) {
 
             this.hit();
-            this.hurt = true;
             this.lastHit = new Date().getTime();
             world.healthBar.setFilling(this.energy, world.healthBar.IMAGES);
         }

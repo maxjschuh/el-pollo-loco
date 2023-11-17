@@ -2,7 +2,6 @@ class Endboss extends MovableObject {
 
     height = 520;
     width = 608;
-    currentAnimation;
     hurt_sound = new Audio('./audio/boss_hurt.mp3');
     attack_sound = new Audio('./audio/boss_attack.mp3');
     death_sound = new Audio('./audio/fire.m4a');
@@ -91,7 +90,7 @@ class Endboss extends MovableObject {
             bottom: 30
         };
         this.groundLevel = -50;
-        this.hurt_sound.volume = 0.5;
+        this.hurt_sound.volume = 0.3;
     }
 
 
@@ -126,7 +125,7 @@ class Endboss extends MovableObject {
 
             if (this.isDead()) return;
 
-            if (!this.isVulnerable(this.lastHit)) this.playAnimation(this.IMAGES_HURT);
+            if (!this.isVulnerable(this.lastHit)) this.playAnimation(this.IMAGES_HURT, 'hurt');
 
             else if (this.currentAnimation == 'attack') this.playAnimation(this.IMAGES_ATTACK);
 

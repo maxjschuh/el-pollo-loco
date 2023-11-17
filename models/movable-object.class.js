@@ -6,7 +6,6 @@ class MovableObject extends DrawableObject {
     acceleration = 1.3;
     energy = 100;
     lastHit;
-    hurt = false;
     offset = {
         left: 0,
         right: 0,
@@ -134,7 +133,9 @@ class MovableObject extends DrawableObject {
      * Shows the next picture in the passed array of animation images. Starts at the first picture if the animation has changed.
      * @param {Array} animation_images Array of images for the current animation
      */
-    playAnimation(animation_images) {
+    playAnimation(animation_images, currentAnimation) {
+
+        if (currentAnimation) this.currentAnimation = currentAnimation;
 
         if (this.previousAnimation != this.currentAnimation) this.currentImage = 0;
 

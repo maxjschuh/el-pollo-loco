@@ -74,16 +74,17 @@ function getElements() {
  */
 function addKeyboardEvents() {
 
-    const events = ['keydown', 'keyup'];
-
-    events.forEach((event) => {
+    ['keydown', 'keyup'].forEach((event) => {
         let pressedDown = event === 'keydown';        
 
         window.addEventListener(event, (e) => {
             e = e || window.event;
             if (e.keyCode == 37) handleKeyPress('button-left', pressedDown, 'LEFT');
             if (e.keyCode == 39) handleKeyPress('button-right', pressedDown, 'RIGHT');
-            if (e.keyCode == 32) handleKeyPress('button-space', pressedDown, 'SPACE');
+            if (e.keyCode == 32) {
+                e.preventDefault();
+                handleKeyPress('button-space', pressedDown, 'SPACE');
+            } 
             if (e.keyCode == 68) handleKeyPress('button-d', pressedDown, 'D');
         });
     });
@@ -250,7 +251,7 @@ function toggleImprintOverlay() {
 function renderVictoryScreen() {
 
     document.getElementById('game-won-statistics-coins').innerHTML = /*html*/ `
-    You collected ${world.bottleBar.amount_collected} out of ${world.bottleBar.amount_max} coins!`;
+    You collected ${world.coinsBar.amount_collected} out of ${world.coinsBar.amount_max} coins!`;
     toggleElements(['confetti', 'endscreen-game-won'], false);
 }
 

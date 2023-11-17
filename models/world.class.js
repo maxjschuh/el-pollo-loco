@@ -46,7 +46,7 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.bossfight_sound.volume = 0.5;
+        this.bossfight_sound.volume = 0.4;
         this.desert_sound.loop = true;
         this.bossfight_sound.loop = true;
     }
