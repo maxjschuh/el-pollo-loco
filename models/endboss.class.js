@@ -72,7 +72,6 @@ class Endboss extends MovableObject {
 
         this.setVariables();
         this.run();
-        this.applyGravity();
     }
 
 

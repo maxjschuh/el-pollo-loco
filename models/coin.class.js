@@ -43,6 +43,6 @@ class Coin extends Collectable {
      */
     animate() {
 
-        addInterval(() => this.playAnimation(this.IMAGES), 100);
+        this.playAnimation(this.IMAGES);
     }
 }

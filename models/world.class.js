@@ -20,6 +20,29 @@ class World {
 
 
     /**
+     * Adds an interval for moving all clouds background images to the left every 50 milliseconds.
+     */
+    addAnimationIntervals(animatedObjects, interval) {
+
+        addInterval(() => {
+
+            animatedObjects.forEach(object => object.animate());
+        }, interval);
+    }
+
+    applyGravity() {
+
+        addInterval(() => {
+
+            world.throwableObjects.forEach(bottle => bottle.applyGravity());
+            world.level.enemies.forEach(enemy => enemy.applyGravity());
+            world.level.endboss.applyGravity();
+            world.character.applyGravity();
+        }, 1000 / 60);
+    }
+
+
+    /**
      * Initializes the world and calls the draw() function which renders the world on the canvas.
      * @param {object} canvas the canvas element on which the game should be rendered
      * @param {object} keyboard a virtual copy of the current state of the control keys or buttons (being pressed or not)
@@ -29,7 +52,13 @@ class World {
         this.setVariables(canvas, keyboard);
         this.draw();
         if (!music_muted) this.desert_sound.play();
+
         addInterval(this.run, 1000 / 60);
+        this.addAnimationIntervals(this.level.clouds, 50);
+        this.addAnimationIntervals(this.level.enemies, 200);
+        this.addAnimationIntervals(this.level.coins, 100);
+        this.addAnimationIntervals(this.throwableObjects, 80);
+        this.applyGravity();
     }
 
 

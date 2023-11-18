@@ -13,7 +13,6 @@ class Enemy extends MovableObject {
             top: 10,
             bottom: 10
         };
-        this.applyGravity();
     }
 
 
@@ -22,15 +21,12 @@ class Enemy extends MovableObject {
      */
     animate() {
 
-        addInterval(() => {
+        if (this.isDead()) this.playAnimation(this.IMAGES_DEAD);
 
-            if (this.isDead()) this.playAnimation(this.IMAGES_DEAD);
-
-            else {
-                this.playAnimation(this.IMAGES_WALK);
-                this.moveLeft(this.speedX);
-            }
-        }, 200);
+        else {
+            this.playAnimation(this.IMAGES_WALK);
+            this.moveLeft(this.speedX);
+        }
     }
 
 

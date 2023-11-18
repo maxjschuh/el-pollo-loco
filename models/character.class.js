@@ -84,7 +84,6 @@ class Character extends MovableObject {
 
         this.setVariables();
         this.animate();
-        this.applyGravity();
         this.wakeUp();
     }
 

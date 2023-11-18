@@ -3,6 +3,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let music_muted = false;
+let testArray = [];
 let touchButtons = [
     {
         id: 'start-button',
@@ -42,6 +43,12 @@ let touchButtons = [
     }
 ];
 
+function test() {
+
+    if ([]) console.log('true')
+
+    else console.log('false')
+}
 
 /**
  * Sets basic properties and calls functions that create the event listeners for the touch and click functionality of all buttons.

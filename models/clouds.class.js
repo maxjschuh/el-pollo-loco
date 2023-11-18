@@ -14,15 +14,15 @@ class Clouds extends MovableObject {
         this.height = 480;
         this.width = 1440;
         this.x = 1440 * multiplierX;
-        this.animate();
     }
 
 
     /**
-     * Animates the clouds by moving them 1 pixel to the left every 50 milliseconds.
+     * Moves the clouds 1 pixel to the left.
      */
     animate() {
-
-        addInterval(() => this.x--, 50);
+        this.x--;
     }
+
+
 }

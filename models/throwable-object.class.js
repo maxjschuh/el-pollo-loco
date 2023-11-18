@@ -3,6 +3,7 @@ class ThrowableObject extends MovableObject {
     enemy_hit = false;
     throw_sound = new Audio('./audio/throw.mp3');
     hit_sound = new Audio('./audio/bottle_hit.mp3');
+    frameCount = 0;
 
     IMAGES = [
         './img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -32,7 +33,7 @@ class ThrowableObject extends MovableObject {
         this.loadImages(this.IMAGES);
         this.loadImages(this.IMAGES_SPLASH);
         this.setVariables();
-        this.animate();
+        this.handleMovement();
         this.throw(x, y);
     }
 
@@ -60,7 +61,7 @@ class ThrowableObject extends MovableObject {
      * Animates the movement of the bottle.
      * @returns when the bottle has hit an enemy
      */
-    animate() {
+    handleMovement() {
 
         if (this.enemy_hit) return;
 
@@ -69,30 +70,22 @@ class ThrowableObject extends MovableObject {
         if (world.character.mirrored) addInterval(() => this.moveLeft(this.speedX), 1000 / 60);
 
         else addInterval(() => this.moveRight(this.speedX), 1000 / 60);
-
-        this.animateGraphics();
     }
 
 
     /**
      * Shows either a splashing or rotating animation depending on whether the bottle has hit an enemy.
      */
-    animateGraphics() {
+    animate() {
 
-        let frameCount = 0;
+        if (this.frameCount == this.IMAGES_SPLASH.length) return;
 
-        addInterval(() => {
+        if (this.enemy_hit) {
+            this.currentAnimation = 'splash';
+            this.playAnimation(this.IMAGES_SPLASH);
+            this.frameCount++;
 
-            if (frameCount == this.IMAGES_SPLASH.length) return;
-
-            if (this.enemy_hit) {
-                this.currentAnimation = 'splash';
-                this.playAnimation(this.IMAGES_SPLASH);
-                frameCount++;
-
-            } else this.playAnimation(this.IMAGES);
-
-        }, 80);
+        } else this.playAnimation(this.IMAGES);
     }
 
 
@@ -105,7 +98,6 @@ class ThrowableObject extends MovableObject {
         this.x = x;
         this.y = y;
         this.speedY = 10;
-        this.applyGravity();
     }
 
 
@@ -123,7 +115,7 @@ class ThrowableObject extends MovableObject {
         setTimeout(() => {
             const index = world.throwableObjects.indexOf(this);
             world.throwableObjects.splice(index, 1);
-        }, 1000);
+        }, 900);
     }
 
 
