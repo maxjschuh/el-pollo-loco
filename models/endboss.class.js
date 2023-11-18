@@ -90,6 +90,7 @@ class Endboss extends MovableObject {
         };
         this.groundLevel = -50;
         this.hurt_sound.volume = 0.3;
+        this.attack_sound.volume = 0.6;
     }
 
 

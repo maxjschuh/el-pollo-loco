@@ -19,6 +19,6 @@ class CoinsBar extends StatusBar {
         super().loadImages(this.IMAGES);
         this.setFilling(0, this.IMAGES);
         this.y = 40;
-        this.collect_sound.volume = 0.5;
+        this.collect_sound.volume = 0.3;
     }
 }

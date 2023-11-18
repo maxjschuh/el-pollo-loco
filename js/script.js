@@ -214,6 +214,7 @@ function startGame() {
 function terminateGame() {
 
     world.stopAllIntervals();
+    intervalIds = [];
     world.game_over_sound.pause();
     world.game_won_sound.pause();
 }

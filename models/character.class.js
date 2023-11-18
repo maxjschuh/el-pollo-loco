@@ -71,7 +71,7 @@ class Character extends MovableObject {
 
 
     /**
-     * Loads the images for character animation. Calls functions for animating the character and applying gravity to it.
+     * Loads the images for character animation. Calls functions for animating the character.
      */
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);
@@ -93,8 +93,8 @@ class Character extends MovableObject {
      */
     setVariables() {
 
-        this.walking_sound.volume = 0.7;
-        this.stomp_sound.volume = 0.3;
+        this.walking_sound.volume = 0.5;
+        this.stomp_sound.volume = 0.2;
         this.offset = {
             left: 20,
             right: 20,

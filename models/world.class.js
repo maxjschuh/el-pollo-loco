@@ -20,29 +20,6 @@ class World {
 
 
     /**
-     * Adds an interval for moving all clouds background images to the left every 50 milliseconds.
-     */
-    addAnimationIntervals(animatedObjects, interval) {
-
-        addInterval(() => {
-
-            animatedObjects.forEach(object => object.animate());
-        }, interval);
-    }
-
-    applyGravity() {
-
-        addInterval(() => {
-
-            world.throwableObjects.forEach(bottle => bottle.applyGravity());
-            world.level.enemies.forEach(enemy => enemy.applyGravity());
-            world.level.endboss.applyGravity();
-            world.character.applyGravity();
-        }, 1000 / 60);
-    }
-
-
-    /**
      * Initializes the world and calls the draw() function which renders the world on the canvas.
      * @param {object} canvas the canvas element on which the game should be rendered
      * @param {object} keyboard a virtual copy of the current state of the control keys or buttons (being pressed or not)
@@ -73,7 +50,8 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.bossfight_sound.volume = 0.4;
+        this.bossfight_sound.volume = 0.2;
+        this.desert_sound.volume = 0.8;
         this.desert_sound.loop = true;
         this.bossfight_sound.loop = true;
     }
@@ -101,6 +79,35 @@ class World {
 
         world.checkCollectables();
         world.character.checkForBottleThrow();
+    }
+
+
+    /**
+     * Adds an interval for animating the array of objects which is passed as parameter.
+     * @param {Array} animatedObjects array of objects that the function should add an animation interval for
+     * @param {number} interval time span after which the animation should be executed repeatedly
+     */
+    addAnimationIntervals(animatedObjects, interval) {
+
+        addInterval(() => {
+
+            animatedObjects.forEach(object => object.animate());
+        }, interval);
+    }
+
+
+    /**
+     * Adds an interval for applying gravity to throwable objects, enemies, the endboss and the character.
+     */
+    applyGravity() {
+
+        addInterval(() => {
+
+            world.throwableObjects.forEach(bottle => bottle.applyGravity());
+            world.level.enemies.forEach(enemy => enemy.applyGravity());
+            world.level.endboss.applyGravity();
+            world.character.applyGravity();
+        }, 1000 / 60);
     }
 
 
