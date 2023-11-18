@@ -1,7 +1,8 @@
 class World {
 
-    ctx;
     level;
+    canvas;
+    ctx;
     character = new Character();
     healthBar = new HealthBar();
     coinsBar = new CoinsBar();
@@ -9,16 +10,13 @@ class World {
     endbossBar = new EndbossBar();
     throwableObjects = [];
     level_complete;
-    musicEnabled = true;
     currentTrack;
-    canvas;
-    ctx;
     keyboard;
     camera_x = 0;
     game_over_sound = new Audio('./audio/game_over_sound.m4a');
     game_won_sound = new Audio('./audio/game_won_sound.wav');
-    bossfight_sound = new Audio('./audio/bossfight.wav');
-    desert_sound = new Audio('./audio/desert_ambient.wav');
+    bossfight_sound = new Audio('./audio/bossfight.mp3');
+    desert_sound = new Audio('./audio/desert.mp3');
 
 
     /**
@@ -30,7 +28,7 @@ class World {
 
         this.setVariables(canvas, keyboard);
         this.draw();
-        this.desert_sound.play();
+        if (!music_muted) this.desert_sound.play();
         addInterval(this.run, 1000 / 60);
     }
 

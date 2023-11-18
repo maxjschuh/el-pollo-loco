@@ -2,7 +2,6 @@ let intervalIds = [];
 let canvas;
 let world;
 let keyboard = new Keyboard();
-let event_listeners_created;
 let music_muted = false;
 let touchButtons = [
     {
@@ -173,7 +172,7 @@ function addEventListeners(key) {
         e.preventDefault();
         keyboard[key.toUpperCase()] = !keyboard[key.toUpperCase()];
 
-        button.classList.toggle('active');
+        if (e.type !== 'mousedown') button.classList.toggle('active');
     }
 }
 
@@ -197,6 +196,8 @@ function startGame() {
         'endscreen-game-over',
         'confetti'
     ], true);
+
+    console.log('game loaded');
 }
 
 

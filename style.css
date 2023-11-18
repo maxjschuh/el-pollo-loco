@@ -232,6 +232,10 @@ non-positioning-classes
 interactivity
 -------------*/
 
+.active {
+    filter: brightness(60%);
+}
+
 @media (hover: hover) {
 
     .button:hover {
@@ -262,15 +266,8 @@ interactivity
     }
 }
 
-@media (hover: none) {
-
-    .active {
-        filter: brightness(60%) !important;
-    }
-}
-
 .keydown-active {
-    filter: brightness(60%) !important;
+    filter: brightness(60%);
 }
 
 
